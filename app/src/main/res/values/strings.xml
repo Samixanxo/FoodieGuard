@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Foodie Guard</string>
+    <string name="main_title">FoodieGuard</string>
+    <string name="home_title">Your restaurants</string>
+    <string name="Descpription">
+        We are a group of developers that want to make sure everyone is safe while eating in restaurants.
+    </string>
+
+    <string name="App_info">
+      The purpose of our application is to ensure that restaurants deciding to be included in our registry provide information about all ingredients that may pose a threat to consumer health.
+        This way, we can assist individuals with both mild and severe allergies in choosing the best option.
+    </string>
+
+    <string name="login">
+        Log-in
+    </string>
+    <string name="emailInput">
+        E-mail
+    </string>
+    <string name="passwordInput">
+        Password
+    </string>
+    <string name="login_activity_label">Login</string>
+</resources>

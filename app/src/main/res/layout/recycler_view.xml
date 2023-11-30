@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/mostaza"
+    tools:context="com.example.foodie_guardv0.Activity.MainActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="75dp"
+        android:id="@+id/recyclerRestaurant2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:text="@string/home_title"
+        android:textAlignment="center"
+        android:fontFamily="@font/jonesy_letters"
+        android:textColor="@color/black"
+        />
+
+
+
+</FrameLayout>
