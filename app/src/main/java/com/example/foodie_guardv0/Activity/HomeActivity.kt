@@ -2,93 +2,90 @@ package com.example.foodie_guardv0.Activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.Restaurant
-import com.example.foodie_guardv0.provider.RestaurantProvider
 import com.example.foodie_guardv0.restaurantAdapter.RestaurantAdapter
 import com.example.foodie_guardv0.retrofitt.ApiService
-import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
+import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.suspendCoroutine
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(),SearchView.OnQueryTextListener {
 
-    lateinit var service: ApiService
-
-
-    private val TAG_LOGS = "YourTag"
-
+    private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recycler_view)
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:8080/api/restaurant/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val svSearcher = findViewById<SearchView>(R.id.svSearcher)
+        svSearcher.setOnQueryTextListener(this)
 
-        service= retrofit.create(ApiService::class.java)
-
-       initRecyclerRestaurant()
-
-    }
-    private fun initRecyclerRestaurant() {
-        var restaurantsList: List<Restaurant>?
-
-        service.getRestaurant().enqueue(object : Callback<List<Restaurant>> {
-            override fun onResponse(
-                call: Call<List<Restaurant>>,
-                response: Response<List<Restaurant>>
-            ) {
-                if (response.isSuccessful) {
-                    restaurantsList = response.body()
-                    Log.i(TAG_LOGS, Gson().toJson(restaurantsList))
-
-
-                    val recyclerView = findViewById<RecyclerView>(R.id.recyclerRestaurant2)
-                    recyclerView.layoutManager = LinearLayoutManager(this@HomeActivity)
-                    recyclerView.adapter = restaurantsList?.let { RestaurantAdapter(it) }
-                } else {
-                    Log.e(TAG_LOGS, "Error en la respuesta de la API: ${response.code()}")
-                }
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                initRecyclerRestaurant(restaurants(""))
+                Log.e("Resultado", "correcto")
+            } catch (e: Exception) {
+                Log.e("Resultado", "Error" + e.message)
             }
-
-            override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
-                Log.e(TAG_LOGS, "Error en la llamada a la API: ${t.message}")
-                t.printStackTrace()
-            }
-        })
-
-
-        fun getRestaurantByid(){
-            //Recibimos los datos del post con ID = 1
-            var post: Restaurant? = null
-            service.getRestaurantById(1).enqueue(object: Callback<Restaurant>{
-                override fun onResponse(call: Call<Restaurant>?, response: Response<Restaurant>?) {
-                    post = response?.body()
-                    Log.i(TAG_LOGS, Gson().toJson(post))
-                }
-                override fun onFailure(call: Call<Restaurant>?, t: Throwable?) {
-                    t?.printStackTrace()
-                }
-                })}
-
+        }
 
     }
 
+    private fun initRecyclerRestaurant(restaurants: List<Restaurant>){
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerRestaurant2)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = RestaurantAdapter(restaurants)
+    }
 
+    private suspend fun restaurants(name: String): List<Restaurant> {
+        return suspendCoroutine { continuation ->
+            var call = service.getRestaurant()
+            if(!name.isEmpty()) {
+                call = service.getRestaurantByName(name)
+            }
+            call.enqueue(object : Callback<List<Restaurant>> {
+                override fun onResponse(call: Call<List<Restaurant>>, response: Response<List<Restaurant>>
+                ){
+                    if (response.isSuccessful) {
+                        val respuesta = response.body()
+                        Log.e("Resultado",response.body().toString())
 
+                        continuation.resumeWith(Result.success(respuesta!!))
+                    } else {
+                        // Manejar error de la API
+                        continuation.resumeWith(Result.failure(Exception("Error de la API")))
+                        Log.e("Resultado", "error Api")
+                    }
+                }
 
+                override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
+                    // Manejar error de conexión
+                    continuation.resumeWith(Result.failure(t))
+                }
+            })
+        }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false;
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        GlobalScope.launch(Dispatchers.Main) {
+            initRecyclerRestaurant(restaurants(newText))
+        }
+        return true;
+    }
 
 
 }
