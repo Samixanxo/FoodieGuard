@@ -19,8 +19,8 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
-        phoneNumber.text = restaurant.phone.toString()
-        address.text = restaurant.address
+        phoneNumber.text = "Telefono: " + restaurant.phone.toString()
+        address.text = "Direccion: \n" + restaurant.address
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
     }
