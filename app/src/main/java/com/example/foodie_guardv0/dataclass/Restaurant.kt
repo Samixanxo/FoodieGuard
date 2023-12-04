@@ -7,7 +7,7 @@ data class Restaurant(
     val phone: Long,
     val email: String,
     val medianprice: Int,
-    val address: Address,
+    val address: String,
     val photo:String,
     val website:String,
     val type:Int
