@@ -7,10 +7,10 @@ import retrofit2.http.Path
 import retrofit2.http.Url
 
 interface ApiService {
-    @GET("http://10.0.2.2:8080/api/restaurant")
+    @GET("restaurant")
     fun getRestaurant(): Call<List<Restaurant>>
 
-    @GET ("http://10.0.2.2:8080/api/restaurant/name/{name}")
+    @GET ("restaurant/name/{name}")
     fun getRestaurantByName(@Path("name") name: String):Call<List<Restaurant>>
 }
 

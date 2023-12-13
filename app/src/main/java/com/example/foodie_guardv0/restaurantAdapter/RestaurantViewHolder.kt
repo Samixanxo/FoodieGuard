@@ -25,12 +25,5 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }
 
-    private fun formatAddress(address: Address): String {
-        val city = address.city
-        val street = address.street
-        val number = address.number
-        val postalCode = address.postalCode
-        // Formatea la dirección como desees
-        return "$number $street, $city, $postalCode"
-    }
+
 }
