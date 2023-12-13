@@ -27,7 +27,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class Home_fragment : Fragment(), SearchView.OnQueryTextListener {
+class home_fragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
