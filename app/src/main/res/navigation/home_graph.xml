@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@+id/home_fragment2"
+    >
+
+    <fragment
+        android:id="@+id/user"
+        android:name="com.example.foodie_guardv0.Activity.user"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/search_Fragment"
+        android:name="com.example.foodie_guardv0.Activity.search_Fragment"
+        android:label="fragment_search_"
+        tools:layout="@layout/fragment_search_" />
+    <fragment
+        android:id="@+id/home_fragment2"
+        android:name="com.example.foodie_guardv0.Activity.home_fragment"
+        android:label="fragment_home_fragment"
+        tools:layout="@layout/fragment_home_fragment" >
+        <action
+            android:id="@+id/action_home_fragment2_to_user"
+            app:destination="@id/user" />
+        <action
+            android:id="@+id/action_home_fragment2_to_search_Fragment"
+            app:destination="@id/search_Fragment" />
+    </fragment>
+</navigation>
