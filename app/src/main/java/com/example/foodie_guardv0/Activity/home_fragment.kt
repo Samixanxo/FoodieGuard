@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class home_fragment : Fragment(), SearchView.OnQueryTextListener {
+class home_fragment : Fragment(R.layout.fragment_home_fragment), SearchView.OnQueryTextListener {
 
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
