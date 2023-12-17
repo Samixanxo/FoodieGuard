@@ -12,6 +12,9 @@ interface ApiService {
 
     @GET ("restaurant/name/{name}")
     fun getRestaurantByName(@Path("name") name: String):Call<List<Restaurant>>
+
+    @GET ("restaurant/phone/{phone}")
+    fun getRestaurantByPhone(@Path("phone") phone: String):Call<List<Restaurant>>
 }
 
 
