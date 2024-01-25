@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/user"
-        android:name="com.example.foodie_guardv0.Activity.user"
+        android:name="com.example.foodie_guardv0.Activity.user_fragment"
         android:label="user"
         tools:layout="@layout/fragment_user"
         >

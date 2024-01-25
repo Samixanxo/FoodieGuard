@@ -30,32 +30,46 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun onItemSelectedListener(item: MenuItem): Boolean {
+        val fragmentManager = supportFragmentManager
+
         return when (item.itemId) {
             R.id.homePage -> {
 
-                showPageFragment(R.drawable.baseline_home_24, R.string.homeString)
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = home_fragment()
+                fragmentTransaction.replace(R.id.navHostFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
                 true
             }
 
             R.id.searchPage -> {
-                showPageFragment(R.drawable.baseline_search_24, R.string.searchString)
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = search_Fragment()
+                fragmentTransaction.replace(R.id.navHostFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
                 true
             }
 
             R.id.profilePage -> {
-                showPageFragment(R.drawable.baseline_person_24, R.string.profileString)
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = user_fragment()
+                fragmentTransaction.replace(R.id.navHostFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
                 true
             }
 
             else -> throw IllegalArgumentException("item not implemented : " + item.itemId)
         }
     }
-    private fun showPageFragment(@DrawableRes iconId: Int, @StringRes title: Int) {
-        val frg: Fragment = home_fragment.newInstance(iconId)
+    /*private fun showPageFragment() {
+       val frg: Fragment = home_fragment.newInstance(iconId)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, frg)
             .commitAllowingStateLoss()
-    }
+    }*/
 }
 
