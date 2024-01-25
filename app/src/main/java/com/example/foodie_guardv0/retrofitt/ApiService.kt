@@ -1,10 +1,15 @@
 package com.example.foodie_guardv0.retrofitt
 import com.example.foodie_guardv0.dataclass.Restaurant
+import com.example.foodie_guardv0.dataclass.User
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Url
+
 
 interface ApiService {
     @GET("restaurant")
@@ -12,6 +17,15 @@ interface ApiService {
 
     @GET ("restaurant/name/{name}")
     fun getRestaurantByName(@Path("name") name: String):Call<List<Restaurant>>
+
+    @POST ("user")
+    fun createUser(@Body user: User): Call<Void>
+
+    @POST ("login")
+    fun postUser(@Body email: Map<String,String>):Call<User>
+
 }
+
+
 
 
