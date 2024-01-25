@@ -21,13 +21,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class search_Fragment : Fragment() {
     companion object {
-        fun newInstance(iconId: Int): home_fragment {
-            val fragment = home_fragment()
-            val args = Bundle()
-            args.putInt("iconId", iconId)
-            fragment.arguments = args
-            return fragment
-        }
+
     }
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
