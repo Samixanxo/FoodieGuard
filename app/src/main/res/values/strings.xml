@@ -1,26 +1,48 @@
-<resources>
-    <string name="app_name">Foodie Guard</string>
-    <string name="main_title">FoodieGuard</string>
-    <string name="home_title">Your restaurants</string>
-    <string name="Descpription">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">Foodie Guard</string>
+    <string name="main_title" translatable="false">FoodieGuard</string>
+    <string name="home_title" translatable="false">Your restaurants</string>
+    <string name="Descpription" translatable="false">
         We are a group of developers that want to make sure everyone is safe while eating in restaurants.
     </string>
 
-    <string name="App_info">
+    <string name="App_info" translatable="false">
       The purpose of our application is to ensure that restaurants deciding to be included in our registry provide information about all ingredients that may pose a threat to consumer health.
         This way, we can assist individuals with both mild and severe allergies in choosing the best option.
     </string>
 
-    <string name="login">
+    <string name="login" translatable="false">
         Log-in
     </string>
-    <string name="emailInput">
+
+    <string name="emailInput" translatable="false">
         E-mail
     </string>
-    <string name="passwordInput">
+    <string name="username" translatable="false">
+        Username
+    </string>
+    <string name="homeString" translatable="false">
+        Home
+    </string>
+    <string name="searchString" translatable="false">
+        Search
+    </string>
+    <string name="profileString" translatable="false">
+        Profile
+    </string>
+    <string name="confirmPassword" translatable="false">
+        Confirm password
+    </string>
+    <string name="passwordInput" translatable="false">
         Password
     </string>
-    <string name="login_activity_label">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_activity_label" translatable="false">Login</string>
+
+
+
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <string name="profileTitle" translatable="false">
+        Your profile
+    </string>
 </resources>

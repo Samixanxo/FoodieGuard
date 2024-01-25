@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -8,6 +10,7 @@ plugins {
 android {
     namespace = "com.example.foodie_guard0"
     compileSdk = 34
+
 
 
     defaultConfig {
@@ -45,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding= true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"

@@ -35,8 +35,14 @@
         <activity
             android:name="com.example.foodie_guardv0.Activity.HomeActivity"
             android:label="Home Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
         </activity>
+
+        <activity android:name="com.example.foodie_guardv0.Activity.RegisterActivity">
+            <!-- Puedes tener más configuraciones aquí según tus necesidades -->
+        </activity>
+
 
 
 

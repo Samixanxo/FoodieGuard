@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.Restaurant
-
 import com.example.foodie_guardv0.restaurantAdapter.RestaurantAdapter
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,7 +26,15 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class home_fragment : Fragment(), SearchView.OnQueryTextListener {
-
+    companion object {
+        fun newInstance(iconId: Int): home_fragment {
+            val fragment = home_fragment()
+            val args = Bundle()
+            args.putInt("iconId", iconId)
+            fragment.arguments = args
+            return fragment
+        }
+    }
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreateView(
@@ -37,7 +43,6 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.recycler_view, container, false)
-
         val svSearcher = view.findViewById<SearchView>(R.id.svSearcher)
         svSearcher.setOnQueryTextListener(this)
 
