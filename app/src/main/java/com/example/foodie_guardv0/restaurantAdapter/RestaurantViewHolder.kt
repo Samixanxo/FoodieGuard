@@ -24,6 +24,4 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
     }
-
-
 }

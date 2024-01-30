@@ -37,4 +37,10 @@
         android:label="search_Fragment"
         tools:layout="@layout/fragment_search_"
         />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map"
+        />
 </navigation>
