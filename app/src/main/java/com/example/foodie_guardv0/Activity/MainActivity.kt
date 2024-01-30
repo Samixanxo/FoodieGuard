@@ -5,12 +5,22 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var userSharedPreferences : UserSharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_view)
+
+        userSharedPreferences = UserSharedPreferences(this)
+
+        if(userSharedPreferences.getUser() != null){
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+        }
+
         val btnLogin = findViewById<Button>(R.id.button)
         val btnRegister = findViewById<Button>(R.id.button2)
         // Asigna un listener al botón para manejar el clic
