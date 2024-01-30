@@ -7,8 +7,12 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.User
+import com.example.foodie_guardv0.retrofitt.ApiService
+import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,9 +25,13 @@ import kotlin.coroutines.suspendCoroutine
 
 class LoginActivity : AppCompatActivity() {
 
+    lateinit var userSharedPreferences : UserSharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_view)
+        userSharedPreferences = UserSharedPreferences(this)
+
         val entrar = findViewById<Button>(R.id.button3)
 
         entrar.setOnClickListener(){
@@ -33,8 +41,6 @@ class LoginActivity : AppCompatActivity() {
                 try {
                     comprobardatos()
                     Log.e("Resultado", "correcto")
-
-
                 } catch (e: Exception) {
                     Log.e("Resultado", "Error" + e.message)
                 }
@@ -46,28 +52,25 @@ class LoginActivity : AppCompatActivity() {
     private suspend fun iniciarSesion(body: Map<String,String>){
         return suspendCoroutine { continuation ->
             val call = apiService.postUser(body)
-            Log.e("Resultado", body.toString())
 
-            call.enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
+            call.enqueue(object : Callback<ActualUser> {
+                override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
-                        Log.e("Resultado", respuesta.toString())
+                        userSharedPreferences.saveUser(respuesta!!)
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
-
-
                     } else {
+
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
 
                         continuation.resumeWithException(Exception("Error de la API"))
                         Log.e("Resultado", "error Api")
-                        Log.e("Resultado", response.body().toString())
                     }
                 }
 
-                override fun onFailure(call: Call<User>, t: Throwable) {
+                override fun onFailure(call: Call<ActualUser>, t: Throwable) {
                     continuation.resumeWithException(t)
                 }
             })
