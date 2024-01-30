@@ -1,6 +1,8 @@
 package com.example.foodie_guardv0.Activity
 
 
+
+import MapFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -58,6 +60,16 @@ class HomeActivity : AppCompatActivity() {
             R.id.profilePage -> {
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 val fragment = user_fragment()
+                fragmentTransaction.replace(R.id.navHostFragment, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+                true
+            }
+
+            R.id.mapPage -> {
+
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = MapFragment()
                 fragmentTransaction.replace(R.id.navHostFragment, fragment)
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()

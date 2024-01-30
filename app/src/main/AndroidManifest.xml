@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,10 +14,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <!-- android:theme="@style/Theme.Foodie_guardv0"-->
+        <activity
+            android:name="com.example.foodie_guardv0.Activity.MapView"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" /> <!-- android:theme="@style/Theme.Foodie_guardv0" -->
         <activity
             android:name="com.example.foodie_guardv0.Activity.MainActivity"
             android:exported="true"
@@ -25,27 +35,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.example.foodie_guardv0.Activity.LoginActivity"
             android:label="@string/login_activity_label"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name="com.example.foodie_guardv0.Activity.HomeActivity"
             android:label="Home Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            >
-        </activity>
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity android:name="com.example.foodie_guardv0.Activity.RegisterActivity">
+
             <!-- Puedes tener más configuraciones aquí según tus necesidades -->
         </activity>
-
-
-
-
     </application>
 
 </manifest>

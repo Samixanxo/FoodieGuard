@@ -35,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         val entrar = findViewById<Button>(R.id.button3)
 
         entrar.setOnClickListener(){
+            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+            startActivity(intent)
             GlobalScope.launch(Dispatchers.Main) {
                 try {
                     comprobardatos()
@@ -59,6 +61,10 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
+
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
+
                         continuation.resumeWithException(Exception("Error de la API"))
                         Log.e("Resultado", "error Api")
                     }
