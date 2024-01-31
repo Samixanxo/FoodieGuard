@@ -15,6 +15,7 @@ import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.restaurantAdapter.RestaurantAdapter
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,6 +36,8 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
             return fragment
         }
     }
+    lateinit var userSharedPreferences: UserSharedPreferences
+
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreateView(
@@ -45,6 +48,11 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         val view = inflater.inflate(R.layout.recycler_view, container, false)
         val svSearcher = view.findViewById<SearchView>(R.id.svSearcher)
         svSearcher.setOnQueryTextListener(this)
+
+        if(container != null){
+            userSharedPreferences = UserSharedPreferences(container.context)
+        }
+
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
