@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.Activity.LoginActivity"
+            android:name="com.example.foodie_guardv0.deprecated.LoginActivity"
             android:label="@string/login_activity_label"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
