@@ -36,7 +36,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="279dp"
+            android:layout_width="wrap_content"
             android:layout_height="145dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +58,14 @@
             android:textColor="@color/black"
             android:drawablePadding="8dp"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -67,9 +75,11 @@
             android:padding="8dp"
             android:inputType="textPassword"
             android:hint="Password"
-            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawableStart="@drawable/baseline_lock_24"
             android:textColor="@color/black"
             android:drawablePadding="8dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"
@@ -79,8 +89,24 @@
             android:textSize="18sp"
             android:layout_marginTop="30dp"
             android:background="@drawable/custom_button"
-            android:backgroundTint="@color/purple_200"
+            android:backgroundTint="@color/mostaza"
             app:cornerRadius="20dp"/>
+
+        <TextView
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:paddingTop="12dp"
+            android:text="No tienes cuenta? registrate aquí"
+            android:textSize="16sp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/jonesy_letters"
+            android:textColor="@color/black"
+            />
+
+
 
 
 
