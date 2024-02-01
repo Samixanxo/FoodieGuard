@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_view)
         userSharedPreferences = UserSharedPreferences(this)
+        if(userSharedPreferences.getUser() != null){
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+        }
         val textoCompleto = "No tienes cuenta? registrate aquí"
         val textoClicable = findViewById<TextView>(R.id.button2)
 
