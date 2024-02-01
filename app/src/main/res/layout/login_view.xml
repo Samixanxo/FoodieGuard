@@ -7,18 +7,18 @@
     android:layout_height="match_parent"
     android:background="@color/mostaza"
     android:gravity="center">
+
     <TextView
         android:id="@+id/login_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:text="@string/main_title"
-        android:textSize="50sp"
-        android:layout_marginBottom="50dp"
         android:fontFamily="@font/jonesy_letters"
+        android:text="@string/main_title"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        />
+        android:textSize="50sp" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
