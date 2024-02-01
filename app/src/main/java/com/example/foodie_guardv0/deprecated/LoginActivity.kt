@@ -1,16 +1,16 @@
-package com.example.foodie_guardv0.Activity
+package com.example.foodie_guardv0.deprecated
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.Activity.HomeActivity
+import com.example.foodie_guardv0.Activity.RegisterActivity
 import com.example.foodie_guardv0.dataclass.ActualUser
-import com.example.foodie_guardv0.dataclass.User
-import com.example.foodie_guardv0.retrofitt.ApiService
-import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_view)
         userSharedPreferences = UserSharedPreferences(this)
 
+        val textoClicable = findViewById<TextView>(R.id.button2)
+        textoClicable.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
         val entrar = findViewById<Button>(R.id.button3)
 
         entrar.setOnClickListener(){

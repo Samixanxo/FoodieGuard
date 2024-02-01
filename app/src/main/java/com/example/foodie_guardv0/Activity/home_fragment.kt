@@ -42,6 +42,11 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
             userSharedPreferences = UserSharedPreferences(container.context)
         }
 
+        if(container != null){
+            userSharedPreferences = UserSharedPreferences(container.context)
+        }
+
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 initRecyclerRestaurant(restaurants(""))
