@@ -27,27 +27,20 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class home_fragment : Fragment(), SearchView.OnQueryTextListener {
-    companion object {
-        fun newInstance(iconId: Int): home_fragment {
-            val fragment = home_fragment()
-            val args = Bundle()
-            args.putInt("iconId", iconId)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-    lateinit var userSharedPreferences: UserSharedPreferences
 
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
+    lateinit var userSharedPreferences : UserSharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.recycler_view, container, false)
         val svSearcher = view.findViewById<SearchView>(R.id.svSearcher)
         svSearcher.setOnQueryTextListener(this)
+        if (container != null) {
+            userSharedPreferences = UserSharedPreferences(container.context)
+        }
 
         if(container != null){
             userSharedPreferences = UserSharedPreferences(container.context)
@@ -85,8 +78,10 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                 ) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
-                        Log.e("Resultado", response.body().toString())
 
+                        userSharedPreferences.saveRes(respuesta!!)
+                        Log.e("Resultado", "aaaaaaaaaaaaa")
+                        Log.e("Resultado", "--------------------------------------------------------------" + userSharedPreferences.getRestaurants().toString())
                         continuation.resume(respuesta!!)
                     } else {
                         // Manejar error de la API

@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.dataclass.Restaurant
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,11 +25,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    lateinit var userSharedPreferences : UserSharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (container != null) {
+            userSharedPreferences = UserSharedPreferences(container.context)
+        }
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         createFragment()
         return view
@@ -41,11 +47,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-
+        map.uiSettings.isZoomControlsEnabled = true
         if (checkLocationPermission()) {
             map.isMyLocationEnabled = true
+
             addMarkerAtUserLocation()
-            addMarkers()
+            userSharedPreferences.getRestaurants()?.let { addMarkers(it) }
         } else {
             requestLocationPermission()
         }
@@ -65,20 +72,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
-    private fun addMarkers() {
-        val plazaCatalunyaLatLng = LatLng(41.3879, 2.1699)
-        val markerOptionsCatalunya = MarkerOptions()
-            .position(plazaCatalunyaLatLng)
-            .title("Plaza Catalunya")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        map.addMarker(markerOptionsCatalunya)
-
-        val plazaUniversitatLatLng = LatLng(41.3867, 2.1688)
-        val markerOptionsUniversitat = MarkerOptions()
-            .position(plazaUniversitatLatLng)
-            .title("Plaza Universitat")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-        map.addMarker(markerOptionsUniversitat)
+    private fun addMarkers(restaurants: List<Restaurant>) {
+        map.clear()
+        for (restaurant in restaurants) {
+            val restaurantLatLng = LatLng(restaurant.lat, restaurant.lon)
+            val markerOptions = MarkerOptions()
+                .position(restaurantLatLng)
+                .title(restaurant.name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+            map.addMarker(markerOptions)
+        }
     }
 
     private fun addMarkerAtUserLocation() {
