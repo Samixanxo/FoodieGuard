@@ -11,14 +11,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="335dp"
         android:layout_height="610dp"
-        android:layout_marginBottom="68dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="50dp"
         app:cardElevation="7dp"
         app:contentPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Nuevo ConstraintLayout dentro del CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,9 +60,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jonesy_capitals"
                 android:text="Fecha de nacimiento"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.957"
@@ -211,14 +211,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/mostaza"
-        app:menu="@menu/bottom_menu"
-        />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
