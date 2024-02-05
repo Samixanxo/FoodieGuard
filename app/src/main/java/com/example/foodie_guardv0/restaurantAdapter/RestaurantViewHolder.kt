@@ -44,7 +44,4 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-
-
-
 }

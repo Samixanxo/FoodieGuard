@@ -42,6 +42,7 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
             userSharedPreferences = UserSharedPreferences(container.context)
         }
 
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 initRecyclerRestaurant(restaurants(""))
@@ -73,6 +74,10 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                 ) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
+
+
+                        userSharedPreferences.saveRes(respuesta!!)
+
                         continuation.resume(respuesta!!)
                     } else {
                         continuation.resumeWithException(Exception("Error de la API"))

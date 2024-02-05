@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.example.foodie_guardv0.Activity.InfoRestaurant"
+
+            android:name="com.example.foodie_guardv0.Activity.MapView"
             android:exported="false" />
-        <!-- android:theme="@style/Theme.Foodie_guardv0" -->
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" /> <!-- android:theme="@style/Theme.Foodie_guardv0" -->
+      
         <activity
             android:name="com.example.foodie_guardv0.Activity.MainActivity"
             android:exported="true"
@@ -31,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.Activity.LoginActivity"
+            android:name="com.example.foodie_guardv0.deprecated.LoginActivity"
             android:label="@string/login_activity_label"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
