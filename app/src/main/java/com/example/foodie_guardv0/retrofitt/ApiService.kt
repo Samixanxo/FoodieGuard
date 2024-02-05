@@ -25,6 +25,9 @@ interface ApiService {
     @POST ("login")
     fun postUser(@Body email: Map<String,String>):Call<ActualUser>
 
+    @PUT("user/password")
+    fun changePassword (@Body body:Map<String,String> ) :Call<Void>
+
 }
 
 
