@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 
 
 class user_fragment : Fragment() {
 
+    lateinit var userSharedPreferences : UserSharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,5 +23,7 @@ class user_fragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
 
         return view
+
+
     }
 }
