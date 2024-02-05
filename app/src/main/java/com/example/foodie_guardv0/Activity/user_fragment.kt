@@ -149,9 +149,10 @@ class user_fragment : Fragment() {
                     // Llamar a changePassword dentro de una coroutine
                     lifecycleScope.launch {
                         changePassword(datos)
-                        parentView.findViewById<View>(R.id.background_overlay).visibility = View.INVISIBLE
-                        parentView.findViewById<View>(R.id.UserCard).visibility = View.VISIBLE
-                        popupWindow.dismiss()
+
+                        val intent = Intent(activity, LoginActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
                     }
                 }
             }

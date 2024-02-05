@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         val textoCompleto = "No tienes cuenta? registrate aquí"
         val textoClicable = findViewById<TextView>(R.id.button2)
 
+
         val spannableString = SpannableString(textoCompleto)
         val inicioAzul = textoCompleto.indexOf("registrate aquí")
 
