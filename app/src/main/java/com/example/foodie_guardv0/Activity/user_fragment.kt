@@ -17,10 +17,22 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import android.graphics.Color
 import android.view.animation.AnimationUtils
+import android.widget.EditText
+import androidx.lifecycle.lifecycleScope
 
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.deprecated.LoginActivity
+import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class user_fragment : Fragment() {
@@ -84,20 +96,17 @@ class user_fragment : Fragment() {
         parentView.findViewById<View>(R.id.background_overlay).visibility = View.VISIBLE
         parentView.findViewById<View>(R.id.UserCard).visibility = View.INVISIBLE
         val cancelButton = popupView.findViewById<Button>(R.id.canecelChangeButton)
+        val confirmChanges = popupView.findViewById<Button>(R.id.changePasswordButton)
 
 
 
         val popupWindow = PopupWindow(
             popupView,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
             true
         )
-        cancelButton.setOnClickListener {
-            parentView.findViewById<View>(R.id.background_overlay).visibility = View.INVISIBLE
-            parentView.findViewById<View>(R.id.UserCard).visibility = View.VISIBLE
-            popupWindow.dismiss()
-        }
+
         popupWindow.isOutsideTouchable = false
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -107,8 +116,80 @@ class user_fragment : Fragment() {
             0,
             0
         )
+        cancelButton.setOnClickListener {
+            val animationOut = AnimationUtils.loadAnimation(context, R.anim.pop_out_menu)
+            popupView.startAnimation(animationOut)
+            parentView.findViewById<View>(R.id.background_overlay).visibility = View.INVISIBLE
+            parentView.findViewById<View>(R.id.UserCard).visibility = View.VISIBLE
+            popupWindow.dismiss()
+        }
+
+
+        confirmChanges.setOnClickListener {
+            val passwordInput = popupView.findViewById<EditText>(R.id.editPasswordInput)
+            val confirmPasswordInput = popupView.findViewById<EditText>(R.id.changePasswordConfirmation)
+            val actualUser = userSharedPreferences.getUser()
+            val user = actualUser?.user
+            val userEmail = user?.email
+            val userPassword = user?.password
+
+            if (passwordInput.text.toString().isEmpty()) {
+                passwordInput.error = "Introduce la nueva contraseña"
+                passwordInput.requestFocus()
+            } else if (confirmPasswordInput.text.toString().isEmpty()) {
+                confirmPasswordInput.error = "Confirma la nueva contraseña"
+                confirmPasswordInput.requestFocus()
+            } else {
+                if (passwordInput.text.toString() == confirmPasswordInput.text.toString()) {
+                    val datos = mapOf(
+                        "email" to userEmail.toString(),
+                        "password" to userPassword.toString(),
+                        "newPassword" to passwordInput.text.toString(),
+                    )
+                    // Llamar a changePassword dentro de una coroutine
+                    lifecycleScope.launch {
+                        changePassword(datos)
+                        parentView.findViewById<View>(R.id.background_overlay).visibility = View.INVISIBLE
+                        parentView.findViewById<View>(R.id.UserCard).visibility = View.VISIBLE
+                        popupWindow.dismiss()
+                    }
+                }
+            }
+
+        }
+
+
 
 
     }
+
+    private suspend fun changePassword(body: Map<String,String>) {
+        return suspendCancellableCoroutine { continuation ->
+            val call = RetrofitClient.apiService.changePassword(body)
+
+            call.enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        continuation.resume(Unit) // Resume successfully
+                    } else {
+                        continuation.resumeWithException(Exception("Error en la llamada: ${response.code()}"))
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    if (continuation.isCancelled) return
+                    continuation.resumeWithException(t)
+                }
+            })
+
+            continuation.invokeOnCancellation {
+                call.cancel()
+            }
+        }
+    }
+
+
+
 }
+
 
