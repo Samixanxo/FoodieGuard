@@ -2,7 +2,6 @@ package com.example.foodie_guardv0.restaurantAdapter
 
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ class RestaurantAdapter(private val restaurantList: List<Restaurant>) :
         return RestaurantViewHolder(layoutInflater.inflate(R.layout.restaurant_list, parent, false))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val item = restaurantList[position]
         holder.render(item)

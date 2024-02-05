@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie_guard0.R
@@ -34,11 +35,14 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.recycler_view, container, false)
         val svSearcher = view.findViewById<SearchView>(R.id.svSearcher)
         svSearcher.setOnQueryTextListener(this)
         if (container != null) {
+            userSharedPreferences = UserSharedPreferences(container.context)
+        }
+
+        if(container != null){
             userSharedPreferences = UserSharedPreferences(container.context)
         }
 
@@ -75,16 +79,19 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
 
-
                         userSharedPreferences.saveRes(respuesta!!)
-
+                        Log.e("Resultado", "aaaaaaaaaaaaa")
+                        Log.e("Resultado", "--------------------------------------------------------------" + userSharedPreferences.getRestaurants().toString())
                         continuation.resume(respuesta!!)
                     } else {
+                        // Manejar error de la API
                         continuation.resumeWithException(Exception("Error de la API"))
+                        Log.e("Resultado", "error Api")
                     }
                 }
 
                 override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
+                    // Manejar error de conexión
                     continuation.resumeWithException(t)
                 }
             })
@@ -101,5 +108,4 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         }
         return true
     }
-
 }
