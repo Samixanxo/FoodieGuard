@@ -18,12 +18,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+
             android:name="com.example.foodie_guardv0.Activity.MapView"
             android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" /> <!-- android:theme="@style/Theme.Foodie_guardv0" -->
+      
         <activity
             android:name="com.example.foodie_guardv0.Activity.MainActivity"
             android:exported="true"

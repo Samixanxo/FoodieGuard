@@ -39,6 +39,7 @@ class user_fragment : Fragment() {
     lateinit var userSharedPreferences: UserSharedPreferences
 
     @SuppressLint("MissingInflatedId")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,6 +85,8 @@ class user_fragment : Fragment() {
 
 
         return view
+
+
     }
 
     private fun showPopupWindow(inflater: LayoutInflater, parentView: View) {

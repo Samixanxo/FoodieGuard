@@ -39,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         val textoCompleto = "No tienes cuenta? registrate aquí"
         val textoClicable = findViewById<TextView>(R.id.button2)
 
+
+        val btnLogin = findViewById<Button>(R.id.button)
+        val btnRegister = findViewById<Button>(R.id.button2)
+        btnLogin.setOnClickListener {
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+
         val spannableString = SpannableString(textoCompleto)
         val inicioAzul = textoCompleto.indexOf("registrate aquí")
 
@@ -51,9 +57,14 @@ class MainActivity : AppCompatActivity() {
         textoClicable.text = spannableString
         textoClicable.setOnClickListener {
             val intent = Intent(this@MainActivity, RegisterActivity::class.java)
+
             startActivity(intent)
         }
         val entrar = findViewById<Button>(R.id.button3)
+
+
+        btnRegister.setOnClickListener {
+            val intent = Intent(this@MainActivity, RegisterActivity::class.java)
 
         entrar.setOnClickListener(){
             val intent = Intent(this@MainActivity, HomeActivity::class.java)
