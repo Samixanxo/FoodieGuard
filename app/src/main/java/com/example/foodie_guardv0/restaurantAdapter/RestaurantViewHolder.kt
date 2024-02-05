@@ -1,5 +1,6 @@
 package com.example.foodie_guardv0.restaurantAdapter
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.foodie_guardv0.dataclass.Address
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.Activity.InfoRestaurant
 
 class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -23,5 +25,20 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         address.text = "Direccion: \n" + restaurant.address
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
+        itemView.setOnClickListener {
+            val context = itemView.context
+            val intent = Intent(context, InfoRestaurant::class.java)
+            intent.putExtra("name", restaurant.name)
+            intent.putExtra("description", restaurant.description)
+            intent.putExtra("phone", restaurant.phone)
+            intent.putExtra("photo", restaurant.photo)
+            intent.putExtra("address", restaurant.address)
+            intent.putExtra("email", restaurant.email)
+            context.startActivity(intent)
+
+        }
+
     }
+
+
 }

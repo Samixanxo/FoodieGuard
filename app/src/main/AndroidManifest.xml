@@ -47,6 +47,9 @@
 
             <!-- Puedes tener más configuraciones aquí según tus necesidades -->
         </activity>
+        <activity android:name="com.example.foodie_guardv0.Activity.InfoRestaurant">
+            <!-- Intent filters or other activity configurations -->
+        </activity>
     </application>
 
 </manifest>
