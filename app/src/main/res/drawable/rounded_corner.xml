@@ -1,0 +1,7 @@
+<!-- rounded_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="20dp" /> <!-- Ajusta el radio según sea necesario -->
+    <solid android:color="#FFFFFF" />
+    <stroke android:width="2dp" android:color="#FFFFFF" /> <!-- Puedes ajustar el ancho y color del borde aquí -->
+</shape>
+
