@@ -3,4 +3,12 @@
 
     <corners android:radius="20dp" />
 
+    <!-- Añade un borde negro con ancho de 2dp -->
+    <stroke
+        android:color="#000000"
+        android:width="2dp" />
+
+    <!-- Establece el color de fondo (puede ser blanco o cualquier otro color) -->
+    <solid android:color="#FFFFFF" />
+
 </shape>
