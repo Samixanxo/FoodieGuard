@@ -15,15 +15,13 @@ import com.example.foodie_guardv0.Activity.InfoRestaurant
 class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val RestaurantName = view.findViewById<TextView>(R.id.name)
-    private val phoneNumber = view.findViewById<TextView>(R.id.number)
     private val address = view.findViewById<TextView>(R.id.adress)
     private val photo = view.findViewById<ImageView>(R.id.imageRestaurant)
 
 
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
-        phoneNumber.text = "Telefono: " + restaurant.phone.toString()
-        address.text = "Direccion: \n" + restaurant.address
+        address.text = restaurant.address
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
         itemView.setOnClickListener {

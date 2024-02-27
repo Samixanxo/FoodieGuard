@@ -20,7 +20,6 @@
         <activity
             android:name="com.example.foodie_guardv0.Activity.MapView"
             android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" /> <!-- android:theme="@style/Theme.Foodie_guardv0" -->
@@ -28,7 +27,8 @@
             android:name="com.example.foodie_guardv0.Activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,16 +38,20 @@
         <activity
             android:name="com.example.foodie_guardv0.deprecated.LoginActivity"
             android:label="@string/login_activity_label"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.example.foodie_guardv0.Activity.HomeActivity"
             android:label="Home Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name="com.example.foodie_guardv0.Activity.RegisterActivity">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.example.foodie_guardv0.Activity.RegisterActivity"
+            android:screenOrientation="portrait">
 
             <!-- Puedes tener más configuraciones aquí según tus necesidades -->
         </activity>
-        <activity android:name="com.example.foodie_guardv0.Activity.InfoRestaurant">
+        <activity android:name="com.example.foodie_guardv0.Activity.InfoRestaurant"
+            android:screenOrientation="portrait">
             <!-- Intent filters or other activity configurations -->
         </activity>
     </application>
