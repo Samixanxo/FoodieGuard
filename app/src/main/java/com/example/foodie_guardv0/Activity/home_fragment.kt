@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie_guard0.R
@@ -50,7 +49,6 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 initRecyclerRestaurant(restaurants(""))
-                Log.e("Resultado", "correcto")
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
             }
@@ -78,10 +76,7 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                 ) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
-
                         userSharedPreferences.saveRes(respuesta!!)
-                        Log.e("Resultado", "aaaaaaaaaaaaa")
-                        Log.e("Resultado", "--------------------------------------------------------------" + userSharedPreferences.getRestaurants().toString())
                         continuation.resume(respuesta!!)
                     } else {
                         // Manejar error de la API

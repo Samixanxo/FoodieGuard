@@ -91,7 +91,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         try {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
-                    val userLatLng = LatLng(location.latitude, location.longitude)
+                    val userLatLng = LatLng(41.403706,2.173504)
                     val markerOptions = MarkerOptions()
                         .position(userLatLng)
                         .title("Tu ubicación actual")

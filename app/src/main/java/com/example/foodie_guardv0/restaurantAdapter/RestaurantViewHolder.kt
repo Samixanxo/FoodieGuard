@@ -1,6 +1,7 @@
 package com.example.foodie_guardv0.restaurantAdapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -32,6 +33,9 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("photo", restaurant.photo)
             intent.putExtra("address", restaurant.address)
             intent.putExtra("email", restaurant.email)
+            intent.putExtra("lat", restaurant.lat)
+            intent.putExtra("long", restaurant.lon)
+
             context.startActivity(intent)
 
         }
