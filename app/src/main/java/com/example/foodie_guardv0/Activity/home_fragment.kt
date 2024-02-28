@@ -36,15 +36,16 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         val view = inflater.inflate(R.layout.recycler_view, container, false)
         val svSearcher = view.findViewById<SearchView>(R.id.svSearcher)
+
+        svSearcher.setOnClickListener {
+            svSearcher.isIconified = false
+        }
+
         svSearcher.setOnQueryTextListener(this)
+
         if (container != null) {
             userSharedPreferences = UserSharedPreferences(container.context)
         }
-
-        if(container != null){
-            userSharedPreferences = UserSharedPreferences(container.context)
-        }
-
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
