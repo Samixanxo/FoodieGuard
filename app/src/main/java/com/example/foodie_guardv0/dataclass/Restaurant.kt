@@ -10,8 +10,8 @@ data class Restaurant(
     val address: String,
     val photo:String,
     val website:String,
+    val type:String,
     val lat:Double,
-    val lon:Double,
-    val type:Int
+    val lon:Double
 
 )
