@@ -17,11 +17,15 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val RestaurantName = view.findViewById<TextView>(R.id.name)
     private val address = view.findViewById<TextView>(R.id.adress)
     private val photo = view.findViewById<ImageView>(R.id.imageRestaurant)
+    private val type = view.findViewById<TextView>(R.id.type)
+    private val median = view.findViewById<TextView>(R.id.median)
 
 
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
         address.text = restaurant.address
+        type.text = restaurant.type
+        median.text = "Approximated Price: " + restaurant.medianprice.toString() + "€"
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
         itemView.setOnClickListener {
@@ -31,8 +35,10 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("description", restaurant.description)
             intent.putExtra("phone", restaurant.phone)
             intent.putExtra("photo", restaurant.photo)
+            intent.putExtra("medianprice",restaurant.medianprice)
             intent.putExtra("address", restaurant.address)
             intent.putExtra("email", restaurant.email)
+            intent.putExtra("type", restaurant.type)
             intent.putExtra("lat", restaurant.lat)
             intent.putExtra("long", restaurant.lon)
 
