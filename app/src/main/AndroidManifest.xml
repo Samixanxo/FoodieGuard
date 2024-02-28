@@ -19,7 +19,8 @@
         tools:targetApi="31">
         <activity
             android:name="com.example.foodie_guardv0.Activity.MapView"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode = "singleTask"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" /> <!-- android:theme="@style/Theme.Foodie_guardv0" -->
@@ -44,7 +45,8 @@
             android:name="com.example.foodie_guardv0.Activity.HomeActivity"
             android:label="Home Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTask"></activity>
         <activity android:name="com.example.foodie_guardv0.Activity.RegisterActivity"
             android:screenOrientation="portrait">
 
