@@ -97,10 +97,12 @@
                 android:textAlignment="center"
                 android:fontFamily="@font/jonesy_letters"/>
 
-            <ImageView
-                android:layout_width="150dp"
+            <fragment
+                android:id="@+id/mapUbication"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@drawable/baseline_home_24"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/addressRestaurant"

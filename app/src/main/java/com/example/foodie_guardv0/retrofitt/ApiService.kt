@@ -1,5 +1,6 @@
 package com.example.foodie_guardv0.retrofitt
 import com.example.foodie_guardv0.dataclass.ActualUser
+import com.example.foodie_guardv0.dataclass.Dish
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.dataclass.User
 import retrofit2.Call
@@ -20,6 +21,12 @@ interface ApiService {
     @GET ("restaurant/name/{name}")
     fun getRestaurantByName(@Path("name") name: String):Call<List<Restaurant>>
 
+    @GET("dishes")
+    fun getDishes(): Call<List<Dish>>
+
+    @GET("dishes/filter/{allergens}")
+    fun getDishesFiltered(@Path("allergens") name: String): Call<List<Dish>>
+
     @POST ("user")
     fun createUser(@Body user: User): Call<Void>
 
@@ -27,7 +34,7 @@ interface ApiService {
     fun postUser(@Body email: Map<String,String>):Call<ActualUser>
 
     @PUT("user/password")
-    fun changePassword (@Body body:Map<String,String> ) :Call<Void>
+    fun changePassword (@Body body:Map<String,String>) :Call<Void>
 
 }
 

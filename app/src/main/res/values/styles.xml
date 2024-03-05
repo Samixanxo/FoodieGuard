@@ -3,6 +3,9 @@
     <style name="Jonesy">
         <item name="android:fontFamily">@font/jonesy_letters</item>
     </style>
+    <style name="Nunito">
+        <item name="android:fontFamily">@font/nunito_variablefont_wght</item>
+    </style>
 
 
 </resources>
