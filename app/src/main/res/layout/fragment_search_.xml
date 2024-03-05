@@ -27,7 +27,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:id="@+id/glutenImageButton"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/gluten_allergen_food_allergens_icon_1837261"
             android:background="?android:attr/selectableItemBackground"
 />
@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/soy_allergen_food_allergens_icon_183721"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/milk_allergen_food_allergens_icon_183724"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/egg_allergen_food_allergens_icon_183730"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/mustard_allergen_food_allergens_icon_183732"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -72,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/nuts_allergen_food_allergens_icon_183722"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/sulfites_allergen_food_allergens_icon_183725"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -90,7 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/celery_allergen_food_allergens_icon_183723"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -99,7 +99,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/fish_allergen_food_allergens_icon_183728"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -108,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/crustacean_allergen_food_allergens_icon_183733"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -117,7 +117,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/shellfish_allergen_food_allergens_icon_183727"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -126,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/peanuts_allergen_food_allergens_icon_183731"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -135,7 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/sesame_allergen_food_allergens_icon_183729"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -144,7 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
             android:src="@drawable/lupins_allergen_food_allergens_icon_183720"
             android:background="?android:attr/selectableItemBackground"
             />
