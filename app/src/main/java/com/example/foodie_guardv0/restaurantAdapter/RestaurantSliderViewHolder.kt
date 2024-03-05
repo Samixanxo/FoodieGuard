@@ -11,23 +11,21 @@ import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.Activity.InfoRestaurant
 
-class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val RestaurantName = view.findViewById<TextView>(R.id.name)
-    private val address = view.findViewById<TextView>(R.id.adress)
-    private val photo = view.findViewById<ImageView>(R.id.imageRestaurant)
+    private val RestaurantName = view.findViewById<TextView>(R.id.sliderName)
+    private val address = view.findViewById<TextView>(R.id.sliderAdress)
+    private val photo = view.findViewById<ImageView>(R.id.sliderImageRestaurant)
 
 
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
         address.text = restaurant.address
         Glide.with(photo.context).load(restaurant.photo).into(photo)
-
-        itemView.setOnClickListener {
-
-        }
-
     }
+
+
+
 
 
 }
