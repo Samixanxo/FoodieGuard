@@ -1,7 +1,9 @@
 package com.example.foodie_guardv0.Activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +44,8 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val phone = intent.getStringExtra("phone")
         val email = intent.getStringExtra("email")
         val address = intent.getStringExtra("address")
+        val medianprice = intent.getStringExtra("medianprice")
+        val foodtype = intent.getStringExtra("type")
 
 
         val RestaurantName = findViewById<TextView>(R.id.restaurantName)
@@ -50,6 +54,8 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val PhoneRestaurant = findViewById<TextView>(R.id.phoneRestaurant)
         val EmailRestaurant = findViewById<TextView>(R.id.emailRestaurant)
         val AddressRestaurant = findViewById<TextView>(R.id.addressRestaurant)
+        val MedianPrice = findViewById<TextView>(R.id.medianpriceRestaurant)
+        val FoodType = findViewById<TextView>(R.id.foodtype)
 
         val volver = findViewById<ImageButton>(R.id.buttonReturn)
 
@@ -57,12 +63,37 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         RestaurantName.text = name
         Glide.with(ImageRestaurant.context).load(photo).into(ImageRestaurant)
         DescriptionRestaurant.text = description
-        PhoneRestaurant.text = phone
+        PhoneRestaurant.text = phone.toString()
         EmailRestaurant.text = email
         AddressRestaurant.text = address
+        MedianPrice.text = "Aproximate price of " + medianprice.toString() + "€"
+        FoodType.text = foodtype
+        if (phone != null) {
+            Log.e("telefono", phone)
+        }
 
         volver.setOnClickListener() {
             finish()
+        }
+
+        PhoneRestaurant.setOnClickListener {
+            val phoneNumber = PhoneRestaurant.text.toString()
+            val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+            if (dialIntent.resolveActivity(packageManager) != null) {
+                startActivity(dialIntent)
+            } else {
+
+            }
+        }
+
+        EmailRestaurant.setOnClickListener {
+            val emailAddress = EmailRestaurant.text.toString()
+            val emailIntent = Intent(Intent.ACTION_SENDTO)
+            emailIntent.data = Uri.parse("mailto:$emailAddress")
+            if (emailIntent.resolveActivity(packageManager) != null) {
+                startActivity(emailIntent)
+            } else {
+            }
         }
 
     }
