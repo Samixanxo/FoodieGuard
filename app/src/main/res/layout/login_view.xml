@@ -67,7 +67,7 @@
             android:singleLine="true"
             android:layout_marginTop="12dp"
             app:passwordToggleEnabled="true"
-            app:hintEnabled="false">
+            >
 
         <EditText
             android:layout_width="match_parent"
