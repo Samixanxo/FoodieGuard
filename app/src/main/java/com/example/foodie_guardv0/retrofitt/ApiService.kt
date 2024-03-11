@@ -23,6 +23,9 @@ interface ApiService {
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>
 
+    @GET("dishes/{idRed}")
+    fun getDishesForRest(@Path("idRed") id: Int): Call<List<Dish>>
+
     @GET("dishes/filter/{allergens}")
     fun getDishesFiltered(@Path("allergens") name: String): Call<List<Dish>>
 
