@@ -1,12 +1,15 @@
 package com.example.foodie_guardv0.Activity
 
 import android.Manifest
+
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,9 +17,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.foodie_guard0.R
-import com.example.foodie_guardv0.dataclass.Restaurant
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,7 +37,8 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapUbication) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-
+        val id = intent.getIntExtra("id", Int.MIN_VALUE)
+        Log.e("Resultado", id.toString())
         val name = intent.getStringExtra("name")
         val photo = intent.getStringExtra("photo")
         val description = intent.getStringExtra("description")
@@ -57,7 +58,8 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val MedianPrice = findViewById<TextView>(R.id.medianpriceRestaurant)
         val FoodType = findViewById<TextView>(R.id.foodtype)
 
-        val volver = findViewById<ImageButton>(R.id.buttonReturn)
+        val getBack = findViewById<ImageButton>(R.id.buttonReturn)
+        val viewMenu = findViewById<Button>(R.id.viewMenu)
 
 
         RestaurantName.text = name
@@ -72,9 +74,15 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
             Log.e("telefono", phone)
         }
 
-        volver.setOnClickListener() {
+        getBack.setOnClickListener() {
             finish()
         }
+
+
+        viewMenu.setOnClickListener() {
+            val intent = Intent(this, MenuRestauranteActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
 
         PhoneRestaurant.setOnClickListener {
             val phoneNumber = PhoneRestaurant.text.toString()
@@ -94,6 +102,7 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
                 startActivity(emailIntent)
             } else {
             }
+
         }
 
     }
