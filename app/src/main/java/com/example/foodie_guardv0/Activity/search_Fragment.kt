@@ -160,7 +160,7 @@ class search_Fragment : Fragment() {
     }
 
     private fun updateButtonState(button: ImageButton?, isSelected: Boolean) {
-        button?.setBackgroundResource(if (isSelected) R.color.grey else android.R.color.transparent)
+        button?.setBackgroundResource(if (isSelected) R.color.black else android.R.color.transparent)
     }
 
     private fun setupImageButtons(view: View) {

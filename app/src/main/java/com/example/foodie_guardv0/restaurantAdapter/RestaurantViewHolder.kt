@@ -34,9 +34,9 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("id", restaurant.id)
             intent.putExtra("name", restaurant.name)
             intent.putExtra("description", restaurant.description)
-            intent.putExtra("phone", restaurant.phone)
+            intent.putExtra("phone", restaurant.phone.toString())
             intent.putExtra("photo", restaurant.photo)
-            intent.putExtra("medianprice",restaurant.medianprice)
+            intent.putExtra("medianprice",restaurant.medianprice.toString())
             intent.putExtra("address", restaurant.address)
             intent.putExtra("email", restaurant.email)
             intent.putExtra("type", restaurant.type)
@@ -44,6 +44,7 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("long", restaurant.lon)
 
             context.startActivity(intent)
+
 
         }
 

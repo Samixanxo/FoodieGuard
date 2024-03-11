@@ -13,12 +13,16 @@ import retrofit2.http.Path
 import retrofit2.http.Url
 
 
+
 interface ApiService {
     @GET("restaurant")
     fun getRestaurant(): Call<List<Restaurant>>
 
     @GET ("restaurant/name/{name}")
     fun getRestaurantByName(@Path("name") name: String):Call<List<Restaurant>>
+
+    @GET ("restaurant/{id}")
+    fun getRestaurantById(@Path("id") id: Int): Call<Restaurant>
 
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>
