@@ -132,7 +132,7 @@ import kotlin.coroutines.suspendCoroutine
                         .title("Tu ubicación actual")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     map.addMarker(markerOptions)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15f))
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 10f))
                 }
             }
         } catch (e: SecurityException) {
@@ -155,6 +155,7 @@ import kotlin.coroutines.suspendCoroutine
                 map.animateCamera(cameraUpdate, 2000, null)
             }
         })
+
         recyclerView?.adapter = adapter
     }
 

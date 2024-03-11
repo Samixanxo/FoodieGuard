@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Foodie_guardv0" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Foodie_guardv0" parent="Theme.AppCompat.NoActionBar" />
+
+
+    <style name="Theme.FoodieGuardSplashScreen" parent="Theme.Foodie_guardv0"/>
+
+    <style name="Theme.App.Splashcreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground"> @color/mostaza</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo </item>
+        <item name="postSplashScreenTheme">@style/Theme.Foodie_guardv0</item>
+    </style>
 </resources>
