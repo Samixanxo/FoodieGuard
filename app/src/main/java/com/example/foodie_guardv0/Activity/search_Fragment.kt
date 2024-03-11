@@ -29,6 +29,16 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [search_Fragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class search_Fragment : Fragment() {
     private var isGlutenSelected=false
     private var isSoySelected=false
@@ -59,7 +69,7 @@ class search_Fragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                initRecyclerRestaurant(dishes())
+                initRecyclerRestaurant(dishes(""))
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
             }
@@ -87,7 +97,7 @@ class search_Fragment : Fragment() {
             .joinToString(separator = "")
     }
 
-    private suspend fun dishes(): List<Dish> {
+    private suspend fun dishes(name: String): List<Dish> {
         val concatenatedResult = generateConcatenatedString()
         return suspendCoroutine { continuation ->
             var call = service.getDishesFiltered(concatenatedResult)
@@ -101,7 +111,6 @@ class search_Fragment : Fragment() {
                         val respuesta = response.body()
                         continuation.resume(respuesta!!)
                     } else {
-                        Log.e("Resultado", response.body().toString())
                         continuation.resumeWithException(Exception("Error de la API"))
                         Log.e("Resultado", "error Api")
                     }
@@ -135,7 +144,7 @@ class search_Fragment : Fragment() {
         updateUI(view)
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                initRecyclerRestaurant(dishes())
+                initRecyclerRestaurant(dishes(""))
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
             }
