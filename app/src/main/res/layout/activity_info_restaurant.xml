@@ -243,23 +243,6 @@
                 android:layout_marginBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:id="@+id/addressRestaurant"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"/>
-
-            <Button
-                android:id="@+id/viewMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ver carta"
-                android:fontFamily="@font/nunito_semibold"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/custom_button"
-                android:layout_marginBottom="50dp"/>
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>

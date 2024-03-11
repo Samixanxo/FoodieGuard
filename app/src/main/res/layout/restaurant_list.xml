@@ -15,6 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/rv_restaurant_list"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,8 +25,9 @@
         android:layout_height="140dp"
         android:clipToOutline="true"
         android:scaleType="fitXY"
-        tools:ignore="ContentDescription"
-        app:layout_constraintTop_toTopOf="parent" />
+
+    tools:ignore="ContentDescription"
+    app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
