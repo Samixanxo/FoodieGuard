@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -37,7 +38,7 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapUbication) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-
+        val id = intent.getIntExtra("id", Int.MIN_VALUE)
         val name = intent.getStringExtra("name")
         val photo = intent.getStringExtra("photo")
         val description = intent.getStringExtra("description")
@@ -58,6 +59,7 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val FoodType = findViewById<TextView>(R.id.foodtype)
 
         val volver = findViewById<ImageButton>(R.id.buttonReturn)
+        val menu = findViewById<Button>(R.id.b_viewMenu)
 
 
         RestaurantName.text = name
@@ -74,6 +76,12 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
 
         volver.setOnClickListener() {
             finish()
+        }
+
+        menu.setOnClickListener() {
+            val intent = Intent(this, MenuRestaurant::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
         }
 
         PhoneRestaurant.setOnClickListener {
