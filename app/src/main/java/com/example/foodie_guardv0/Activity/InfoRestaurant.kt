@@ -12,9 +12,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.dataclass.Dish
 import com.example.foodie_guardv0.dataclass.Restaurant
+import com.example.foodie_guardv0.dataclass.Review
+import com.example.foodie_guardv0.restaurantAdapter.ReviewAdapter
+import com.example.foodie_guardv0.retrofitt.ApiService
+import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,11 +31,21 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +54,7 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapUbication) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
 
-
+        val id = intent.getIntExtra("id", Int.MAX_VALUE)
         val name = intent.getStringExtra("name")
         val photo = intent.getStringExtra("photo")
         val description = intent.getStringExtra("description")
@@ -96,6 +113,50 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                initReviews(getReviews(id))
+            }catch (e: Exception){
+                Log.e("Reviews Error", "No se ha podido iniciar la lista")
+
+            }
+        }
+
+    }
+
+    private suspend fun getReviews(id: Int): List<Review> {
+        return suspendCoroutine { continuation ->
+            var call = service.getReviewsByIdRes(id)
+
+            call.enqueue(object : Callback<List<Review>> {
+                override fun onResponse(
+                    call: Call<List<Review>>,
+                    response: Response<List<Review>>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.e("Respuesta existosa", "todo fresco")
+                        val respuesta = response.body()
+                        Log.e("respuesta", response.body().toString())
+                        continuation.resume(respuesta!!)
+                    } else {
+                        continuation.resumeWithException(Exception("Error de la API"))
+                        Log.e("Resultado", "error Api")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Review>>, t: Throwable) {
+                    continuation.resumeWithException(t)
+                }
+
+
+            })
+        }
+    }
+
+   fun initReviews(reviews: List<Review>){
+        val recyclerView = findViewById<RecyclerView>(R.id.reviewRecyclerView)
+        recyclerView?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = ReviewAdapter(reviews)
     }
 
 
