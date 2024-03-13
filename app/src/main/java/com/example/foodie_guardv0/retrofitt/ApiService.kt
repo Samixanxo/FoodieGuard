@@ -2,6 +2,7 @@ package com.example.foodie_guardv0.retrofitt
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.Dish
 import com.example.foodie_guardv0.dataclass.Restaurant
+import com.example.foodie_guardv0.dataclass.Review
 import com.example.foodie_guardv0.dataclass.User
 import retrofit2.Call
 import retrofit2.Response
@@ -23,6 +24,9 @@ interface ApiService {
 
     @GET ("restaurant/{id}")
     fun getRestaurantById(@Path("id") id: Int): Call<Restaurant>
+
+    @GET ("reviews/{idRes}")
+    fun getReviewsByIdRes(@Path("idRes") id: Int): Call<List<Review>>
 
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>

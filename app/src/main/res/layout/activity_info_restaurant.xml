@@ -184,7 +184,6 @@
                 android:text="Contact"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/black"
-
                 android:textSize="20dp"
                 android:textAlignment="viewStart"
                 android:fontFamily="@font/nunito_semibold"/>
@@ -239,6 +238,36 @@
                 tools:text="gassssssssssssssssssss"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingVertical="5dp"
+                android:background="@android:color/black"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/nunito_semibold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/svSearcher"
+                app:layout_constraintVertical_bias="0.0" />
 
             <View
                 android:layout_width="match_parent"
