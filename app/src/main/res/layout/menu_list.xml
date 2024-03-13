@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp"
-    android:backgroundTint="@color/mostaza"
+    android:backgroundTint="@color/white"
     android:background="@drawable/custom_edittext"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
@@ -20,20 +20,20 @@
 
         <ImageView
             android:id="@+id/iv_Image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_Name"
+            android:textColor="@color/black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/nunito_bold"
             android:textAlignment="textStart"
             android:textSize="20dp"
@@ -44,10 +44,11 @@
 
         <TextView
             android:id="@+id/tv_description"
+            android:textColor="@color/black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_Image"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,112 +58,112 @@
             android:id="@+id/gridLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginHorizontal="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
             android:columnCount="14"
-            android:rowCount="1">
+            android:rowCount="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_Image"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="45dp"
                 android:layout_columnWeight="1"
-                android:src="@drawable/gluten_allergen_food_allergens_icon_1837261"
                 android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/soy_allergen_food_allergens_icon_183721"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/milk_allergen_food_allergens_icon_183724"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/egg_allergen_food_allergens_icon_183730"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/mustard_allergen_food_allergens_icon_183732"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/nuts_allergen_food_allergens_icon_183722"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/sulfites_allergen_food_allergens_icon_183725"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/celery_allergen_food_allergens_icon_183723"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/fish_allergen_food_allergens_icon_183728"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/crustacean_allergen_food_allergens_icon_183733"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/shellfish_allergen_food_allergens_icon_183727"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/peanuts_allergen_food_allergens_icon_183731"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/sesame_allergen_food_allergens_icon_183729"
-                android:background="?android:attr/selectableItemBackground"
-                />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="48dp"
-                android:layout_columnWeight="1"
-                android:src="@drawable/lupins_allergen_food_allergens_icon_183720"
-                android:background="?android:attr/selectableItemBackground"
-                />
+                android:src="@drawable/gluten_allergen_food_allergens_icon_1837261" />
 
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/soy_allergen_food_allergens_icon_183721" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/milk_allergen_food_allergens_icon_183724" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/egg_allergen_food_allergens_icon_183730" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/mustard_allergen_food_allergens_icon_183732" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/nuts_allergen_food_allergens_icon_183722" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/sulfites_allergen_food_allergens_icon_183725" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/celery_allergen_food_allergens_icon_183723" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/fish_allergen_food_allergens_icon_183728" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/crustacean_allergen_food_allergens_icon_183733" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/shellfish_allergen_food_allergens_icon_183727" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/peanuts_allergen_food_allergens_icon_183731" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/sesame_allergen_food_allergens_icon_183729" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_columnWeight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/lupins_allergen_food_allergens_icon_183720" />
 
 
         </GridLayout>
