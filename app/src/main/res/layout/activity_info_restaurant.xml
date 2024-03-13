@@ -284,6 +284,16 @@
                 android:layout_marginBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/b_viewMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Carta"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/white"
+                android:layout_marginBottom="40dp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>

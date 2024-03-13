@@ -31,7 +31,8 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         itemView.setOnClickListener {
             val context = itemView.context
             val intent = Intent(context, InfoRestaurant::class.java)
-            intent.putExtra("id",restaurant.id)
+
+            intent.putExtra("id", restaurant.id)
             intent.putExtra("name", restaurant.name)
             intent.putExtra("description", restaurant.description)
             intent.putExtra("phone", restaurant.phone.toString())
