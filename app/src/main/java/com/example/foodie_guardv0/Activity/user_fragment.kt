@@ -81,6 +81,12 @@ class user_fragment : Fragment() {
             showPopupWindow(inflater, view)
 
         }
+        val addRestaurantButton = view.findViewById<Button>(R.id.formButton)
+        addRestaurantButton.setOnClickListener{
+            val intent = Intent(activity, AddRestaurantActivity::class.java)
+            startActivity(intent)
+
+        }
 
 
         return view

@@ -58,6 +58,20 @@
                         android:src="@drawable/em" />
                 </androidx.cardview.widget.CardView>
 
+                <Button
+                    android:id="@+id/formButton"
+                    android:layout_width="112dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="#FF5722"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:onClick="login"
+                    android:text="view"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    tools:layout_editor_absoluteX="185dp"
+                    tools:layout_editor_absoluteY="488dp" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
