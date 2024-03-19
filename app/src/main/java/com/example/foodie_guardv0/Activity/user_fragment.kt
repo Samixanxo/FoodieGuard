@@ -64,6 +64,7 @@ class user_fragment : Fragment() {
         }
 
 
+
         return view
     }
 

@@ -63,6 +63,12 @@
 
             <!-- Intent filters or other activity configurations -->
         </activity>
+        <activity
+            android:name="com.example.foodie_guardv0.Activity.AddRestaurantActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+
+        </activity>
     </application>
 
 </manifest>
