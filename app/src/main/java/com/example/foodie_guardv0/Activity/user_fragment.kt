@@ -50,24 +50,11 @@ class user_fragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_user, container, false)
 
-        val actualUser = userSharedPreferences.getUser()
-        Log.d("ActualUser","este el el user: $actualUser")
-        if (actualUser != null) {
-            val user = actualUser.user
+        val actualUser = userSharedPreferences.getUser()!!.user
+        view.findViewById<TextView>(R.id.tv_User).text = actualUser!!.name + " " + actualUser!!.surname
+        view.findViewById<TextView>(R.id.tv_Email).text = actualUser!!.email
 
-            if (user != null) {
-                Log.d("UserFragment", "Usuario recuperado: $user")
-
-                view.findViewById<TextView>(R.id.UserLabel).text = user.name
-                view.findViewById<TextView>(R.id.emailInput).text = user.email
-
-            } else {
-                Log.d("UserFragment", "No se pudo recuperar el usuario de ActualUser")
-            }
-        } else {
-            Log.d("UserFragment", "No se pudo recuperar el usuario de las SharedPreferences")
-        }
-        val logoutButton = view.findViewById<Button>(R.id.logoutButton)
+        val logoutButton = view.findViewById<Button>(R.id.bt_CloseSession)
         logoutButton.setOnClickListener {
             userSharedPreferences.clearUser()
 
@@ -76,125 +63,10 @@ class user_fragment : Fragment() {
             activity?.finish()
         }
 
-        val editButton = view.findViewById<Button>(R.id.EditButton)
-        editButton.setOnClickListener {
-            showPopupWindow(inflater, view)
-
-        }
-        val addRestaurantButton = view.findViewById<Button>(R.id.formButton)
-        addRestaurantButton.setOnClickListener{
-            val intent = Intent(activity, AddRestaurantActivity::class.java)
-            startActivity(intent)
-
-        }
 
 
         return view
     }
-
-    private fun showPopupWindow(inflater: LayoutInflater, parentView: View) {
-
-        val popupView = inflater.inflate(R.layout.edit_menu, null)
-        val animation = AnimationUtils.loadAnimation(context, R.anim.pop_up_menu)
-        popupView.startAnimation(animation)
-
-
-        parentView.findViewById<View>(R.id.background_overlay).visibility = View.VISIBLE
-        parentView.findViewById<View>(R.id.UserCard).visibility = View.INVISIBLE
-        val cancelButton = popupView.findViewById<Button>(R.id.canecelChangeButton)
-        val confirmChanges = popupView.findViewById<Button>(R.id.changePasswordButton)
-
-
-
-        val popupWindow = PopupWindow(
-            popupView,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            true
-        )
-
-        popupWindow.isOutsideTouchable = false
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        popupWindow.showAtLocation(
-            parentView,
-            Gravity.TOP,
-            0,
-            0
-        )
-        cancelButton.setOnClickListener {
-            val animationOut = AnimationUtils.loadAnimation(context, R.anim.pop_out_menu)
-            popupView.startAnimation(animationOut)
-            parentView.findViewById<View>(R.id.background_overlay).visibility = View.INVISIBLE
-            parentView.findViewById<View>(R.id.UserCard).visibility = View.VISIBLE
-            popupWindow.dismiss()
-        }
-
-
-        confirmChanges.setOnClickListener {
-            val passwordInput = popupView.findViewById<EditText>(R.id.editPasswordInput)
-            val confirmPasswordInput = popupView.findViewById<EditText>(R.id.changePasswordConfirmation)
-            val actualUser = userSharedPreferences.getUser()
-            val user = actualUser?.user
-            val userEmail = user?.email
-            val userPassword = user?.password
-
-            if (passwordInput.text.toString().isEmpty()) {
-                passwordInput.error = "Introduce la nueva contraseña"
-                passwordInput.requestFocus()
-            } else if (confirmPasswordInput.text.toString().isEmpty()) {
-                confirmPasswordInput.error = "Confirma la nueva contraseña"
-                confirmPasswordInput.requestFocus()
-            } else {
-                if (passwordInput.text.toString() == confirmPasswordInput.text.toString()) {
-                    val datos = mapOf(
-                        "email" to userEmail.toString(),
-                        "password" to userPassword.toString(),
-                        "newPassword" to passwordInput.text.toString(),
-                    )
-                    // Llamar a changePassword dentro de una coroutine
-                    lifecycleScope.launch {
-                        changePassword(datos)
-
-                        val intent = Intent(activity, LoginActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-                    }
-                }
-            }
-
-        }
-
-
-
-
-    }
-
-    private suspend fun changePassword(body: Map<String,String>) {
-        return suspendCancellableCoroutine { continuation ->
-            val call = RetrofitClient.apiService.changePassword(body)
-
-            call.enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        continuation.resume(Unit) // Resume successfully
-                    } else {
-                        continuation.resumeWithException(Exception("Error en la llamada: ${response.code()}"))
-                    }
-                }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    if (continuation.isCancelled) return
-                    continuation.resumeWithException(t)
-                }
-            })
-
-            continuation.invokeOnCancellation {
-                call.cancel()
-            }
-        }
-    }
-
 
 
 }
