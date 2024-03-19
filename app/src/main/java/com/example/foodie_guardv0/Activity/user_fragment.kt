@@ -63,6 +63,12 @@ class user_fragment : Fragment() {
             activity?.finish()
         }
 
+        val ownerButton = view.findViewById<Button>(R.id.bt_NewRestaurant)
+        ownerButton.setOnClickListener {
+            val intent = Intent(activity, AddRestaurantActivity::class.java)
+            startActivity(intent)
+        }
+
 
 
         return view
