@@ -11,6 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 
@@ -46,6 +47,10 @@ interface ApiService {
     @PUT("user/password")
     fun changePassword (@Body body:Map<String,String>) :Call<Void>
 
+    @GET("/email")
+    fun sendConfirmationEmail(
+        @Query("recipient") recipient: String
+    ): Call<Void>
 }
 
 

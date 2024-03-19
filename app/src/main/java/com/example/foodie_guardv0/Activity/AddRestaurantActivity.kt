@@ -2,15 +2,14 @@ package com.example.foodie_guardv0.Activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
-import javax.security.auth.Subject
+import com.example.foodie_guardv0.retrofitt.RetrofitClient
+import retrofit2.Call
 
 class AddRestaurantActivity : AppCompatActivity() {
 
@@ -34,8 +33,7 @@ class AddRestaurantActivity : AppCompatActivity() {
             val recipient = "Solicitud para añadir un restaurante"
             val subject = "Solicitud para añadir un restaurante"
             val message = "Nombre del restaurante: ${name.text}\nDirección: ${address.text}\nTeléfono: ${phone.text}\nTipo de comida: ${type.text}\nCorreo electrónico: ${email.text}"
-
-            sendEmail(recipient, subject, message)
+            sendEmail(message)
         }
 
         back.setOnClickListener() {
@@ -43,34 +41,26 @@ class AddRestaurantActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun sendEmail(recipient: String, subject: String, message: String) {
-        /*ACTION_SEND action to launch an email client installed on your Android device.*/
-        val mIntent = Intent(Intent.ACTION_SEND)
-        /*To send an email you need to specify mailto: as URI using setData() method
-        and data type will be to text/plain using setType() method*/
-        mIntent.data = Uri.parse("mailto: samirobayo04@gmail.com")
-        mIntent.type = "text/plain"
-        // put recipient email in intent
-        /* recipient is put as array because you may wanna send email to multiple emails
-           so enter comma(,) separated emails, it will be stored in array*/
-        mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-        //put the Subject in the intent
-        mIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        //put the message in the intent
-        mIntent.putExtra(Intent.EXTRA_TEXT, message)
-
-
-        try {
-            //start email intent
-            startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
-        }
-        catch (e: Exception){
-            //if any thing goes wrong for example no email client application or any exception
-            //get and show exception message
-            Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-        }
+    private fun sendEmail(message:String) {
+        val call = RetrofitClient.apiService.sendConfirmationEmail(message)
+        call.enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
+                if (response.isSuccessful) {
+                    // La solicitud fue exitosa
+                    println("Solicitud POST exitosa")
+                    finish()
+                } else{
+                    println("Me ise popo")
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                // Se produjo un error de red u otro tipo de error
+                println("Error en la solicitud POST: ${t.message}")
+            }
+        })
 
     }
+
+
 
 }
