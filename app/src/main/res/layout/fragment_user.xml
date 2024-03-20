@@ -98,12 +98,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
+                android:id="@+id/bt_editUser"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
                 android:textAlignment="center"
-                android:text="Editar Usuario"
+                android:text="Cambiar Contraseña"
                 android:fontFamily="@font/nunito_bold"
                 android:textSize="20dp"
                 android:background="@drawable/button_users_white"

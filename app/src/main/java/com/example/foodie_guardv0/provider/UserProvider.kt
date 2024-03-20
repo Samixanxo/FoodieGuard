@@ -11,11 +11,11 @@ class UserProvider {
         @RequiresApi(Build.VERSION_CODES.O)
         val userList = listOf(
             User(
+                id = 0,
                 name = "Saioa",
                 surname = "Alejo",
                 email = "saioa@example.com",
                 password = "1234"
-
             ))
 
     }

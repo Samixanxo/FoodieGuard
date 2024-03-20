@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.example.foodie_guardv0.Activity.EditUser"
+            android:exported="false" />
+        <activity
             android:name="com.example.foodie_guardv0.Activity.MenuRestaurant"
             android:exported="false" />
         <activity
@@ -41,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.deprecated.LoginActivity"
+            android:name="com.example.foodie_guardv0.Activity.LoginActivity"
             android:label="@string/login_activity_label"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -66,9 +69,7 @@
         <activity
             android:name="com.example.foodie_guardv0.Activity.AddRestaurantActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

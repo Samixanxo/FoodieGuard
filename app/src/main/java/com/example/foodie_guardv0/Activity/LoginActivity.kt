@@ -1,4 +1,4 @@
-package com.example.foodie_guardv0.deprecated
+package com.example.foodie_guardv0.Activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
-import com.example.foodie_guardv0.Activity.HomeActivity
-import com.example.foodie_guardv0.Activity.RegisterActivity
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
@@ -62,7 +60,9 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
+                        Log.e("resultado", response.body().toString())
                         userSharedPreferences.saveUser(respuesta!!)
+                        finish()
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
