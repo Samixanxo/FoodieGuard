@@ -9,14 +9,18 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guardv0.dataclass.User
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import retrofit2.Call
 
 
 class RegisterActivity : AppCompatActivity() {
 
+    lateinit var userSharedPreferences : UserSharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_view)
+        userSharedPreferences = UserSharedPreferences(this)
 
         val btnRegister = findViewById<Button>(R.id.signUp)
 
@@ -38,14 +42,14 @@ class RegisterActivity : AppCompatActivity() {
 
             val passwordMatch = password == confirmPassword
             if (passwordMatch){
-                val user = User(name,surname,email,confirmPassword)
+                val user = User(0,name,surname,email,confirmPassword)
                 val call = apiService.createUser(user)
                 call.enqueue(object : retrofit2.Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
                         if (response.isSuccessful) {
                             // La solicitud fue exitosa
                             println("Solicitud POST exitosa")
-                            val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                             startActivity(intent)
                         } else {
                             val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
