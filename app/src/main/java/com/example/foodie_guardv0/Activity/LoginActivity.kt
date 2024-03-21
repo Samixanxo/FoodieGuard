@@ -43,9 +43,8 @@ class LoginActivity : AppCompatActivity() {
             GlobalScope.launch(Dispatchers.Main) {
                 try {
                     comprobardatos()
-                    Log.e("Resultado", "correcto")
                 } catch (e: Exception) {
-                    Log.e("Resultado", "Error" + e.message)
+                    Log.e("Resultado", e.message.toString())
                 }
             }
         }
@@ -60,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
-                        Log.e("resultado", response.body().toString())
                         userSharedPreferences.saveUser(respuesta!!)
                         finish()
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
@@ -70,8 +68,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
 
-                        continuation.resumeWithException(Exception("Error de la API"))
-                        Log.e("Resultado", "error Api")
+                        Log.e("Resultado", response.body().toString())
                     }
                 }
 

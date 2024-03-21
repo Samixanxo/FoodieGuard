@@ -2,6 +2,8 @@ package com.example.foodie_guardv0.Activity
 
 import MapFragment
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
@@ -12,6 +14,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_view)
+
+        if(intent.getBooleanExtra("edituser", false)){
+            finish()
+        }
+
 
         setupBottomMenu()
     }
@@ -31,7 +38,6 @@ class HomeActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.homePage -> {
-
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 val fragment = home_fragment()
                 fragmentTransaction.replace(R.id.navHostFragment, fragment)
@@ -71,12 +77,5 @@ class HomeActivity : AppCompatActivity() {
             else -> throw IllegalArgumentException("item not implemented : " + item.itemId)
         }
     }
-    /*private fun showPageFragment() {
-       val frg: Fragment = home_fragment.newInstance(iconId)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, frg)
-            .commitAllowingStateLoss()
-    }*/
 }
 
