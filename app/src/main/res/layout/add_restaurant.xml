@@ -49,9 +49,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/addRestaurantLabel"
         app:layout_constraintVertical_bias="1.0"
-
         tools:layout_editor_absoluteX="16dp">
-
 
         <EditText
             android:id="@+id/addRestaurantName"

@@ -39,78 +39,33 @@
                 app:layout_constraintVertical_bias="0.025"
                 app:srcCompat="@drawable/logo" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordChangeInput"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/addRestaurantConditions"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:hintEnabled="false"
-                app:passwordToggleEnabled="true">
+                android:fontFamily="@font/nunito_bold"
+                android:padding="10dp"
+                android:text="@string/addRestaurantConfirmation"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintVertical_bias="0.949"
+                />
 
-                <EditText
-                    android:id="@+id/editPasswordInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:singleLine="true"
-                    android:fontFamily="@font/nunito_semibold"
-                    android:background="@drawable/custom_edittext"
-                    android:drawableStart="@drawable/baseline_lock_24"
-                    android:drawablePadding="8dp"
-                    android:hint="Passoword"
-                    android:inputType="textPassword"
-                    android:padding="8dp"
-                    android:textColor="@color/black" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:hintEnabled="false"
-                app:passwordToggleEnabled="true">
-
-                <EditText
-                    android:id="@+id/changePasswordConfirmation"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:singleLine="true"
-                    android:fontFamily="@font/nunito_semibold"
-                    android:background="@drawable/custom_edittext"
-                    android:drawableStart="@drawable/baseline_lock_24"
-                    android:drawablePadding="8dp"
-                    android:hint="Confirm Passoword"
-                    android:inputType="textPassword"
-                    android:padding="8dp"
-                    android:textColor="@color/black" />
-
-            </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/changePasswordButton"
-                android:text="Change Password"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/nunito_semibold"
-                android:background="@drawable/custom_button"
-                android:backgroundTint="@color/mostaza"
-                app:cornerRadius="20dp"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/canecelChangeButton"
-                android:text="Cancel changes"
+                android:id="@+id/acceptButton"
+                android:text="Aceptar"
                 android:fontFamily="@font/nunito_semibold"
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_button"
                 android:backgroundTint="@color/mostaza"
                 app:cornerRadius="20dp"/>
+
 
 
         </LinearLayout>
