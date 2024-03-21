@@ -1,12 +1,21 @@
 package com.example.foodie_guardv0.Activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.PopupMenu
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import retrofit2.Call
@@ -26,6 +35,9 @@ class AddRestaurantActivity : AppCompatActivity() {
         val phone = findViewById<EditText>(R.id.addRestaurantPhone)
         val type = findViewById<EditText>(R.id.addRestaurantType)
         val email = findViewById<EditText>(R.id.addRestaruantEmail)
+
+        val dialog = Dialog(this)
+        val acceptButton = Button(this)
 
 
         sendButton.setOnClickListener{
@@ -48,7 +60,8 @@ class AddRestaurantActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // La solicitud fue exitosa
                     println("Solicitud POST exitosa")
-                    finish()
+                    showPopUpMenu()
+                    //finish()
                 } else{
                     println("Me ise popo")
                 }
@@ -59,6 +72,21 @@ class AddRestaurantActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun showPopUpMenu() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.edit_menu)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.hashCode()))
+
+        val acceptButton : Button = dialog.findViewById(R.id.acceptButton)
+
+        acceptButton.setOnClickListener {
+            finish()
+        }
+        dialog.show()
     }
 
 

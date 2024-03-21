@@ -52,4 +52,7 @@
         Al enviar esta solicitud aceptas nuestros terminos y condiciones sobre el control de la información de
         tu restaurante
     </string>
+    <string name="addRestaurantConfirmation" translatable="false">
+        La solicitud se ha enviado exitosamente, en breve nos pondremos en contacto contigo mediante el e-mail que has proporcionado.
+    </string>
 </resources>
