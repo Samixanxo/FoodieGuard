@@ -24,11 +24,13 @@ class user_fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val view = inflater.inflate(R.layout.fragment_user, container, false)
+
         if(container != null){
             userSharedPreferences = UserSharedPreferences(container.context)
         }
 
-        val view = inflater.inflate(R.layout.fragment_user, container, false)
 
         val actualUser = userSharedPreferences.getUser()!!.user
         view.findViewById<TextView>(R.id.tv_User).text = actualUser!!.name + " " + actualUser!!.surname

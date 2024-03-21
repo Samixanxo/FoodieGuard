@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.ActualUser
@@ -32,7 +34,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class EditUser : AppCompatActivity() {
 
-    private val service = RetrofitClient.retrofit.create(ApiService::class.java)
     lateinit var userSharedPreferences : UserSharedPreferences
 
     @SuppressLint("MissingInflatedId")
@@ -40,6 +41,11 @@ class EditUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_edit_user)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.editUser)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         userSharedPreferences = UserSharedPreferences(this)
         val user = userSharedPreferences.getUser()!!.user
@@ -117,8 +123,13 @@ class EditUser : AppCompatActivity() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     userSharedPreferences = UserSharedPreferences(this@EditUser)
                     userSharedPreferences.clearUser()
-                    finish()
+
+                    val cerrarSegunda = Intent(this@EditUser, HomeActivity::class.java)
+                    cerrarSegunda.putExtra("edituser", true)
+                    startActivity(cerrarSegunda)
+
                     startActivity(Intent(this@EditUser, LoginActivity::class.java))
+
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -139,7 +150,9 @@ class EditUser : AppCompatActivity() {
                     val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, password), userSharedPreferences.getUser()!!.token)
                     userSharedPreferences.clearUser()
                     userSharedPreferences.saveUser(user)
+
                     finish()
+
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
