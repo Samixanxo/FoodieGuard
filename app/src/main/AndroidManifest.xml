@@ -30,10 +30,6 @@
             android:name="com.example.foodie_guardv0.Activity.MapView"
             android:exported="false"
             android:launchMode="singleTask" />
-        <activity
-            android:name="com.example.foodie_guardv0.Activity.CalendarActivity"
-            android:exported="false"
-            android:launchMode="singleTask" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -1,7 +1,6 @@
 package com.example.foodie_guardv0.retrofitt
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.Dish
-import com.example.foodie_guardv0.dataclass.Reservation
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.dataclass.Review
 import com.example.foodie_guardv0.dataclass.User
@@ -30,9 +29,6 @@ interface ApiService {
 
     @GET ("reviews/{idRes}")
     fun getReviewsByIdRes(@Path("idRes") id: Int): Call<List<Review>>
-
-    @GET ("reservation/{idRes}")
-    fun getReservationsByIdRes(@Path("idRes") id: Int): Call<List<Reservation>>
 
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>

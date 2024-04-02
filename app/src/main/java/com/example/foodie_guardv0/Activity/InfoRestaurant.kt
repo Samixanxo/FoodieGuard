@@ -78,7 +78,6 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
 
         val volver = findViewById<ImageButton>(R.id.buttonReturn)
         val menu = findViewById<Button>(R.id.b_viewMenu)
-        val reservation = findViewById<Button>(R.id.reservation)
 
 
         RestaurantName.text = name
@@ -100,13 +99,6 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         menu.setOnClickListener() {
             val intent = Intent(this, MenuRestaurant::class.java)
             intent.putExtra("id", id)
-            startActivity(intent)
-        }
-
-        reservation.setOnClickListener(){
-            val intent = Intent(this, CalendarActivity::class.java)
-            intent.putExtra("id",id)
-            intent.putExtra("photo", photo)
             startActivity(intent)
         }
 
