@@ -295,6 +295,16 @@
                 android:background="@drawable/custom_button"
                 android:backgroundTint="@color/black"
                 android:textColor="@color/white"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:id="@+id/reservation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reservar mesa"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/white"
                 android:layout_marginBottom="40dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
