@@ -82,8 +82,6 @@ import kotlin.coroutines.suspendCoroutine
         map.uiSettings.isZoomControlsEnabled = true
         if (checkLocationPermission()) {
             map.isMyLocationEnabled = true
-
-            addMarkerAtUserLocation()
             GlobalScope.launch(Dispatchers.Main) {
                 userSharedPreferences.getRestaurants()?.let { addMarkers() }
             }
@@ -119,26 +117,6 @@ import kotlin.coroutines.suspendCoroutine
         }
     }
 
-    private fun addMarkerAtUserLocation() {
-        val fusedLocationClient: FusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-
-        try {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    val userLatLng = LatLng(41.403706,2.173504)
-                    val markerOptions = MarkerOptions()
-                        .position(userLatLng)
-                        .title("Tu ubicación actual")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    map.addMarker(markerOptions)
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 10f))
-                }
-            }
-        } catch (e: SecurityException) {
-            e.printStackTrace()
-        }
-    }
 
     private fun initRecyclerRestaurant(restaurants: List<Restaurant>) {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.sliderView)
