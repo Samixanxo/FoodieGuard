@@ -11,6 +11,8 @@ import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.text.style.LineBackgroundSpan
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +39,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class CalendarActivity : AppCompatActivity() {
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
+    private lateinit var selectedDate: Date
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
@@ -44,7 +47,19 @@ class CalendarActivity : AppCompatActivity() {
         val id = intent.getIntExtra("id", 0)
         val ImageRestaurant = findViewById<ImageView>(R.id.imageRestaurant)
         Glide.with(ImageRestaurant.context).load(photo).into(ImageRestaurant)
-
+        val BackButton = findViewById<ImageButton>(R.id.buttonReturn)
+        val reservationButton = findViewById<Button>(R.id.dateselected)
+        BackButton.setOnClickListener() {
+            finish()
+        }
+        reservationButton.setOnClickListener {
+            if (::selectedDate.isInitialized) {
+                Log.e("fecha seleccionada",selectedDate.toString())
+                Toast.makeText(this, "Fecha seleccionada para reserva: $selectedDate", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Por favor, selecciona una fecha primero.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
 
         lifecycleScope.launch {
@@ -95,27 +110,26 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun setupDateClickListener(dates: List<Date>) {
         val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
-        val reservedDays = dates.map { CalendarDay.from(it) }.toSet() // Convertimos a un conjunto para búsquedas más eficientes
+        val reservedDays = dates.map { CalendarDay.from(it) }.toSet()
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
             if (date in reservedDays) {
+                selectedDate = date.date
                 onDateSelected(date.date)
             } else {
-                // Mostrar un mensaje o alguna otra acción cuando se selecciona una fecha no reservada
                 Toast.makeText(this, "Esta fecha no está disponible para reserva.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun onDateSelected(date: Date) {
-        // Acciones a realizar cuando se selecciona una fecha reservada
         Toast.makeText(this, "Fecha reservada seleccionada: $date", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateCalendar(dates: List<Date>) {
         val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
         val calendarDays = dates.map { CalendarDay.from(it) }
-        val radius = 80f // Ajusta este valor según sea necesario
+        val radius = 80f
         val decorator = ReservationDecorator(calendarDays, this, radius)
         calendarView.addDecorator(decorator)
         val clickableDatesDecorator = ClicableDayDecorator(calendarDays, this)
@@ -174,12 +188,10 @@ class CalendarActivity : AppCompatActivity() {
     class ClicableDayDecorator(private val dates: List<CalendarDay>, private val context: Context) : DayViewDecorator {
 
         override fun shouldDecorate(day: CalendarDay): Boolean {
-            // Verifica si el día debe ser decorado
             return day in dates
         }
 
         override fun decorate(view: DayViewFacade) {
-            // Aplica el StyleSpan personalizado
             view.addSpan(CustomStyleSpan(context))
         }
     }
@@ -187,10 +199,8 @@ class CalendarActivity : AppCompatActivity() {
     class CustomStyleSpan(private val context: Context) : CharacterStyle() {
 
         override fun updateDrawState(tp: TextPaint) {
-            // Aquí aplicas los estilos que deseas
             tp.typeface = Typeface.create("sans-serif", Typeface.BOLD)
             tp.color = ContextCompat.getColor(context, R.color.black)
-            // Puedes agregar más estilos como tamaño del texto, etc.
         }
     }
 
