@@ -129,7 +129,7 @@ class CalendarActivity : AppCompatActivity() {
     private fun updateCalendar(dates: List<Date>) {
         val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
         val calendarDays = dates.map { CalendarDay.from(it) }
-        val radius = 80f
+        val radius = 50f
         val decorator = ReservationDecorator(calendarDays, this, radius)
         calendarView.addDecorator(decorator)
         val clickableDatesDecorator = ClicableDayDecorator(calendarDays, this)

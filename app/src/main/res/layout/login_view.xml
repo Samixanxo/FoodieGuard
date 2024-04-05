@@ -53,8 +53,9 @@
             android:background="@drawable/custom_edittext"
             android:layout_marginTop="40dp"
             android:padding="8dp"
+            android:textColorHint="@color/black"
             android:singleLine="true"
-            android:hint="Username"
+            android:hint="Email"
             android:drawableLeft="@drawable/baseline_person_24"
             android:textColor="@color/black"
             android:drawablePadding="8dp"/>
@@ -75,6 +76,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/nunito_semibold"
             android:padding="8dp"
+            android:textColorHint="@color/black"
             android:inputType="textPassword"
             android:hint="Password"
             android:drawableStart="@drawable/baseline_lock_24"
