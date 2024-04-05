@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 tools:text="prueba1234@hotmail.es"
                 android:textColor="@color/black"
+                android:fontFamily="@font/nunito_semibold"
                 android:textSize="17dp"/>
 
             <TextView
@@ -82,6 +83,7 @@
                 android:id="@+id/tv_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_semibold"
                 tools:text="Miguel Angel"
                 android:textColor="@color/black"
                 android:textSize="17dp"/>
@@ -99,6 +101,7 @@
                 android:id="@+id/tv_Surname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_semibold"
                 tools:text="Vazquez Gonzalez"
                 android:textColor="@color/black"
                 android:textSize="17dp"/>
@@ -148,6 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="100dp"
+                android:fontFamily="@font/nunito_semibold"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/custom_button"
                 android:text="Guardar"

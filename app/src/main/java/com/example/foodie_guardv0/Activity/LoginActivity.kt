@@ -2,6 +2,10 @@ package com.example.foodie_guardv0.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -31,6 +35,18 @@ class LoginActivity : AppCompatActivity() {
         userSharedPreferences = UserSharedPreferences(this)
 
         val textoClicable = findViewById<TextView>(R.id.button2)
+        val textoCompleto = "No tienes cuenta? Registrate aquí."
+        val spannableString = SpannableString(textoCompleto)
+        val colorAzul = resources.getColor(android.R.color.holo_blue_dark)
+        val start = textoCompleto.indexOf("Registrate aquí")
+        spannableString.setSpan(
+            ForegroundColorSpan(colorAzul),
+            start,
+            start + "registrate aquí".length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        textoClicable.text = spannableString
+        textoClicable.movementMethod = LinkMovementMethod.getInstance()
         textoClicable.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
