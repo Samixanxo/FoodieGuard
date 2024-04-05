@@ -292,9 +292,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ver Carta"
+                android:fontFamily="@font/nunito_bold"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="@color/black"
-                android:textColor="@color/white"
+                android:backgroundTint="@color/mostaza"
+                android:textColor="@color/black"
                 android:layout_marginBottom="20dp" />
 
             <Button
@@ -302,9 +303,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Reservar mesa"
+                android:fontFamily="@font/nunito_bold"
                 android:background="@drawable/custom_button"
-                android:backgroundTint="@color/black"
-                android:textColor="@color/white"
+                android:backgroundTint="@color/mostaza"
+                android:textColor="@color/black"
                 android:layout_marginBottom="40dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

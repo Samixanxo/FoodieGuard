@@ -69,6 +69,7 @@
                 <TextView
                     android:id="@+id/tv_User"
                     android:layout_width="0dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:autoSizeMaxTextSize="30dp"
@@ -84,6 +85,7 @@
 
                 <TextView
                     android:id="@+id/tv_Email"
+                    android:fontFamily="@font/nunito_semibold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
@@ -123,6 +125,7 @@
                     android:background="@drawable/button_users_transparent"
                     android:textAlignment="textStart"
                     android:paddingStart="30dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:elevation="0dp"
                     android:text="¿Eres propietario?"
                     android:textColor="@color/black"
@@ -156,6 +159,7 @@
                     android:paddingStart="30dp"
                     android:elevation="0dp"
                     android:text="Nuevo opcion"
+                    android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -184,6 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_users_transparent"
+                    android:fontFamily="@font/nunito_bold"
                     android:textAlignment="textStart"
                     android:paddingStart="30dp"
                     android:elevation="0dp"
@@ -219,6 +224,7 @@
                     android:textAlignment="textStart"
                     android:paddingStart="30dp"
                     android:elevation="0dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="Nuevo opcion"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
