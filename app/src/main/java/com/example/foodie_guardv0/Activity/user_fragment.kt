@@ -56,6 +56,20 @@ class user_fragment : Fragment() {
             startActivity(intent)
         }
 
+        val premiumButton = view.findViewById<Button>(R.id.bt_premium)
+        premiumButton.setOnClickListener{
+            val intent = Intent(activity, PremiumActivity::class.java)
+            startActivity(intent)
+        }
+        val aboutUsButton = view.findViewById<Button>(R.id.bt_AboutUs)
+        aboutUsButton.setOnClickListener {
+            val intent = Intent(activity, AboutUsActivity::class.java)
+            startActivity(intent)
+        }
+        val contactButton = view.findViewById<Button>(R.id.bt_Contact)
+        contactButton.setOnClickListener {
+
+        }
 
 
         return view

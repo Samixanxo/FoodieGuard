@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_background"
+        android:padding="10dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/aboutusheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FoodieGuard"
+
+        android:background="@color/mostaza"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewaboutus"
+        android:layout_width="wrap_content"
+        android:layout_height="145dp"
+        app:srcCompat="@drawable/logo"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusheader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/aboutusinfo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Este proyecto ha sido creado para ayudar a las personas con alguna alergia alimentaria, además de rebajar el gasto a los restaurantes a la hora de rediseñar sus cartas de alergenos si cuentan con ella"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewaboutus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:paddingVertical="5dp"
+        android:background="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusinfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/aboutusintegrantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/mostaza"
+        android:text="Integrantes"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusinfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/aboutusmiguel"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Miguel Vázquez"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusintegrantes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/aboutusmiguelinfo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Programador de apps móviles en Flutter que se ha enfocado en la parte del BackEnd, aunque tambien he creado varias funcionalidades en Kotlin"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusmiguel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/aboutussamuel"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Samuel Robayo"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutusmiguelinfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/aboutussamuelinfo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Programador de Laravel el cual se ha enfocado en la conexion de de Kotlin con SpringBoot"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutussamuel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/aboutushernando"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Hernando Flórez"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutussamuelinfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/aboutushernandoinfo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="No se que poner Hernando lo siento espero me entiendas"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="viewStart"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/aboutushernando"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
