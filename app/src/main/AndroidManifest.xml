@@ -27,6 +27,12 @@
             android:name="com.example.foodie_guardv0.Activity.MenuRestaurant"
             android:exported="false" />
         <activity
+            android:name="com.example.foodie_guardv0.Activity.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.foodie_guardv0.Activity.PremiumActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.foodie_guardv0.Activity.MapView"
             android:exported="false"
             android:launchMode="singleTask" />
