@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +17,11 @@ import com.example.foodie_guardv0.restaurantAdapter.RestaurantAdapter
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +46,8 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
             svSearcher.isIconified = false
         }
 
+
+
         svSearcher.setOnQueryTextListener(this)
 
         if (container != null) {
@@ -54,7 +61,6 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                 Log.e("Resultado", "Error" + e.message)
             }
         }
-
         return view
     }
 
@@ -76,6 +82,9 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                     response: Response<List<Restaurant>>
                 ) {
                     if (response.isSuccessful) {
+                        if (response.body()?.isEmpty() == true){
+                            notFoundToast()
+                        }
                         val respuesta = response.body()
                         userSharedPreferences.saveRes(respuesta!!)
                         continuation.resume(respuesta!!)
@@ -87,8 +96,8 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                 }
 
                 override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
-                    // Manejar error de conexión
-                    continuation.resumeWithException(t)
+                    errorDialog("No se ha podido establecer conexión con el servidor, inténtalo de nuevo mas tarde.")
+
                 }
             })
         }
@@ -98,10 +107,32 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         return false
     }
 
+    private var searchJob: Job? = null
     override fun onQueryTextChange(newText: String): Boolean {
-        GlobalScope.launch(Dispatchers.Main) {
+        searchJob?.cancel()
+        searchJob = GlobalScope.launch(Dispatchers.Main) {
+            delay(500)
             initRecyclerRestaurant(restaurants(newText))
         }
         return true
     }
+
+    private fun notFoundToast() {
+        val text = "No se ha encontrado ningun restaurante"
+        val duration = Toast.LENGTH_SHORT
+        val context = requireContext()
+        val toast = Toast.makeText(context, text, duration)
+        toast.show()
+    }
+
+    private fun errorDialog(message:String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Error de conexión")
+        builder.setMessage(message)
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            requireActivity().finish()
+        }
+        builder.show()
+    }
+
 }

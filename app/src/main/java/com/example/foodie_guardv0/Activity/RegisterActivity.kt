@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guardv0.dataclass.User
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
@@ -47,32 +49,32 @@ class RegisterActivity : AppCompatActivity() {
                 call.enqueue(object : retrofit2.Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
                         if (response.isSuccessful) {
-                            // La solicitud fue exitosa
                             println("Solicitud POST exitosa")
                             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                             startActivity(intent)
                         } else {
-                            val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
-                            startActivity(intent)
-                            // La solicitud no fue exitosa
-                            println("Error en la solicitud POST: ${response.code()}")
+                           errorDialog("No se ha podido registrar tu usuario, inténtalo mas tarde.")
                         }
                     }
-
                     override fun onFailure(call: Call<Void>, t: Throwable) {
-                        // Se produjo un error de red u otro tipo de error
-                        println("Error en la solicitud POST: ${t.message}")
+                       errorDialog("No ha sido posible conectarse al servicio, por favor, inténtalo de nuevo mas tarde")
                     }
                 })
             } else{
                 println("las contraseñas no coinciden")
             }
-
-
         }
-
-
-
-
     }
+
+    private fun errorDialog(message:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error al iniciar sesión")
+        builder.setMessage(message)
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+        }
+        builder.show()
+    }
+
+
+
 }
