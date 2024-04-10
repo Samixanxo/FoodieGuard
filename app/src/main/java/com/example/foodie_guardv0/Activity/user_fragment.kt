@@ -158,19 +158,6 @@ class user_fragment : Fragment() {
             val imageView =
                 view?.findViewById<ImageView>(R.id.imagetochange)
             imageView?.setImageURI(imageUri)
-            val actualUser = userSharedPreferences.getUser()!!.user
-            val user = ActualUser(
-                User(
-                    actualUser.id,
-                    actualUser.name,
-                    actualUser.surname,
-                    actualUser.email,
-                    actualUser.image,
-                    actualUser.password
-                ), userSharedPreferences.getUser()!!.token
-            )
-            userSharedPreferences.clearUser()
-            userSharedPreferences.saveUser(user)
             imageUri?.let { uri ->
                 val imagePath = getFileFromUri(requireContext(), uri)
                 imagePath?.let { file ->
@@ -206,19 +193,10 @@ class user_fragment : Fragment() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    val actualUser = userSharedPreferences.getUser()!!.user
-                    val user = ActualUser(
-                        User(
-                            actualUser.id,
-                            actualUser.name,
-                            actualUser.surname,
-                            actualUser.email,
-                            response.body().toString(),
-                            actualUser.password
-                        ), userSharedPreferences.getUser()!!.token
-                    )
                     userSharedPreferences.clearUser()
-                    userSharedPreferences.saveUser(user)
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
                     Log.e("subida", "barbaro")
                 } else {
                     Log.e("subida", "ruina")
