@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, HomeActivity::class.java))
         } else{
             splashscreen.setKeepOnScreenCondition{false}
-            startActivity(Intent(this@MainActivity, LoginActivity::class.java))        }
-
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+        }
         finish()
 }}

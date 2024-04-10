@@ -17,9 +17,7 @@
         android:theme="@style/Theme.Foodie_guardv0"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name="com.example.foodie_guardv0.Activity.MainActivity2"
-            android:exported="false" />
+
         <activity
             android:name="com.example.foodie_guardv0.Activity.EditUser"
             android:exported="false" />
@@ -63,7 +61,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.example.foodie_guardv0.Activity.RegisterActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
 
             <!-- Puedes tener más configuraciones aquí según tus necesidades -->
         </activity>
