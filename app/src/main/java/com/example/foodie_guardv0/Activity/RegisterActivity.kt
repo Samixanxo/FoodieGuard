@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
 
             val passwordMatch = password == confirmPassword
             if (passwordMatch){
-                val user = User(0,name,surname,email,confirmPassword)
+                val user = User(0,name,surname,email,confirmPassword,"")
                 val call = apiService.createUser(user)
                 call.enqueue(object : retrofit2.Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {

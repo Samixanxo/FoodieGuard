@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -18,8 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.User
-import com.example.foodie_guardv0.dataclass.UserChangePassword
-import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +25,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
@@ -147,7 +143,7 @@ class EditUser : AppCompatActivity() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     userSharedPreferences = UserSharedPreferences(this@EditUser)
                     val actualUser = userSharedPreferences.getUser()!!.user
-                    val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, password), userSharedPreferences.getUser()!!.token)
+                    val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, actualUser.image,password), userSharedPreferences.getUser()!!.token)
                     userSharedPreferences.clearUser()
                     userSharedPreferences.saveUser(user)
 
