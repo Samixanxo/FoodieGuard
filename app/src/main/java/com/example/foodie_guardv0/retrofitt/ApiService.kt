@@ -6,17 +6,18 @@ import com.example.foodie_guardv0.dataclass.ResponseErrors
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.dataclass.Review
 import com.example.foodie_guardv0.dataclass.User
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.Url
-
 
 
 interface ApiService {
@@ -55,6 +56,13 @@ interface ApiService {
 
     @DELETE("user/{id}")
     fun deleteUser (@Path("id") id: Int): Call<Void>
+
+    @Multipart
+    @POST("{userId}/uploadImage")
+    fun updateImage(
+        @Path("userId") userId: Int,
+        @Part image: MultipartBody.Part
+    ): Call<ResponseBody>
 
     @GET("/email")
     fun sendConfirmationEmail(

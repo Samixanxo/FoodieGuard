@@ -10,6 +10,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.ActualUser
@@ -53,9 +55,9 @@ class LoginActivity : AppCompatActivity() {
         }
         val entrar = findViewById<Button>(R.id.button3)
 
+
+
         entrar.setOnClickListener(){
-            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-            startActivity(intent)
             GlobalScope.launch(Dispatchers.Main) {
                 try {
                     comprobardatos()
@@ -81,12 +83,15 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Log.e("Resultado", response.body().toString())
+                        if (response.code() == 404) {
+                            errorDialog("El usuario que has introducido no se encuentra en nuestra base de datos, por favor, revisa tus credenciales.")
+                        } else{
+                            errorDialog("Ha ocurrido un error durante la conexión, por favor, inténtalo de nuevo mas tarde")
+                        }
                     }
                 }
-
                 override fun onFailure(call: Call<ActualUser>, t: Throwable) {
-                    continuation.resumeWithException(t)
+                    errorDialog("No ha sido posible conectarse al servicio, por favor, inténtalo de nuevo mas tarde")
                 }
             })
         }
@@ -111,5 +116,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun errorDialog(message:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error al iniciar sesión")
+        builder.setMessage(message)
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+
+        }
+        builder.show()
+    }
+
+    
 
 }

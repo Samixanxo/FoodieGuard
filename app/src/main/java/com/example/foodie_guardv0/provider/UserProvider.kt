@@ -15,7 +15,8 @@ class UserProvider {
                 name = "Saioa",
                 surname = "Alejo",
                 email = "saioa@example.com",
-                password = "1234"
+                password = "1234",
+                image = "aa"
             ))
 
     }

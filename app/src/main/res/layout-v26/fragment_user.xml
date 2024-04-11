@@ -60,6 +60,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:id="@+id/imagetochange"
                                 android:src="@drawable/em" />
 
                         </androidx.cardview.widget.CardView>
@@ -105,6 +107,19 @@
                 android:layout_marginBottom="20dp"
                 android:textAlignment="center"
                 android:text="Cambiar Contraseña"
+                android:fontFamily="@font/nunito_bold"
+                android:textSize="20dp"
+                android:background="@drawable/button_users_white"
+                android:textColor="@color/mostaza"/>
+
+            <Button
+                android:id="@+id/bt_changeImage"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="center"
+                android:text="Cambiar Imagen"
                 android:fontFamily="@font/nunito_bold"
                 android:textSize="20dp"
                 android:background="@drawable/button_users_white"

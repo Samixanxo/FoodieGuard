@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.foodie_guardv0.dataclass.ActualUser
@@ -65,7 +66,8 @@ class RegisterActivity : AppCompatActivity() {
             confirmPasswordInput  = findViewById(R.id.confirm_password)
             val confirmPassword = confirmPasswordInput.text.toString()
 
-            val user = User(0,name,surname,email,password)
+
+            val user = User(0,name,surname,email,password,"")
             comprobarDatos(user, confirmPassword)
 
 
@@ -137,12 +139,14 @@ class RegisterActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     btnRegister.isClickable = true
 
+
                     alerDialog("Error","No se puede entablecer conexion con el servidor")
 
                 }
             })
         }
     }
+
 
     fun alerDialog(tittle : String, content : String){
         val alertDialog = AlertDialog.Builder(this)
@@ -153,4 +157,5 @@ class RegisterActivity : AppCompatActivity() {
         }.create().show()
     }
 }
+
 
