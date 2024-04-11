@@ -14,7 +14,9 @@
         android:layout_marginTop="10dp"
         android:background="@color/white"
         android:layout_height="wrap_content"
-        android:text="Mostrar/Ocultar Texto"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Mostrar/Ocultar Información"
         android:textColor="@color/black"
         android:fontFamily="@font/nunito_bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,10 +25,13 @@
 
     <TextView
         android:id="@+id/myTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="En esta parte debes pulsar en aquellos alérgenos que quieres evitar"
+        android:text="En esta parte debes pulsar en aquellos alérgenos que quieres evitar.\n\nMantén presionado sobre cada imagen para saber a que alérgeno se refiere."
         android:visibility="gone"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/black"
         android:textSize="16dp"
         android:fontFamily="@font/nunito_bold"
         app:layout_constraintTop_toBottomOf="@id/myButton"
@@ -52,6 +57,7 @@
             android:layout_columnWeight="1"
             android:id="@+id/glutenImageButton"
             android:layout_margin="5dp"
+            android:tooltipText="Glúten"
             android:src="@drawable/gluten_allergen_food_allergens_icon_1837261"
             android:background="?android:attr/selectableItemBackground"
 />
@@ -61,6 +67,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Soja"
             android:src="@drawable/soy_allergen_food_allergens_icon_183721"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -70,6 +77,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Lácteos"
             android:src="@drawable/milk_allergen_food_allergens_icon_183724"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -79,6 +87,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Huevos"
             android:src="@drawable/egg_allergen_food_allergens_icon_183730"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -88,6 +97,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Mostaza"
             android:src="@drawable/mustard_allergen_food_allergens_icon_183732"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -97,6 +107,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Frutos de cáscara"
             android:src="@drawable/nuts_allergen_food_allergens_icon_183722"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -106,6 +117,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Sulfitos"
             android:src="@drawable/sulfites_allergen_food_allergens_icon_183725"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -115,6 +127,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Apio"
             android:src="@drawable/celery_allergen_food_allergens_icon_183723"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -124,6 +137,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Pescado"
             android:src="@drawable/fish_allergen_food_allergens_icon_183728"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -133,6 +147,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Crustaceos"
             android:src="@drawable/crustacean_allergen_food_allergens_icon_183733"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -142,6 +157,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Moluscos"
             android:src="@drawable/shellfish_allergen_food_allergens_icon_183727"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -151,6 +167,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Cacahuetes"
             android:src="@drawable/peanuts_allergen_food_allergens_icon_183731"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -160,6 +177,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Granos de sésamo"
             android:src="@drawable/sesame_allergen_food_allergens_icon_183729"
             android:background="?android:attr/selectableItemBackground"
             />
@@ -169,6 +187,7 @@
             android:layout_height="48dp"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:tooltipText="Altramuces"
             android:src="@drawable/lupins_allergen_food_allergens_icon_183720"
             android:background="?android:attr/selectableItemBackground"
             />
