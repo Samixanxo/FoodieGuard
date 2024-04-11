@@ -75,15 +75,12 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
                     if (response.isSuccessful) {
                         val respuesta = response.body()
+                        Log.e("Resultado", response.body().toString())
                         userSharedPreferences.saveUser(respuesta!!)
                         finish()
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                     } else {
-
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        startActivity(intent)
-
                         Log.e("Resultado", response.body().toString())
                     }
                 }

@@ -1,150 +1,174 @@
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mostaza"
-    android:gravity="center">
+    android:background="@color/mostaza">
 
-    <TextView
-        android:id="@+id/login_title"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/jonesy_letters"
-        android:text="@string/main_title"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="50sp" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/login_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
-            android:padding="24dp"
-            android:background="@drawable/custom_edittext">
+            android:fontFamily="@font/jonesy_letters"
+            android:text="@string/main_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="50sp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/name"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginTop="40dp"
-                android:textColorHint="@color/black"
-                android:padding="8dp"
-                android:singleLine="true"
-                android:fontFamily="@font/nunito_semibold"
-                android:hint="Name"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:textColor="@color/black"
-                android:drawablePadding="8dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/lastname"
-                android:textColorHint="@color/black"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/nunito_semibold"
-                android:padding="8dp"
-                android:singleLine="true"
-                android:hint="Surname"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:textColor="@color/black"
-                android:drawablePadding="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/email"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginTop="12dp"
-                android:singleLine="true"
-                android:textColorHint="@color/black"
-                android:fontFamily="@font/nunito_semibold"
-                android:padding="8dp"
-                android:hint="Email"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:textColor="@color/black"
-                android:drawablePadding="8dp"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:passwordToggleEnabled="true"
-                app:hintEnabled="false">
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_edittext"
+                android:orientation="vertical"
+                android:padding="24dp">
 
                 <EditText
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:fontFamily="@font/nunito_semibold"
-                    android:id="@+id/passwordInput"
+                    android:layout_marginTop="40dp"
                     android:background="@drawable/custom_edittext"
-                    android:layout_marginTop="20dp"
-                    android:singleLine="true"
+                    android:drawableLeft="@drawable/baseline_person_24"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:hint="Name"
                     android:padding="8dp"
-                    android:textColorHint="@color/black"
-                    android:inputType="textPassword"
-                    android:hint="Password"
-                    android:drawableStart="@drawable/baseline_lock_24"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:drawablePadding="8dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirm_password_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:passwordToggleEnabled="true"
-                app:hintEnabled="false">
+                    android:textColorHint="@color/black" />
 
                 <EditText
+                    android:id="@+id/lastname"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:id="@+id/confirm_password"
-                    android:fontFamily="@font/nunito_semibold"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/custom_edittext"
-                    android:layout_marginTop="20dp"
-                    android:singleLine="true"
-                    android:textColorHint="@color/black"
+                    android:drawableLeft="@drawable/baseline_person_24"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:hint="Surname"
                     android:padding="8dp"
-                    android:inputType="textPassword"
-                    android:hint="Confirm Password"
-                    android:drawableStart="@drawable/baseline_lock_24"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:drawablePadding="8dp"/>
+                    android:textColorHint="@color/black" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableLeft="@drawable/baseline_person_24"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:hint="Email"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/signUp"
-                android:fontFamily="@font/nunito_semibold"
-                android:text="Register"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/custom_button"
-                android:backgroundTint="@color/mostaza"
-                app:cornerRadius="20dp"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                    <EditText
+                        android:id="@+id/passwordInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/custom_edittext"
+                        android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:padding="8dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
 
-</LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirm_password_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/custom_edittext"
+                        android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword"
+                        android:padding="8dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/custom_button"
+                    android:backgroundTint="@color/mostaza"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Register"
+                    android:textSize="18sp"
+                    app:cornerRadius="20dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#6FFFFFFF"
+        android:padding="170dp"
+        android:indeterminateTint="@color/mostaza"
+        android:progressTint="#E30000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 
