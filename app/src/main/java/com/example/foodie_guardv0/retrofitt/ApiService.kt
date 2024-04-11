@@ -2,6 +2,7 @@ package com.example.foodie_guardv0.retrofitt
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.Dish
 import com.example.foodie_guardv0.dataclass.Reservation
+import com.example.foodie_guardv0.dataclass.ResponseErrors
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.dataclass.Review
 import com.example.foodie_guardv0.dataclass.User
@@ -45,7 +46,7 @@ interface ApiService {
     fun getDishesFiltered(@Path("allergens") name: String): Call<List<Dish>>
 
     @POST ("user")
-    fun createUser(@Body user: User): Call<Void>
+    fun createUser(@Body user: User): Call<ResponseErrors>
 
     @POST ("login")
     fun postUser(@Body email: Map<String,String>):Call<ActualUser>

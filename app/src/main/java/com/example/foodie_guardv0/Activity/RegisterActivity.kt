@@ -1,80 +1,161 @@
 package com.example.foodie_guardv0.Activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import com.example.foodie_guard0.R
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import com.example.foodie_guardv0.dataclass.ActualUser
+import com.example.foodie_guardv0.dataclass.ResponseErrors
 import com.example.foodie_guardv0.dataclass.User
 import com.example.foodie_guardv0.retrofitt.RetrofitClient.apiService
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class RegisterActivity : AppCompatActivity() {
 
     lateinit var userSharedPreferences : UserSharedPreferences
+    lateinit var progressBar : ProgressBar
+    lateinit var btnRegister : Button
+
+    lateinit var usernameInput : EditText
+    lateinit var lastNameInput : EditText
+    lateinit var emailInput : EditText
+    lateinit var passwordInput : EditText
+    lateinit var confirmPasswordInput : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_view)
         userSharedPreferences = UserSharedPreferences(this)
 
-        val btnRegister = findViewById<Button>(R.id.signUp)
+        btnRegister = findViewById(R.id.signUp)
+        progressBar = findViewById(R.id.progressBar)
 
         btnRegister.setOnClickListener {
-            val username = findViewById<View>(R.id.name) as EditText
-            val name = username.text.toString()
 
-            val lastNameInput = findViewById<View>(R.id.lastname) as EditText
+            usernameInput = findViewById(R.id.name)
+            val name = usernameInput.text.toString()
+
+            lastNameInput = findViewById(R.id.lastname)
             val surname = lastNameInput.text.toString()
 
-            val emailInput  = findViewById<View>(R.id.email) as EditText
+            emailInput  = findViewById(R.id.email)
             val email = emailInput.text.toString()
 
-            val passwordInput = findViewById<View>(R.id.passwordInput) as EditText
+            passwordInput = findViewById(R.id.passwordInput)
             val password = passwordInput.text.toString()
 
-            val confirmPasswordInput  = findViewById<View>(R.id.confirm_password) as EditText
+            confirmPasswordInput  = findViewById(R.id.confirm_password)
             val confirmPassword = confirmPasswordInput.text.toString()
 
-            val passwordMatch = password == confirmPassword
-            if (passwordMatch){
-                val user = User(0,name,surname,email,confirmPassword,"")
-                val call = apiService.createUser(user)
-                call.enqueue(object : retrofit2.Callback<Void> {
-                    override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
-                        if (response.isSuccessful) {
-                            println("Solicitud POST exitosa")
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                           errorDialog("No se ha podido registrar tu usuario, inténtalo mas tarde.")
-                        }
-                    }
-                    override fun onFailure(call: Call<Void>, t: Throwable) {
-                       errorDialog("No ha sido posible conectarse al servicio, por favor, inténtalo de nuevo mas tarde")
-                    }
-                })
-            } else{
-                println("las contraseñas no coinciden")
+
+            val user = User(0,name,surname,email,password,"")
+            comprobarDatos(user, confirmPassword)
+
+
+        }
+    }
+
+    private fun comprobarDatos(user : User, confirmPass : String) {
+        if (user.name.isEmpty()){
+            usernameInput.error = "Introduce un nombre"
+            usernameInput.requestFocus()
+        } else if (user.surname.isEmpty()){
+            lastNameInput.error = "Introduce un nombre"
+            lastNameInput.requestFocus()
+        } else if (user.email.isEmpty()){
+            emailInput.error = "Introduce un nombre"
+            emailInput.requestFocus()
+        } else if (user.password.isEmpty()){
+            passwordInput.error = "Introduce un nombre"
+            passwordInput.requestFocus()
+        } else if (confirmPass.isEmpty()){
+            confirmPasswordInput.error = "Introduce un nombre"
+            confirmPasswordInput.requestFocus()
+        } else if (user.password != passwordInput.text.toString()){
+            alerDialog("Error", "Las contraseñas no coinciden")
+        }else{
+            progressBar.visibility = View.VISIBLE
+            btnRegister.isClickable = false
+
+            GlobalScope.launch(Dispatchers.Main) {
+                try {
+                    crearCuenta(user)
+                } catch (e: Exception) {
+                    Log.e("Resultado", e.message.toString())
+                }
             }
         }
     }
 
-    private fun errorDialog(message:String){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error al iniciar sesión")
-        builder.setMessage(message)
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+    private suspend fun crearCuenta(user: User){
+        return suspendCoroutine {
+            val call = apiService.createUser(user)
+
+            call.enqueue(object : Callback<ResponseErrors> {
+                override fun onResponse(call: Call<ResponseErrors>, response: Response<ResponseErrors>) {
+
+                    if (response.code() == 201) {
+                        Thread.sleep(5000)
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else if(response.code() == 400){
+                        Thread.sleep(5000)
+                        progressBar.visibility = View.GONE
+                        btnRegister.isClickable = true
+
+                        alerDialog("Error","Este correo ya esta en uso")
+
+                    } else{
+                        Thread.sleep(5000)
+                        progressBar.visibility = View.GONE
+                        btnRegister.isClickable = true
+                        alerDialog("Error","Ocurrio un error en el servidor")
+                    }
+
+                }
+
+                override fun onFailure(call: Call<ResponseErrors>, t: Throwable) {
+                    Thread.sleep(5000)
+                    progressBar.visibility = View.GONE
+                    btnRegister.isClickable = true
+
+
+                    alerDialog("Error","No se puede entablecer conexion con el servidor")
+
+                }
+            })
         }
-        builder.show()
     }
 
 
+    fun alerDialog(tittle : String, content : String){
+        val alertDialog = AlertDialog.Builder(this)
 
+        alertDialog.apply {
+            setTitle(tittle)
+            setMessage(content)
+        }.create().show()
+    }
 }
+
+
