@@ -16,12 +16,14 @@ class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val RestaurantName = view.findViewById<TextView>(R.id.sliderName)
     private val address = view.findViewById<TextView>(R.id.sliderAdress)
     private val photo = view.findViewById<ImageView>(R.id.sliderImageRestaurant)
+    private val type = view.findViewById<TextView>(R.id.sliderType)
 
 
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
         address.text = restaurant.address
         Glide.with(photo.context).load(restaurant.photo).into(photo)
+        type.text = restaurant.type
     }
 
 
