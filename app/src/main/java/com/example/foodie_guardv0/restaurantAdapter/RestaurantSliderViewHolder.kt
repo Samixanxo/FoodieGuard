@@ -22,12 +22,27 @@ class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun render(restaurant: Restaurant) {
         RestaurantName.text = restaurant.name
         address.text = restaurant.address
-        Glide.with(photo.context).load(restaurant.photo).into(photo)
         type.text = restaurant.type
+        Glide.with(photo.context).load(restaurant.photo).into(photo)
+        itemView.setOnLongClickListener {
+            val context = itemView.context
+            val intent = Intent(context, InfoRestaurant::class.java)
+
+            intent.putExtra("id", restaurant.id)
+            intent.putExtra("name", restaurant.name)
+            intent.putExtra("description", restaurant.description)
+            intent.putExtra("phone", restaurant.phone.toString())
+            intent.putExtra("photo", restaurant.photo)
+            intent.putExtra("medianprice",restaurant.medianprice.toString())
+            intent.putExtra("address", restaurant.address)
+            intent.putExtra("email", restaurant.email)
+            intent.putExtra("type", restaurant.type)
+            intent.putExtra("lat", restaurant.lat)
+            intent.putExtra("long", restaurant.lon)
+
+            context.startActivity(intent)
+            true
+        }
     }
 
-
-
-
-
-}
+}}

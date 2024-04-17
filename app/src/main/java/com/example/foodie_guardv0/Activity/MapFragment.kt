@@ -38,14 +38,16 @@ import retrofit2.Response
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlin.math.log
 
 
- class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRestaurantClickListener {
+class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRestaurantClickListener {
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
 
     private lateinit var map: GoogleMap
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     lateinit var userSharedPreferences : UserSharedPreferences
+
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
@@ -83,7 +85,7 @@ import kotlin.coroutines.suspendCoroutine
         if (checkLocationPermission()) {
             map.isMyLocationEnabled = true
             GlobalScope.launch(Dispatchers.Main) {
-                userSharedPreferences.getRestaurants()?.let { addMarkers() }
+                //userSharedPreferences.getRestaurants()?.let { addMarkers() }
             }
         } else {
             requestLocationPermission()
@@ -104,28 +106,57 @@ import kotlin.coroutines.suspendCoroutine
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
-    private suspend fun addMarkers() {
-        map.clear()
-        val list = getRestaurants("")
-        for (restaurant in  list) {
-            val restaurantLatLng = LatLng(restaurant.lat, restaurant.lon)
-            val markerOptions = MarkerOptions()
-                .position(restaurantLatLng)
-                .title(restaurant.name)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-            map.addMarker(markerOptions)
-        }
-    }
+
+    //private suspend fun addMarkers() {
+        //map.clear()
+        //val list = getRestaurants("")
+       // for (restaurant in  list) {
+         //   val restaurantLatLng = LatLng(restaurant.lat, restaurant.lon)
+          //  val markerOptions = MarkerOptions()
+           //     .position(restaurantLatLng)
+            //    .title(restaurant.name)
+           //     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+          //  map.addMarker(markerOptions)
+
+       // }
+   // }
 
 
     private fun initRecyclerRestaurant(restaurants: List<Restaurant>) {
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.sliderView)
+       val recyclerView = view?.findViewById<RecyclerView>(R.id.sliderView)
         recyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         val adapter = RestaurantSliderAdapter(restaurants)
+        for (restaurant in restaurants) {
+            Log.e("nombre" ,restaurant.name)
+            val restaurantLatLng = LatLng(restaurant.lat, restaurant.lon)
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(restaurantLatLng, 15F)
+            val markerOptions = MarkerOptions()
+                .position(restaurantLatLng)
+                .title(restaurant.name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            val marker = map.addMarker(markerOptions)
+            if (marker != null) {
+                marker.tag = restaurant
+            }
+
+            map.setOnMarkerClickListener { clickedMarker ->
+                clickedMarker.showInfoWindow()
+                val clickedRestaurant = clickedMarker.tag as? Restaurant
+                val position = restaurants.indexOf(clickedRestaurant)
+                val itemCount = adapter.itemCount
+                if (position in 0..<itemCount) {
+                    recyclerView?.smoothScrollToPosition(position)
+                }
+
+                true
+            }
+
+        }
+
         adapter.setOnRestaurantClickListener(object : RestaurantSliderAdapter.OnRestaurantClickListener {
             override fun onRestaurantClick(position: Int) {
+                recyclerView?.smoothScrollToPosition(position)
                 val selectedRestaurant = restaurants[position]
-
                 val lat = selectedRestaurant.lat
                 val lang = selectedRestaurant.lon
                 val location = LatLng(lat,lang)
@@ -173,6 +204,9 @@ import kotlin.coroutines.suspendCoroutine
      override fun onRestaurantClick(position: Int) {
          TODO("Not yet implemented")
      }
+
+
+
 
 
  }

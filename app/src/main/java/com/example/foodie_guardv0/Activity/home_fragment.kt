@@ -45,9 +45,6 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
         svSearcher.setOnClickListener {
             svSearcher.isIconified = false
         }
-
-
-
         svSearcher.setOnQueryTextListener(this)
 
         if (container != null) {

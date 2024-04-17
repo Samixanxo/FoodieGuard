@@ -17,6 +17,7 @@ class RestaurantSliderAdapter(private val restaurantList: List<Restaurant>) :
             fun onRestaurantClick(position: Int)
         }
 
+
     fun setOnRestaurantClickListener(listener: OnRestaurantClickListener) {
         this.onRestaurantClickListener = listener
     }
@@ -33,6 +34,13 @@ class RestaurantSliderAdapter(private val restaurantList: List<Restaurant>) :
         holder.itemView.setOnClickListener {
             onRestaurantClickListener?.onRestaurantClick(position)
         }
+
+
     }
     override fun getItemCount(): Int = restaurantList.size
+
+
+
+
+
 }
