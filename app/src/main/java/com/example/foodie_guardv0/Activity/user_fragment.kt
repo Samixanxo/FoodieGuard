@@ -38,7 +38,6 @@ import java.io.File
 import java.io.FileOutputStream
 
 class user_fragment : Fragment() {
-    private val apiService = RetrofitClient.retrofit.create(ApiService::class.java)
     lateinit var userSharedPreferences: UserSharedPreferences
     private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
     private val SELECT_PHOTO = 2
@@ -70,7 +69,6 @@ class user_fragment : Fragment() {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
             startActivityForResult(photoPickerIntent, SELECT_PHOTO)
-            val actualUser = userSharedPreferences.getUser()!!.user
         }
 
         val imageView = view.findViewById<ImageView>(R.id.imagetochange)
@@ -187,17 +185,24 @@ class user_fragment : Fragment() {
         val actualUser = userSharedPreferences.getUser()!!.user
         val userId = actualUser.id
         val call = RetrofitClient.apiService.updateImage(userId, body)
-        Log.e("subida", call.toString())
-        Log.e("subida", userId.toString())
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    userSharedPreferences.clearUser()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                    Log.e("subida", "barbaro")
+                    Log.e("subida", actualUser.toString())
+                    val datos = mapOf<String, String>(
+                        "email" to actualUser.email,
+                        "password" to actualUser.password
+                    )
+                    val call = RetrofitClient.apiService.postUser(datos)
+                    call.enqueue(object : Callback<ActualUser>{
+                        override fun onResponse(call: Call<ActualUser>,response: Response<ActualUser>) {
+                            userSharedPreferences.clearUser()
+                            userSharedPreferences.saveUser(response.body()!!)
+                        }
+                        override fun onFailure(call: Call<ActualUser>, t: Throwable) {
+                        }
+                    })
                 } else {
                     Log.e("subida", "ruina")
                 }

@@ -8,7 +8,6 @@ object RetrofitClient {
 
     private const val BASE_URL = "https://previously-smooth-oriole.ngrok-free.app/api/"
 
-
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
