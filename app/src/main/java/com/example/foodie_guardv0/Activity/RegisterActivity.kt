@@ -116,19 +116,19 @@ class RegisterActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ResponseErrors>, response: Response<ResponseErrors>) {
 
                     if (response.code() == 201) {
-                        Thread.sleep(3000)
+                        Thread.sleep(5000)
                         val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else if(response.code() == 400){
-                        Thread.sleep(3000)
+                        Thread.sleep(5000)
                         progressBar.visibility = View.GONE
                         btnRegister.isClickable = true
 
                         alerDialog("Error","Este correo ya esta en uso")
 
                     } else{
-                        Thread.sleep(3000)
+                        Thread.sleep(5000)
                         progressBar.visibility = View.GONE
                         btnRegister.isClickable = true
                         alerDialog("Error","Ocurrio un error en el servidor")
@@ -137,7 +137,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ResponseErrors>, t: Throwable) {
-                    Thread.sleep(3000)
+                    Thread.sleep(5000)
                     progressBar.visibility = View.GONE
                     btnRegister.isClickable = true
 
