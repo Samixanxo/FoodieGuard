@@ -43,6 +43,7 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("type", restaurant.type)
             intent.putExtra("lat", restaurant.lat)
             intent.putExtra("long", restaurant.lon)
+            intent.putExtra("web", restaurant.website)
 
             context.startActivity(intent)
 
