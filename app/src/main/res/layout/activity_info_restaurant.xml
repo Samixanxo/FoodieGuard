@@ -215,6 +215,31 @@
                 android:layout_marginBottom="10dp"
                 tools:text="gassssssssssssssssssss"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:src="@drawable/baseline_home_24"/>
+
+                <TextView
+                    android:id="@+id/webRestaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:textSize="16dp"
+                    android:layout_marginBottom="10dp"
+                    tools:text="gassssssssssssssssssss"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

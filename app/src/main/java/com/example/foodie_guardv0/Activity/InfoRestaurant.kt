@@ -63,8 +63,10 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val phone = intent.getStringExtra("phone")
         val email = intent.getStringExtra("email")
         val address = intent.getStringExtra("address")
+        val website = intent.getStringExtra("web") ?: ""
         val medianprice = intent.getStringExtra("medianprice")
         val foodtype = intent.getStringExtra("type")
+
 
 
         val RestaurantName = findViewById<TextView>(R.id.restaurantName)
@@ -75,10 +77,12 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         val AddressRestaurant = findViewById<TextView>(R.id.addressRestaurant)
         val MedianPrice = findViewById<TextView>(R.id.medianpriceRestaurant)
         val FoodType = findViewById<TextView>(R.id.foodtype)
+        val web = findViewById<TextView>(R.id.webRestaurant)
 
         val volver = findViewById<ImageButton>(R.id.buttonReturn)
         val menu = findViewById<Button>(R.id.b_viewMenu)
         val reservation = findViewById<Button>(R.id.reservation)
+        val displayedWebsite = website.replaceFirst("https://", "")
 
 
         RestaurantName.text = name
@@ -89,12 +93,18 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         AddressRestaurant.text = address
         MedianPrice.text = "Aproximate price of " + medianprice.toString() + "€"
         FoodType.text = foodtype
+        web.text = displayedWebsite
         if (phone != null) {
             Log.e("telefono", phone)
         }
 
         volver.setOnClickListener() {
             finish()
+        }
+
+        web.setOnClickListener(){
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
+            startActivity(intent)
         }
 
         menu.setOnClickListener() {
