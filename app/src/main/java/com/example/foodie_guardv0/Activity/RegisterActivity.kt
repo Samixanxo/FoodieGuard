@@ -67,32 +67,34 @@ class RegisterActivity : AppCompatActivity() {
             val confirmPassword = confirmPasswordInput.text.toString()
 
 
-            val user = User(0,name,surname,email,password,"")
-            comprobarDatos(user, confirmPassword)
+            if(password == confirmPassword){
+                val user = User(0,name,surname,email,password,"")
+                comprobarDatos(user)
+            }
+            else{
+                confirmPasswordInput.error = "Las contraseñas no coinciden"
+                usernameInput.requestFocus()
+            }
+
 
 
         }
     }
 
-    private fun comprobarDatos(user : User, confirmPass : String) {
+    private fun comprobarDatos(user : User) {
         if (user.name.isEmpty()){
             usernameInput.error = "Introduce un nombre"
             usernameInput.requestFocus()
         } else if (user.surname.isEmpty()){
-            lastNameInput.error = "Introduce un nombre"
+            lastNameInput.error = "Introduce un apellido"
             lastNameInput.requestFocus()
         } else if (user.email.isEmpty()){
-            emailInput.error = "Introduce un nombre"
+            emailInput.error = "Introduce un correo electronico"
             emailInput.requestFocus()
         } else if (user.password.isEmpty()){
-            passwordInput.error = "Introduce un nombre"
+            passwordInput.error = "Introduce una contraseña"
             passwordInput.requestFocus()
-        } else if (confirmPass.isEmpty()){
-            confirmPasswordInput.error = "Introduce un nombre"
-            confirmPasswordInput.requestFocus()
-        } else if (user.password != passwordInput.text.toString()){
-            alerDialog("Error", "Las contraseñas no coinciden")
-        }else{
+        } else{
             progressBar.visibility = View.VISIBLE
             btnRegister.isClickable = false
 
