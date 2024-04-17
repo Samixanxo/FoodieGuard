@@ -45,4 +45,4 @@ class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-}
+}}

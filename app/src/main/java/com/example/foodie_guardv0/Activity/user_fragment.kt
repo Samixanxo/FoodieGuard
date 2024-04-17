@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -154,12 +153,13 @@ class user_fragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SELECT_PHOTO && resultCode == Activity.RESULT_OK) {
             val imageUri = data?.data
-            val imageView = view?.findViewById<ImageView>(R.id.imagetochange)
+            val imageView =
+                view?.findViewById<ImageView>(R.id.imagetochange)
             imageView?.setImageURI(imageUri)
             imageUri?.let { uri ->
                 val imagePath = getFileFromUri(requireContext(), uri)
                 imagePath?.let { file ->
-                    compressAndUploadImage(file)
+                    uploadImageToServer(file)
                 }
             }
         }
@@ -179,37 +179,6 @@ class user_fragment : Fragment() {
         }
     }
 
-    private fun compressAndUploadImage(originalFile: File) {
-        val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeFile(originalFile.path, options)
-
-        options.inSampleSize = calculateInSampleSize(options, 1024, 1024)
-        options.inJustDecodeBounds = false
-
-        val compressedBitmap = BitmapFactory.decodeFile(originalFile.path, options)
-        val compressedFile = File(requireContext().cacheDir, "compressed_image.jpg")
-        FileOutputStream(compressedFile).use { out ->
-            compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out) // Compress quality can be changed
-        }
-
-        uploadImageToServer(compressedFile)
-    }
-
-    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
-        val (height: Int, width: Int) = options.run { outHeight to outWidth }
-        var inSampleSize = 1
-
-        if (height > reqHeight || width > reqWidth) {
-            val halfHeight: Int = height / 2
-            val halfWidth: Int = width / 2
-
-            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2
-            }
-        }
-        return inSampleSize
-    }
-
     private fun uploadImageToServer(file: File) {
         val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
         val body = MultipartBody.Part.createFormData("image", file.name, requestFile)
@@ -220,10 +189,22 @@ class user_fragment : Fragment() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    Log.e("subida", "Image uploaded successfully")
-                    updateUserSharedPreferences(actualUser)
+                    Log.e("subida", actualUser.toString())
+                    val datos = mapOf<String, String>(
+                        "email" to actualUser.email,
+                        "password" to actualUser.password
+                    )
+                    val call = RetrofitClient.apiService.postUser(datos)
+                    call.enqueue(object : Callback<ActualUser>{
+                        override fun onResponse(call: Call<ActualUser>,response: Response<ActualUser>) {
+                            userSharedPreferences.clearUser()
+                            userSharedPreferences.saveUser(response.body()!!)
+                        }
+                        override fun onFailure(call: Call<ActualUser>, t: Throwable) {
+                        }
+                    })
                 } else {
-                    Log.e("subida", "Failed to upload image")
+                    Log.e("subida", "ruina")
                 }
             }
 
@@ -232,27 +213,6 @@ class user_fragment : Fragment() {
             }
         })
     }
-
-    private fun updateUserSharedPreferences(user: User) {
-        val datos = mapOf("email" to user.email, "password" to user.password)
-        val call = RetrofitClient.apiService.postUser(datos)
-        call.enqueue(object : Callback<ActualUser> {
-            override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
-                if (response.isSuccessful) {
-                    userSharedPreferences.clearUser()
-                    userSharedPreferences.saveUser(response.body()!!)
-                    Log.e("subida", "User updated in SharedPreferences")
-                } else {
-                    Log.e("subida", "Failed to update user data")
-                }
-            }
-
-            override fun onFailure(call: Call<ActualUser>, t: Throwable) {
-                Log.e("subida", "Error updating user in SharedPreferences: ${t.message}")
-            }
-        })
-    }
-
 }
 
 
