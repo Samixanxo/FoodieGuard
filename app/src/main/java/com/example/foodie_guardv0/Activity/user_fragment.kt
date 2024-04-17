@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,6 +43,9 @@ class user_fragment : Fragment() {
     lateinit var userSharedPreferences: UserSharedPreferences
     private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
     private val SELECT_PHOTO = 2
+    lateinit var progressBar : ProgressBar
+    lateinit var changeImageButton : Button
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -60,11 +64,14 @@ class user_fragment : Fragment() {
             actualUser!!.name + " " + actualUser!!.surname
         view.findViewById<TextView>(R.id.tv_Email).text = actualUser!!.email
 
+        progressBar = view.findViewById(R.id.progressBar)
+
+
         val buttonEditUser = view.findViewById<Button>(R.id.bt_editUser)
         buttonEditUser.setOnClickListener() {
             startActivity(Intent(activity, EditUser::class.java))
         }
-        val changeImageButton = view.findViewById<Button>(R.id.bt_changeImage)
+        changeImageButton = view.findViewById(R.id.bt_changeImage)
         changeImageButton.setOnClickListener {
             checkAndRequestPermissions()
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
@@ -216,10 +223,16 @@ class user_fragment : Fragment() {
         val actualUser = userSharedPreferences.getUser()!!.user
         val userId = actualUser.id
         val call = RetrofitClient.apiService.updateImage(userId, body)
+        progressBar.visibility = View.VISIBLE
+        changeImageButton.isClickable = false
+        Thread.sleep(3000)
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
+                    Thread.sleep(2000)
+                    progressBar.visibility = View.GONE
+                    changeImageButton.isClickable = true
                     Log.e("subida", "Image uploaded successfully")
                     updateUserSharedPreferences(actualUser)
                 } else {
