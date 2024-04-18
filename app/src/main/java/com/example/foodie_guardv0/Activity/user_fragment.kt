@@ -84,11 +84,9 @@ class user_fragment : Fragment() {
             imageView.setImageResource(R.drawable.em)
         }
         Log.e("subida", actualUser.image)
-
         val logoutButton = view.findViewById<Button>(R.id.bt_CloseSession)
         logoutButton.setOnClickListener {
             userSharedPreferences.clearUser()
-
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
             activity?.finish()
@@ -140,9 +138,9 @@ class user_fragment : Fragment() {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // Permiso concedido
+
                 } else {
-                    // Permiso denegado
+
                 }
                 return
             }
