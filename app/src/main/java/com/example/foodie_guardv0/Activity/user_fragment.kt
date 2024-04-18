@@ -21,6 +21,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.ActualUser
@@ -170,6 +171,8 @@ class user_fragment : Fragment() {
                 }
             }
         }
+
+
     }
 
     private fun getFileFromUri(context: Context, uri: Uri): File? {
@@ -192,17 +195,10 @@ class user_fragment : Fragment() {
         val actualUser = userSharedPreferences.getUser()!!.user
         val userId = actualUser.id
         val call = RetrofitClient.apiService.updateImage(userId, body)
-        progressBar.visibility = View.VISIBLE
-        changeImageButton.isClickable = false
-        Thread.sleep(3000)
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-
-                    Thread.sleep(2000)
-                    progressBar.visibility = View.GONE
-                    changeImageButton.isClickable = true
                     Log.e("subida", actualUser.toString())
                     val datos = mapOf<String, String>(
                         "email" to actualUser.email,
@@ -227,7 +223,10 @@ class user_fragment : Fragment() {
                 Log.e("subida", "Error en la solicitud POST: ${t.message}")
             }
         })
+        Thread.sleep(3000)
     }
+
+
 }
 
 
