@@ -69,6 +69,11 @@ interface ApiService {
         @Query("recipient") recipient: String
     ): Call<Void>
 
+    @GET("/confirmationEmail")
+    fun sendConfirmationEmailToRestaurant(
+        @Query("recipient") recipient: String
+    ): Call<Void>
+
 }
 
 

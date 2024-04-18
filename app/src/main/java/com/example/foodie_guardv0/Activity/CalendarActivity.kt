@@ -20,9 +20,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.dataclass.Reservation
+import com.example.foodie_guardv0.dataclass.User
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -49,6 +52,7 @@ class CalendarActivity : AppCompatActivity() {
         Glide.with(ImageRestaurant.context).load(photo).into(ImageRestaurant)
         val BackButton = findViewById<ImageButton>(R.id.buttonReturn)
         val reservationButton = findViewById<Button>(R.id.dateselected)
+        val userSharedPreferences = UserSharedPreferences(this)
         BackButton.setOnClickListener() {
             finish()
         }
@@ -56,6 +60,7 @@ class CalendarActivity : AppCompatActivity() {
             if (::selectedDate.isInitialized) {
                 Log.e("fecha seleccionada",selectedDate.toString())
                 Toast.makeText(this, "Fecha seleccionada para reserva: $selectedDate", Toast.LENGTH_SHORT).show()
+                sendConfirmationEmail()
             } else {
                 Toast.makeText(this, "Por favor, selecciona una fecha primero.", Toast.LENGTH_SHORT).show()
             }
@@ -202,6 +207,28 @@ class CalendarActivity : AppCompatActivity() {
             tp.typeface = Typeface.create("sans-serif", Typeface.BOLD)
             tp.color = ContextCompat.getColor(context, R.color.black)
         }
+    }
+
+   private fun sendConfirmationEmail() {
+       val userSharedPreferences = UserSharedPreferences(this)
+       val actualUser = userSharedPreferences.getUser()!!.user
+       val name = actualUser.name
+        val message = "El usuario $name ha solicitado una reserva para el día $selectedDate"
+        val call = RetrofitClient.apiService.sendConfirmationEmailToRestaurant(message)
+        call.enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
+                if (response.isSuccessful) {
+                    println("Solicitud POST exitosa")
+                } else{
+                    println("Me ise popo")
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                // Se produjo un error de red u otro tipo de error
+                println("Error en la solicitud POST: ${t.message}")
+            }
+        })
+
     }
 
 
