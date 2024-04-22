@@ -63,7 +63,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
 
        GlobalScope.launch(Dispatchers.Main) {
             try {
-                initRecyclerRestaurant(getRestaurants(""))
+                initRecyclerRestaurant(getRestaurants())
                 Log.e("Resultado", "correcto")
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
@@ -168,37 +168,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
         recyclerView?.adapter = adapter
     }
 
-    private suspend fun getRestaurants(name: String): List<Restaurant> {
-        return suspendCoroutine { continuation ->
-            var call = service.getRestaurant()
-            if (!name.isEmpty()) {
-                call = service.getRestaurantByName(name)
-            }
-            call.enqueue(object : Callback<List<Restaurant>> {
-                override fun onResponse(
-                    call: Call<List<Restaurant>>,
-                    response: Response<List<Restaurant>>
-                ) {
-                    if (response.isSuccessful) {
-                        val respuesta = response.body()
-
-                        userSharedPreferences.saveRes(respuesta!!)
-                        Log.e("Resultado", "aaaaaaaaaaaaa")
-                        Log.e("Resultado", "--------------------------------------------------------------" + userSharedPreferences.getRestaurants().toString())
-                        continuation.resume(respuesta!!)
-                    } else {
-                        // Manejar error de la API
-                        continuation.resumeWithException(Exception("Error de la API"))
-                        Log.e("Resultado", "error Api")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
-                    // Manejar error de conexión
-                    continuation.resumeWithException(t)
-                }
-            })
-        }
+    private  fun getRestaurants(): List<Restaurant> {
+        val restaurants = userSharedPreferences.getFav()
+        Log.e("restaurantes favoritos", restaurants.toString())
+        return restaurants
     }
 
      override fun onRestaurantClick(position: Int) {

@@ -5,20 +5,24 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodie_guardv0.dataclass.Address
 import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.Activity.InfoRestaurant
+import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
 
 class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    private val userSharedPreferences = UserSharedPreferences(view.context)
     private val RestaurantName = view.findViewById<TextView>(R.id.name)
     private val address = view.findViewById<TextView>(R.id.adress)
     private val photo = view.findViewById<ImageView>(R.id.imageRestaurant)
     private val type = view.findViewById<TextView>(R.id.type)
     private val median = view.findViewById<TextView>(R.id.median)
+    private val favButton = view.findViewById<ImageView>(R.id.favButton)
 
 
     fun render(restaurant: Restaurant) {
@@ -27,6 +31,28 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         type.text = restaurant.type
         median.text = "Approximated Price: " + restaurant.medianprice.toString() + "€"
         Glide.with(photo.context).load(restaurant.photo).into(photo)
+
+        if (restaurant.fav){
+            favButton.setImageResource(R.drawable.fav_heart)
+        }
+
+        favButton.setOnClickListener {
+            val currentDrawable = favButton.drawable
+            val context = favButton.context
+            val favHeartDrawable = ContextCompat.getDrawable(context, R.drawable.fav_heart)
+            val favVoidHeartDrawable = ContextCompat.getDrawable(context, R.drawable.fav_void_heart)
+
+            if (currentDrawable.constantState == favVoidHeartDrawable?.constantState) {
+                favButton.setImageResource(R.drawable.fav_heart)
+                userSharedPreferences.saveFav(restaurant)
+            } else if (currentDrawable.constantState == favHeartDrawable?.constantState) {
+                favButton.setImageResource(R.drawable.fav_void_heart)
+                userSharedPreferences.deleteFav(restaurant)
+            }
+        }
+
+
+
 
         itemView.setOnClickListener {
             val context = itemView.context

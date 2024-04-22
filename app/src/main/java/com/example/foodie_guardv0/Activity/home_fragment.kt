@@ -70,6 +70,8 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
     private suspend fun restaurants(name: String): List<Restaurant> {
         return suspendCoroutine { continuation ->
             var call = service.getRestaurant()
+            val limit = 20
+            val randomResList = ArrayList<Restaurant>()
             if (!name.isEmpty()) {
                 call = service.getRestaurantByName(name)
             }
@@ -83,22 +85,34 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                             notFoundToast()
                         }
                         val respuesta = response.body()
-                        userSharedPreferences.saveRes(respuesta!!)
-                        continuation.resume(respuesta!!)
+                        val randomIndices = (0 until respuesta!!.size).shuffled().take(limit)
+                        randomIndices.forEach { index ->
+                            randomResList.add(respuesta[index])
+                        }
+                        Log.e("Respuesta", randomResList.toString())
+                        userSharedPreferences.saveRes(randomResList)
+                        continuation.resume(randomResList)
+                        for (res in randomResList) {
+                            for (fav in userSharedPreferences.getFav()) {
+                                if (res.id == fav.id) {
+                                    res.fav = true
+                                    break
+                                }
+                            }
+                        }
                     } else {
                         // Manejar error de la API
                         continuation.resumeWithException(Exception("Error de la API"))
                         Log.e("Resultado", "error Api")
                     }
                 }
-
                 override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
                     errorDialog("No se ha podido establecer conexión con el servidor, inténtalo de nuevo mas tarde.")
-
                 }
             })
         }
     }
+
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false

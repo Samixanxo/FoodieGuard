@@ -12,6 +12,7 @@ data class Restaurant(
     val website:String,
     val type:String,
     val lat:Double,
-    val lon:Double
+    val lon:Double,
+    var fav:Boolean = false
 
 )
