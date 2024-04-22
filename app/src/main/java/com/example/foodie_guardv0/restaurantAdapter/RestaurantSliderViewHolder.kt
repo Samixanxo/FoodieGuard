@@ -33,7 +33,7 @@ class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             intent.putExtra("description", restaurant.description)
             intent.putExtra("phone", restaurant.phone.toString())
             intent.putExtra("photo", restaurant.photo)
-            intent.putExtra("medianprice",restaurant.medianprice.toString())
+            intent.putExtra("medianprice", restaurant.medianprice.toString())
             intent.putExtra("address", restaurant.address)
             intent.putExtra("email", restaurant.email)
             intent.putExtra("type", restaurant.type)
@@ -44,5 +44,4 @@ class RestaurantSliderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             true
         }
     }
-
-}}
+}
