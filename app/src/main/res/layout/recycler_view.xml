@@ -13,6 +13,8 @@
         android:id="@+id/svSearcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:queryHint="Busca por nombre, tipo o dirección"
+        android:iconifiedByDefault="false"
         android:layout_marginVertical="20dp"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/rounded_searchview_background"
