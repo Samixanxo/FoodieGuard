@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 class UserSharedPreferences(context: Context) {
     private val sharedPreferences : SharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
+    private val favRestaurants = ArrayList<Restaurant>()
 
     fun saveUser(user: ActualUser) {
         val editor = sharedPreferences.edit()
@@ -31,6 +32,32 @@ class UserSharedPreferences(context: Context) {
         val editor = sharedPreferences.edit()
         val resJson = gson.toJson(restaurant)
         editor.putString("restaurant", resJson)
+        editor.apply()
+    }
+
+    fun saveFav(restaurant: Restaurant) {
+        val favRestaurants = getFav().toMutableList()
+        favRestaurants.add(restaurant)
+        val editor = sharedPreferences.edit()
+        val favRestaurantsJson = gson.toJson(favRestaurants)
+        editor.putString("favRestaurants", favRestaurantsJson)
+        editor.apply()
+    }
+    fun getFav(): List<Restaurant> {
+        val favRestaurantsJson = sharedPreferences.getString("favRestaurants", null)
+        return if (favRestaurantsJson != null) {
+            gson.fromJson(favRestaurantsJson, object : TypeToken<List<Restaurant>>() {}.type)
+        } else {
+            emptyList()
+        }
+    }
+
+    fun deleteFav(restaurant: Restaurant) {
+        val favRestaurants = getFav().toMutableList()
+        favRestaurants.remove(restaurant)
+        val editor = sharedPreferences.edit()
+        val favRestaurantsJson = gson.toJson(favRestaurants)
+        editor.putString("favRestaurants", favRestaurantsJson)
         editor.apply()
     }
 
