@@ -45,17 +45,6 @@ class AllergenViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 allergens.getChildAt(x).visibility = View.GONE
             }
         }
-
-        itemView.setOnClickListener{
-            val context = itemView.context
-            val intent = Intent(context, InfoRestaurant::class.java)
-            intent.putExtra("name", dish.name)
-            intent.putExtra("name", dish.description)
-            intent.putExtra("photo", dish.photo)
-
-
-            context.startActivity(intent)
-        }
     }
 
 }
