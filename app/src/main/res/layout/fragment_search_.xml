@@ -51,146 +51,464 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <!-- Image Buttons -->
-        <ImageButton
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:id="@+id/glutenImageButton"
-            android:layout_margin="5dp"
-            android:tooltipText="Glúten"
-            android:src="@drawable/gluten_allergen_food_allergens_icon_1837261"
-            android:background="?android:attr/selectableItemBackground"
-/>
-        <ImageButton
-            android:id="@+id/soyImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/glutenImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/gluten_allergen_food_allergens_icon_1837261"
+                android:tooltipText="Glúten"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/glutenImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Soja"
-            android:src="@drawable/soy_allergen_food_allergens_icon_183721"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/milkImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/soyImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/soy_allergen_food_allergens_icon_183721"
+                android:tooltipText="Soja"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/soyImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Lácteos"
-            android:src="@drawable/milk_allergen_food_allergens_icon_183724"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/eggImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/milkImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Lácteos"
+                android:src="@drawable/milk_allergen_food_allergens_icon_183724"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/milkImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Huevos"
-            android:src="@drawable/egg_allergen_food_allergens_icon_183730"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/mustardImageButton"
+            android:layout_margin="5dp">
+            <ImageButton
+                android:id="@+id/eggImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Huevos"
+                android:src="@drawable/egg_allergen_food_allergens_icon_183730"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/eggImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Mostaza"
-            android:src="@drawable/mustard_allergen_food_allergens_icon_183732"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/nutsImageButton"
+            android:layout_margin="5dp">
+            <ImageButton
+                android:id="@+id/mustardImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Mostaza"
+                android:src="@drawable/mustard_allergen_food_allergens_icon_183732"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/mustardImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Frutos de cáscara"
-            android:src="@drawable/nuts_allergen_food_allergens_icon_183722"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/sulfitesImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/nutsImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Frutos de cáscara"
+                android:src="@drawable/nuts_allergen_food_allergens_icon_183722"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/nutsImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Sulfitos"
-            android:src="@drawable/sulfites_allergen_food_allergens_icon_183725"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/celeryImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/sulfitesImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Sulfitos"
+                android:src="@drawable/sulfites_allergen_food_allergens_icon_183725"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/sulfitesImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Apio"
-            android:src="@drawable/celery_allergen_food_allergens_icon_183723"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/fishImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/celeryImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Apio"
+                android:src="@drawable/celery_allergen_food_allergens_icon_183723"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/celeryImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Pescado"
-            android:src="@drawable/fish_allergen_food_allergens_icon_183728"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/crustaceanImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/fishImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Pescado"
+                android:src="@drawable/fish_allergen_food_allergens_icon_183728"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/fishImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Crustaceos"
-            android:src="@drawable/crustacean_allergen_food_allergens_icon_183733"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/shellfishImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/crustaceanImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Crustaceos"
+                android:src="@drawable/crustacean_allergen_food_allergens_icon_183733"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/crustaceanImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Moluscos"
-            android:src="@drawable/shellfish_allergen_food_allergens_icon_183727"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/peanutsImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/shellfishImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Moluscos"
+                android:src="@drawable/shellfish_allergen_food_allergens_icon_183727"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/shellfishImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Cacahuetes"
-            android:src="@drawable/peanuts_allergen_food_allergens_icon_183731"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/sesameImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/peanutsImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Cacahuetes"
+                android:src="@drawable/peanuts_allergen_food_allergens_icon_183731"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/peanutsImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Granos de sésamo"
-            android:src="@drawable/sesame_allergen_food_allergens_icon_183729"
-            android:background="?android:attr/selectableItemBackground"
-            />
-        <ImageButton
-            android:id="@+id/lupinsImageButton"
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/sesameImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Granos de sésamo"
+                android:src="@drawable/sesame_allergen_food_allergens_icon_183729"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/sesameImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:tooltipText="Altramuces"
-            android:src="@drawable/lupins_allergen_food_allergens_icon_183720"
-            android:background="?android:attr/selectableItemBackground"
-            />
+            android:layout_margin="5dp">
+
+            <ImageButton
+                android:id="@+id/lupinsImageButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:tooltipText="Altramuces"
+                android:src="@drawable/lupins_allergen_food_allergens_icon_183720"
+                android:background="@drawable/button_users_transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/lupinsImageButtonSelected"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/button_users_transparent"
+                android:src="@drawable/seleccionado"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="#00FF0000"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </GridLayout>
 

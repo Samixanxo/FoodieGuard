@@ -1,26 +1,26 @@
 package com.example.foodie_guardv0.Activity
 
+import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.Dish
-import com.example.foodie_guardv0.dataclass.Restaurant
 import com.example.foodie_guardv0.restaurantAdapter.DishAdapter
-import com.example.foodie_guardv0.restaurantAdapter.RestaurantAdapter
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
-import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -59,7 +59,6 @@ class search_Fragment : Fragment() {
 
 
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
-    lateinit var userSharedPreferences : UserSharedPreferences
     companion object {
     }
     override fun onCreateView(
@@ -81,7 +80,7 @@ class search_Fragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                initRecyclerRestaurant(dishes(""))
+                initRecyclerRestaurant(dishes())
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
             }
@@ -109,7 +108,7 @@ class search_Fragment : Fragment() {
             .joinToString(separator = "")
     }
 
-    private suspend fun dishes(name: String): List<Dish> {
+    private suspend fun dishes(): List<Dish> {
         val concatenatedResult = generateConcatenatedString()
         return suspendCoroutine { continuation ->
             var call = service.getDishesFiltered(concatenatedResult)
@@ -156,7 +155,7 @@ class search_Fragment : Fragment() {
         updateUI(view)
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                initRecyclerRestaurant(dishes(""))
+                initRecyclerRestaurant(dishes())
             } catch (e: Exception) {
                 Log.e("Resultado", "Error" + e.message)
             }
@@ -181,7 +180,31 @@ class search_Fragment : Fragment() {
     }
 
     private fun updateButtonState(button: ImageButton?, isSelected: Boolean) {
-        button?.setBackgroundResource(if (isSelected) R.color.black else android.R.color.transparent)
+        button?.let { btn ->
+            val resourceName = requireContext().resources.getResourceEntryName(btn.id)
+            val selectedResourceName = resourceName + "Selected"
+
+            val packageContext = requireContext()
+            val packageName = packageContext.packageName
+
+            // Obtener el ID numérico del recurso "selectedResourceName"
+            val selectedResourceId = packageContext.resources.getIdentifier(selectedResourceName, "id", packageName)
+
+            if (selectedResourceId != 0) {
+                // El ID numérico se encontró correctamente, ahora obtenemos la referencia al ImageView
+                val selectedImageView = requireView().findViewById<ImageView>(selectedResourceId)
+
+                // Modificar la visibilidad del ImageView según el estado isSelected
+                if (isSelected) {
+                    selectedImageView.isVisible = true
+                } else {
+                    selectedImageView.isGone = true
+                }
+            } else {
+                // El ID numérico no se encontró, muestra un mensaje de error
+                Log.e("updateButtonState", "ID numérico no encontrado para $selectedResourceName")
+            }
+        }
     }
 
     private fun setupImageButtons(view: View) {
@@ -214,6 +237,16 @@ class search_Fragment : Fragment() {
         peanutsButton.setOnClickListener { onImageButtonClick(it) }
         sesameButton.setOnClickListener { onImageButtonClick(it) }
         lupinsButton.setOnClickListener { onImageButtonClick(it) }
+    }
+
+    fun getResourceNameFromId(context: Context, id: Int): String? {
+        try {
+            return context.resources.getResourceName(id)
+        } catch (e: Resources.NotFoundException) {
+            // El recurso no fue encontrado
+            e.printStackTrace()
+        }
+        return null
     }
 
 }
