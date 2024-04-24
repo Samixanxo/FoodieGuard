@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
 
@@ -48,6 +49,11 @@ class RegisterActivity : AppCompatActivity() {
 
         btnRegister = findViewById(R.id.signUp)
         progressBar = findViewById(R.id.progressBar)
+        val back = findViewById<ImageButton>(R.id.backButton)
+
+        back.setOnClickListener() {
+            finish()
+        }
 
         btnRegister.setOnClickListener {
 
@@ -65,7 +71,6 @@ class RegisterActivity : AppCompatActivity() {
 
             confirmPasswordInput  = findViewById(R.id.confirm_password)
             val confirmPassword = confirmPasswordInput.text.toString()
-
 
             if(password == confirmPassword){
                 val user = User(0,name,surname,email,password,"")
