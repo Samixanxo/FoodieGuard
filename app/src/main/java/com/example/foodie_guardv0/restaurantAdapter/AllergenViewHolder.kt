@@ -46,5 +46,4 @@ class AllergenViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
     }
-
 }
