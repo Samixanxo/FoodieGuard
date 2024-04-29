@@ -90,7 +90,6 @@ class home_fragment : Fragment(), SearchView.OnQueryTextListener {
                             randomResList.add(respuesta[index])
                         }
                         Log.e("Respuesta", randomResList.toString())
-                        userSharedPreferences.saveRes(randomResList)
                         continuation.resume(randomResList)
                         for (res in randomResList) {
                             for (fav in userSharedPreferences.getFav()) {
