@@ -7,7 +7,7 @@
     app:startDestination="@id/home_fragment">
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.example.foodie_guardv0.Activity.home_fragment"
+        android:name="com.example.foodie_guardv0.Activity.main_fragments.home_fragment"
         android:label="home_fragment"
         tools:layout="@layout/fragment_home_fragment"
         >
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/user"
-        android:name="com.example.foodie_guardv0.Activity.user_fragment"
+        android:name="com.example.foodie_guardv0.Activity.main_fragments.user_fragment"
         android:label="user"
         tools:layout="@layout/fragment_user"
         >
@@ -33,13 +33,13 @@
     </fragment>
     <fragment
         android:id="@+id/search_Fragment"
-        android:name="com.example.foodie_guardv0.Activity.search_Fragment"
+        android:name="com.example.foodie_guardv0.Activity.main_fragments.search_Fragment"
         android:label="search_Fragment"
         tools:layout="@layout/fragment_search_"
         />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="MapFragment"
+        android:name="com.example.foodie_guardv0.Activity.main_fragments.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map"
         />

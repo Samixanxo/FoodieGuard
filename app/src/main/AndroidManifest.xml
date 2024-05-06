@@ -22,23 +22,19 @@
         tools:targetApi="31">
 
         <activity
-            android:name="com.example.foodie_guardv0.Activity.EditUser"
+            android:name="com.example.foodie_guardv0.Activity.actions.user.EditUser"
             android:exported="false" />
         <activity
-            android:name="com.example.foodie_guardv0.Activity.MenuRestaurant"
+            android:name="com.example.foodie_guardv0.Activity.restaurants_info.menu.MenuRestaurant"
             android:exported="false" />
         <activity
-            android:name="com.example.foodie_guardv0.Activity.AboutUsActivity"
+            android:name="com.example.foodie_guardv0.Activity.info.AboutUsActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.foodie_guardv0.Activity.PremiumActivity"
+            android:name="com.example.foodie_guardv0.Activity.actions.PremiumActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.foodie_guardv0.Activity.MapView"
-            android:exported="false"
-            android:launchMode="singleTask" />
-        <activity
-            android:name="com.example.foodie_guardv0.Activity.CalendarActivity"
+            android:name="com.example.foodie_guardv0.Activity.restaurants_info.CalendarActivity"
             android:exported="false"
             android:launchMode="singleTask" />
 
@@ -58,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.Activity.LoginActivity"
+            android:name="com.example.foodie_guardv0.Activity.auth.LoginActivity"
             android:label="@string/login_activity_label"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -69,7 +65,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.example.foodie_guardv0.Activity.RegisterActivity"
+            android:name="com.example.foodie_guardv0.Activity.auth.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
@@ -77,13 +73,13 @@
             <!-- Puedes tener más configuraciones aquí según tus necesidades -->
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.Activity.InfoRestaurant"
+            android:name="com.example.foodie_guardv0.Activity.restaurants_info.InfoRestaurant"
             android:screenOrientation="portrait">
 
             <!-- Intent filters or other activity configurations -->
         </activity>
         <activity
-            android:name="com.example.foodie_guardv0.Activity.AddRestaurantActivity"
+            android:name="com.example.foodie_guardv0.Activity.actions.AddRestaurantActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>

@@ -6,7 +6,7 @@
     android:id="@+id/editUser"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.foodie_guardv0.Activity.EditUser"
+    tools:context="com.example.foodie_guardv0.Activity.actions.user.EditUser"
     android:background="@color/white">
 
     <RelativeLayout
