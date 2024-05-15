@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -117,7 +118,7 @@ class CalendarActivity : AppCompatActivity() {
         calendarView.setOnDateChangedListener { widget, date, selected ->
             if (date in reservedDays) {
                 selectedDate = date.date
-                onDateSelected(date.date)
+                //onDateSelected(date.date)
             } else {
                 Toast.makeText(this, "Esta fecha no está disponible para reserva.", Toast.LENGTH_SHORT).show()
             }
@@ -216,6 +217,8 @@ class CalendarActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
                 if (response.isSuccessful) {
                     println("Solicitud POST exitosa")
+                    successToast()
+                    finish()
                 } else{
                     println("Me ise popo")
                 }
@@ -223,10 +226,25 @@ class CalendarActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 // Se produjo un error de red u otro tipo de error
                 println("Error en la solicitud POST: ${t.message}")
+                failureToast()
             }
         })
 
     }
+    private fun successToast() {
+        val text = "Se ha reservado con éxito"
+        val duration = Toast.LENGTH_SHORT
+        val context = (this)
+        val toast = Toast.makeText(context, text, duration)
+        toast.show()
+    }
 
+    private fun failureToast() {
+        val text = "No se ha podido reservar"
+        val duration = Toast.LENGTH_SHORT
+        val context = (this)
+        val toast = Toast.makeText(context, text, duration)
+        toast.show()
+    }
 
 }

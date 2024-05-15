@@ -10,7 +10,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -84,13 +86,7 @@ class EditUser : AppCompatActivity() {
         }
 
         buttonDeleteAccount.setOnClickListener() {
-            GlobalScope.launch(Dispatchers.Main) {
-                try {
-                    deleteAccount(user.id)
-                } catch (e: Exception) {
-
-                }
-            }
+            confirmationDialog("¿Seguro que quieres borrar tu cuenta?")
         }
 
     }
@@ -158,6 +154,28 @@ class EditUser : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun confirmationDialog(message:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error de conexión")
+        builder.setMessage(message)
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            GlobalScope.launch(Dispatchers.Main) {
+                try {
+                    val user = userSharedPreferences.getUser()!!.user
+                    deleteAccount(user.id)
+                } catch (e: Exception) {
+
+                }
+            }
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.show()
     }
 
 }
