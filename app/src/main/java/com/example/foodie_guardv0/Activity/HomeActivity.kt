@@ -1,12 +1,13 @@
 package com.example.foodie_guardv0.Activity
 
-import MapFragment
+import com.example.foodie_guardv0.Activity.main_fragments.MapFragment
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodie_guard0.R
+import com.example.foodie_guardv0.Activity.main_fragments.home_fragment
+import com.example.foodie_guardv0.Activity.main_fragments.search_Fragment
+import com.example.foodie_guardv0.Activity.main_fragments.user_fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {

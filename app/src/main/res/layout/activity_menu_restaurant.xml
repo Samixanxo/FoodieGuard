@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mostaza"
-    tools:context="com.example.foodie_guardv0.Activity.MenuRestaurant">
+    tools:context="com.example.foodie_guardv0.Activity.restaurants_info.menu.MenuRestaurant">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
