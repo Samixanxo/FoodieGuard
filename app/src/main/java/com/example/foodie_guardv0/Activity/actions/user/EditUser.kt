@@ -1,9 +1,13 @@
 package com.example.foodie_guardv0.Activity.actions.user
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -12,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,6 +34,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
@@ -73,13 +79,23 @@ class EditUser : AppCompatActivity() {
         buttonSavePass.setOnClickListener() {
             if (CheckCurrentPass(user.password, actualPass.text)) {
                 if(CheckNewPass(newPass.text, confirmNewPass.text)){
-                    val datos = mapOf(
+                    val dataChangePass = mapOf(
                         "email" to user.email,
                         "password" to user.password,
                         "newPassword" to newPass.text.toString(),
                     )
+
+                    val userData = mapOf(
+                        "token" to userSharedPreferences.getUser()!!.token,
+                        "user" to user.id.toString()
+                    )
                     lifecycleScope.launch {
-                        changePassword(datos, newPass.text.toString())
+                        if(identificationConfirm(userData)){
+                            changePassword(dataChangePass, newPass.text.toString())
+                        } else{
+                            showPopUpMenu()
+                        }
+
                     }
                 }
             }
@@ -139,17 +155,41 @@ class EditUser : AppCompatActivity() {
 
             call.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    userSharedPreferences = UserSharedPreferences(this@EditUser)
-                    val actualUser = userSharedPreferences.getUser()!!.user
-                    val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, actualUser.image,password), userSharedPreferences.getUser()!!.token)
-                    userSharedPreferences.clearUser()
-                    userSharedPreferences.saveUser(user)
+                    val datos = mapOf(
+                        "email" to userSharedPreferences.getUser()!!.user.email,
+                        "password" to password
+                    )
+                    val call = RetrofitClient.apiService.postUser(datos)
+                    call.enqueue(object : Callback<ActualUser>{
+                        override fun onResponse(call: Call<ActualUser>,response: Response<ActualUser>) {
+                            userSharedPreferences.clearUser()
+                            userSharedPreferences.saveUser(response.body()!!)
+                        }
+                        override fun onFailure(call: Call<ActualUser>, t: Throwable) {
+                        }
+                    })
 
                     finish()
 
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
+
+                }
+            })
+        }
+    }
+
+    suspend fun identificationConfirm(body: Map<String,String>) : Boolean {
+        return suspendCoroutine { continuation ->
+            val call = RetrofitClient.apiService.confirmUser(body)
+            call.enqueue(object : Callback<Boolean> {
+                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                    val confirmation = response.body()!!
+                    continuation.resume(confirmation)
+                }
+
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
 
                 }
             })
@@ -175,6 +215,16 @@ class EditUser : AppCompatActivity() {
                 Toast.makeText(this, "Operación cancelada", Toast.LENGTH_SHORT).show()
             }
         }
+        builder.show()
+    }
+
+
+    private fun showPopUpMenu() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage("No es posible modificar la contraseña debido a que no coinciden las credenciales. Si este error persiste, cierre sesion y vuelva a intentarlo")
+        builder.setPositiveButton(android.R.string.ok){dialog, which ->
+            Toast.makeText(this, "Error en el cambio de contraseña", Toast.LENGTH_SHORT).show()}
         builder.show()
     }
 

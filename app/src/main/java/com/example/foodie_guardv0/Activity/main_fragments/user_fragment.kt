@@ -60,6 +60,8 @@ class user_fragment : Fragment() {
         view.findViewById<TextView>(R.id.tv_User).text =
             actualUser!!.name + " " + actualUser!!.surname
         view.findViewById<TextView>(R.id.tv_Email).text = actualUser!!.email
+        val imageView = view.findViewById<ImageView>(R.id.imagetochange)
+
 
         val buttonEditUser = view.findViewById<Button>(R.id.bt_editUser)
         buttonEditUser.setOnClickListener() {
@@ -73,7 +75,6 @@ class user_fragment : Fragment() {
             startActivityForResult(photoPickerIntent, SELECT_PHOTO)
         }
 
-        val imageView = view.findViewById<ImageView>(R.id.imagetochange)
 
         if (actualUser.image != null && actualUser.image.isNotEmpty()) {
             val decodedString = Base64.decode(actualUser.image, Base64.DEFAULT)
