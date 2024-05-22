@@ -36,6 +36,9 @@ interface ApiService {
     @GET ("reservation/{idRes}")
     fun getReservationsByIdRes(@Path("idRes") id: Int): Call<List<Reservation>>
 
+    @GET ("reservationbyuser/{idUser}")
+    fun getReservationsByIdUser(@Path("idUser") id: Int): Call<List<Reservation>>
+
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>
 

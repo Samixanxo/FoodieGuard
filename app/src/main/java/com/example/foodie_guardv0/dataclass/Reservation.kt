@@ -6,4 +6,5 @@ data class Reservation(
     val id: Int,
     val date: Date,
     val idRes: Int,
+    val idUser: Int
 )

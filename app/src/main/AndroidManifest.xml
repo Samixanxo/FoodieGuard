@@ -31,6 +31,9 @@
             android:name="com.example.foodie_guardv0.Activity.info.AboutUsActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.foodie_guardv0.Activity.info.HistorialActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.foodie_guardv0.Activity.actions.PremiumActivity"
             android:exported="false" />
         <activity
