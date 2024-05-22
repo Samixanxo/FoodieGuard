@@ -10,9 +10,11 @@ import android.text.TextPaint
 import android.text.style.CharacterStyle
 import android.text.style.LineBackgroundSpan
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -50,17 +52,22 @@ class CalendarActivity : AppCompatActivity() {
         Glide.with(ImageRestaurant.context).load(photo).into(ImageRestaurant)
         val BackButton = findViewById<ImageButton>(R.id.buttonReturn)
         val reservationButton = findViewById<Button>(R.id.dateselected)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val userSharedPreferences = UserSharedPreferences(this)
         BackButton.setOnClickListener() {
             finish()
         }
         reservationButton.setOnClickListener {
+            reservationButton.isClickable = false
+            progressBar.visibility = View.VISIBLE
             if (::selectedDate.isInitialized) {
                 Log.e("fecha seleccionada",selectedDate.toString())
                 Toast.makeText(this, "Fecha seleccionada para reserva: $selectedDate", Toast.LENGTH_SHORT).show()
                 sendConfirmationEmail()
             } else {
                 Toast.makeText(this, "Por favor, selecciona una fecha primero.", Toast.LENGTH_SHORT).show()
+                reservationButton.isClickable = true
+                progressBar.visibility = View.GONE
             }
         }
 
