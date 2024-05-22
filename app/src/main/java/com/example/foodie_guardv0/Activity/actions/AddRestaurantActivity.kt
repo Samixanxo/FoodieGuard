@@ -58,16 +58,13 @@ class AddRestaurantActivity : AppCompatActivity() {
         call.enqueue(object : retrofit2.Callback<Void> {
             override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
                 if (response.isSuccessful) {
-                    // La solicitud fue exitosa
                     println("Solicitud POST exitosa")
                     showPopUpMenu()
-                    //finish()
                 } else{
                     println("Me ise popo")
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                // Se produjo un error de red u otro tipo de error
                 println("Error en la solicitud POST: ${t.message}")
             }
         })

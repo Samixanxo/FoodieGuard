@@ -48,6 +48,9 @@ interface ApiService {
     @POST ("user")
     fun createUser(@Body user: User): Call<ResponseErrors>
 
+    @POST ("viewToken")
+    fun confirmUser(@Body body: Map<String, String>): Call<Boolean>
+
     @POST ("login")
     fun postUser(@Body email: Map<String,String>):Call<ActualUser>
 
