@@ -9,5 +9,6 @@ data class User(
     val surname: String,
     val email: String,
     val password: String,
-    var image: String
+    var image: String,
+    val premium: Int,
 )

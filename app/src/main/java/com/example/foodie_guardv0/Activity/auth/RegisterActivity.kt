@@ -68,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
             val confirmPassword = confirmPasswordInput.text.toString()
 
             if(password == confirmPassword){
-                val user = User(0,name,surname,email,password,"")
+                val user = User(0,name,surname,email,password,"",0)
                 comprobarDatos(user)
             }
             else{

@@ -141,7 +141,7 @@ class EditUser : AppCompatActivity() {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     userSharedPreferences = UserSharedPreferences(this@EditUser)
                     val actualUser = userSharedPreferences.getUser()!!.user
-                    val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, actualUser.image,password), userSharedPreferences.getUser()!!.token)
+                    val user = ActualUser(User(actualUser.id, actualUser.name, actualUser.surname, actualUser.email, actualUser.image,password,actualUser.premium), userSharedPreferences.getUser()!!.token)
                     userSharedPreferences.clearUser()
                     userSharedPreferences.saveUser(user)
 

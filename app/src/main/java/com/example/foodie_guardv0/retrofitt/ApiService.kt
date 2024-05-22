@@ -54,6 +54,9 @@ interface ApiService {
     @PUT("user/password")
     fun changePassword (@Body body:Map<String,String>) :Call<Void>
 
+    @PUT("user/{id}/premium")
+    fun changePremium(@Path("id")userId: Int): Call<Void>
+
     @DELETE("user/{id}")
     fun deleteUser (@Path("id") id: Int): Call<Void>
 
