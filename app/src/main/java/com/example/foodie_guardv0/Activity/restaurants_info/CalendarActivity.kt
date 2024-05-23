@@ -23,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.foodie_guard0.R
 import com.example.foodie_guardv0.dataclass.Reservation
+import com.example.foodie_guardv0.dataclass.User
 import com.example.foodie_guardv0.retrofitt.ApiService
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
@@ -43,68 +44,52 @@ import kotlin.coroutines.suspendCoroutine
 class CalendarActivity : AppCompatActivity() {
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
     private lateinit var selectedDate: Date
+    private lateinit var reservations: List<Reservation>  // Lista de reservaciones
+    private var reservationId: Int = 0  // ID de la reserva seleccionada
+    lateinit var userSharedPreferences: UserSharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
         val photo = intent.getStringExtra("photo")
         val id = intent.getIntExtra("id", 0)
         val ImageRestaurant = findViewById<ImageView>(R.id.imageRestaurant)
-        Glide.with(ImageRestaurant.context).load(photo).into(ImageRestaurant)
+        Glide.with(this).load(photo).into(ImageRestaurant)
         val BackButton = findViewById<ImageButton>(R.id.buttonReturn)
         val reservationButton = findViewById<Button>(R.id.dateselected)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val userSharedPreferences = UserSharedPreferences(this)
-        BackButton.setOnClickListener() {
+        userSharedPreferences = UserSharedPreferences(this)
+        val user = userSharedPreferences.getUser()!!.user
+        BackButton.setOnClickListener {
             finish()
         }
         reservationButton.setOnClickListener {
-            reservationButton.isClickable = false
-            progressBar.visibility = View.VISIBLE
-            if (::selectedDate.isInitialized) {
-                Log.e("fecha seleccionada",selectedDate.toString())
-                Toast.makeText(this, "Fecha seleccionada para reserva: $selectedDate", Toast.LENGTH_SHORT).show()
-                sendConfirmationEmail()
-            } else {
-                Toast.makeText(this, "Por favor, selecciona una fecha primero.", Toast.LENGTH_SHORT).show()
-                reservationButton.isClickable = true
-                progressBar.visibility = View.GONE
-            }
+            makeReservation(user, reservationButton, progressBar)
         }
 
-
         lifecycleScope.launch {
-            val reservations = getReservations(id)
+            reservations = getReservations(id)
             val reservationDates = getReservationDates(reservations)
             updateCalendar(reservationDates)
-            setupDateClickListener(reservationDates)
+            setupDateClickListener()
             Log.e("reservas", reservationDates.toString())
             Log.e("reservas", reservations.toString())
         }
-        val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
-        calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader);
-        calendarView.setWeekDayTextAppearance(R.style.CalendarWidgetHeader)
-        calendarView.state().edit()
-            .setFirstDayOfWeek(Calendar.MONDAY)
-            .commit()
+        setupCalendar()
     }
 
     private suspend fun getReservations(id: Int): List<Reservation> {
         return suspendCoroutine { continuation ->
-            var call = service.getReservationsByIdRes(id)
-
+            val call = service.getReservationsByIdRes(id)
             call.enqueue(object : Callback<List<Reservation>> {
                 override fun onResponse(
                     call: Call<List<Reservation>>,
                     response: Response<List<Reservation>>
                 ) {
                     if (response.isSuccessful) {
-                        Log.e("Respuesta existosa", "todo fresco")
-                        val respuesta = response.body()
-                        Log.e("respuesta", response.body().toString())
-                        continuation.resume(respuesta!!)
+                        continuation.resume(response.body()!!)
                     } else {
                         continuation.resumeWithException(Exception("Error de la API"))
-                        Log.e("Resultado", "error Api")
                     }
                 }
 
@@ -114,41 +99,37 @@ class CalendarActivity : AppCompatActivity() {
             })
         }
     }
+
     private fun getReservationDates(reservations: List<Reservation>): List<Date> {
         return reservations.map { it.date }
     }
 
-    private fun setupDateClickListener(dates: List<Date>) {
+    private fun setupDateClickListener() {
         val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
-        val reservedDays = dates.map { CalendarDay.from(it) }.toSet()
-
         calendarView.setOnDateChangedListener { widget, date, selected ->
-            if (date in reservedDays) {
+            val matchingReservation = reservations.find { it.date == date.date }
+            if (matchingReservation != null) {
                 selectedDate = date.date
-                //onDateSelected(date.date)
+                reservationId = matchingReservation.id
             } else {
                 Toast.makeText(this, "Esta fecha no está disponible para reserva.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun onDateSelected(date: Date) {
-        Toast.makeText(this, "Fecha reservada seleccionada: $date", Toast.LENGTH_SHORT).show()
-    }
-
     private fun updateCalendar(dates: List<Date>) {
         val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
         val calendarDays = dates.map { CalendarDay.from(it) }
         val radius = 50f
-        val decorator = ReservationDecorator(calendarDays, this, radius)
-        calendarView.addDecorator(decorator)
-        val clickableDatesDecorator = ClicableDayDecorator(calendarDays, this)
-        calendarView.addDecorator(clickableDatesDecorator)
-        val disabledDaysDecorator = DisableDaysDecorator(calendarDays, this)
-        calendarView.addDecorator(disabledDaysDecorator)
+        val decorators = listOf(
+            ReservationDecorator(calendarDays, this, radius),
+            ClicableDayDecorator(calendarDays, this),
+            DisableDaysDecorator(calendarDays, this)
+        )
+        decorators.forEach { decorator ->
+            calendarView.addDecorator(decorator)
+        }
     }
-
-
 
     class ReservationDecorator(private val dates: List<CalendarDay>, private val context: Context, private val radius: Float) : DayViewDecorator {
         override fun shouldDecorate(day: CalendarDay): Boolean {
@@ -157,31 +138,6 @@ class CalendarActivity : AppCompatActivity() {
 
         override fun decorate(view: DayViewFacade) {
             view.addSpan(CustomSpan(ContextCompat.getColor(context, R.color.mostaza), Color.WHITE, radius))
-        }
-    }
-
-
-
-    class CustomSpan(private val backgroundColor: Int, private val textColor: Int, private val radius: Float) : LineBackgroundSpan {
-        override fun drawBackground(
-            canvas: Canvas,
-            paint: Paint,
-            left: Int,
-            right: Int,
-            top: Int,
-            baseline: Int,
-            bottom: Int,
-            text: CharSequence,
-            start: Int,
-            end: Int,
-            lineNumber: Int
-        ) {
-            val oldColor = paint.color
-            if (backgroundColor != 0) {
-                paint.color = backgroundColor
-                canvas.drawCircle((right - left) / 2.toFloat(), (bottom - top) / 2.toFloat(), radius, paint)
-            }
-            paint.color = oldColor
         }
     }
 
@@ -214,44 +170,65 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
-   private fun sendConfirmationEmail() {
-       val userSharedPreferences = UserSharedPreferences(this)
-       val actualUser = userSharedPreferences.getUser()!!.user
-       val name = actualUser.name
-        val message = "El usuario $name ha solicitado una reserva para el día $selectedDate"
-        val call = RetrofitClient.apiService.sendConfirmationEmailToRestaurant(message)
-        call.enqueue(object : retrofit2.Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
-                if (response.isSuccessful) {
-                    println("Solicitud POST exitosa")
-                    successToast()
-                    finish()
-                } else{
-                    println("Me ise popo")
+
+    class CustomSpan(private val backgroundColor: Int, private val textColor: Int, private val radius: Float) : LineBackgroundSpan {
+        override fun drawBackground(
+            canvas: Canvas,
+            paint: Paint,
+            left: Int,
+            right: Int,
+            top: Int,
+            baseline: Int,
+            bottom: Int,
+            text: CharSequence,
+            start: Int,
+            end: Int,
+            lineNumber: Int
+        ) {
+            val oldColor = paint.color
+            if (backgroundColor != 0) {
+                paint.color = backgroundColor
+                canvas.drawCircle((right - left) / 2.toFloat(), (bottom - top) / 2.toFloat(), radius, paint)
+            }
+            paint.color = oldColor
+        }
+    }
+
+        private fun makeReservation(user: User, reservationButton: Button, progressBar: ProgressBar) {
+        reservationButton.isClickable = false
+        progressBar.visibility = View.VISIBLE
+        if (::selectedDate.isInitialized) {
+            val call = service.updateUserInReservation(reservationId, user.id)
+            call.enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(applicationContext, "Reserva confirmada con éxito.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "Error al confirmar la reserva.", Toast.LENGTH_SHORT).show()
+                    }
+                    progressBar.visibility = View.GONE
+                    reservationButton.isClickable = true
                 }
-            }
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                // Se produjo un error de red u otro tipo de error
-                println("Error en la solicitud POST: ${t.message}")
-                failureToast()
-            }
-        })
 
-    }
-    private fun successToast() {
-        val text = "Se ha reservado con éxito"
-        val duration = Toast.LENGTH_SHORT
-        val context = (this)
-        val toast = Toast.makeText(context, text, duration)
-        toast.show()
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Error de red al confirmar la reserva.", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+                    reservationButton.isClickable = true
+                }
+            })
+        } else {
+            Toast.makeText(this, "Por favor, selecciona una fecha primero.", Toast.LENGTH_SHORT).show()
+            reservationButton.isClickable = true
+            progressBar.visibility = View.GONE
+        }
     }
 
-    private fun failureToast() {
-        val text = "No se ha podido reservar"
-        val duration = Toast.LENGTH_SHORT
-        val context = (this)
-        val toast = Toast.makeText(context, text, duration)
-        toast.show()
+    private fun setupCalendar() {
+        val calendarView = findViewById<MaterialCalendarView>(R.id.calendar)
+        calendarView.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+        calendarView.setWeekDayTextAppearance(R.style.CalendarWidgetHeader)
+        calendarView.state().edit()
+            .setFirstDayOfWeek(Calendar.MONDAY)
+            .commit()
     }
-
 }

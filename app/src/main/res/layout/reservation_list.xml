@@ -8,63 +8,116 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp"
+    android:id="@+id/cardView"
+    android:backgroundTint="@color/white"
     android:background="@drawable/custom_edittext"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rv_dish_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rv_dish_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/imageDish"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintStart_toEndOf="@id/imageDish"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/description"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_semibold"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="-5dp"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintStart_toEndOf="@id/imageDish"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_chevron_right_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="-12dp"
+                android:layout_marginBottom="10dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Nuevos componentes: EditTexts y Button -->
+        <EditText
+            android:id="@+id/textInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-5dp"
-            android:fontFamily="@font/nunito_bold"
-            android:textStyle="bold"
+            android:textColorHint="@color/black"
             android:textColor="@color/black"
-            android:layout_marginLeft="5dp"
-            android:textSize="20dp"
-            android:layout_marginHorizontal="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_semibold"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="-5dp"
-            android:textSize="12dp"
-            android:layout_marginHorizontal="10dp"
-            app:layout_constraintStart_toEndOf="@id/imageDish"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:id="@+id/arrow"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_chevron_right_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:hint="Review"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="-12dp"
-            android:layout_marginBottom="10dp"
-            />
+            android:layout_marginHorizontal="10dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/numberInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:hint="Nota"
+            android:inputType="number"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+
