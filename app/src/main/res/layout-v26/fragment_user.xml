@@ -237,7 +237,7 @@
                     android:id="@+id/bt_Contact"
                     android:paddingStart="30dp"
                     android:elevation="0dp"
-                    android:text="Contacto"
+                    android:text="Historial"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>

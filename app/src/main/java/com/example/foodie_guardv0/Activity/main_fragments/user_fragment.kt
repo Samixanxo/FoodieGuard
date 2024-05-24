@@ -26,6 +26,7 @@ import com.example.foodie_guardv0.Activity.actions.user.EditUser
 import com.example.foodie_guardv0.Activity.auth.LoginActivity
 import com.example.foodie_guardv0.Activity.actions.PremiumActivity
 import com.example.foodie_guardv0.Activity.info.AboutUsActivity
+import com.example.foodie_guardv0.Activity.info.HistorialActivity
 import com.example.foodie_guardv0.dataclass.ActualUser
 import com.example.foodie_guardv0.retrofitt.RetrofitClient
 import com.example.foodie_guardv0.sharedPreferences.UserSharedPreferences
@@ -110,9 +111,10 @@ class user_fragment : Fragment() {
             val intent = Intent(activity, AboutUsActivity::class.java)
             startActivity(intent)
         }
-        val contactButton = view.findViewById<Button>(R.id.bt_Contact)
-        contactButton.setOnClickListener {
-
+        val historialButton = view.findViewById<Button>(R.id.bt_Contact)
+        historialButton.setOnClickListener {
+            val intent = Intent(activity, HistorialActivity::class.java)
+            startActivity(intent)
         }
 
         return view

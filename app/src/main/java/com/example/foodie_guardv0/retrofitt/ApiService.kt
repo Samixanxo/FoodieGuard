@@ -36,6 +36,9 @@ interface ApiService {
     @GET ("reservation/{idRes}")
     fun getReservationsByIdRes(@Path("idRes") id: Int): Call<List<Reservation>>
 
+    @GET ("reservationbyuser/{idUser}")
+    fun getReservationsByIdUser(@Path("idUser") id: Int): Call<List<Reservation>>
+
     @GET("dishes")
     fun getDishes(): Call<List<Dish>>
 
@@ -48,6 +51,9 @@ interface ApiService {
     @POST ("user")
     fun createUser(@Body user: User): Call<ResponseErrors>
 
+    @POST("review")
+    fun createReview(@Body newReview: Review): Call<Map<String, Any>>
+
     @POST ("viewToken")
     fun confirmUser(@Body body: Map<String, String>): Call<Boolean>
 
@@ -56,6 +62,12 @@ interface ApiService {
 
     @PUT("user/password")
     fun changePassword (@Body body:Map<String,String>) :Call<Void>
+
+    @PUT("updateUserInReservation/{reservationId}")
+    fun updateUserInReservation(
+        @Path("reservationId") reservationId: Int,
+        @Query("newUserId") newUserId: Int
+    ): Call<Void>
 
     @PUT("user/{id}/premium")
     fun changePremium(@Path("id")userId: Int): Call<Void>
