@@ -88,7 +88,7 @@ class InfoRestaurant : AppCompatActivity(), OnMapReadyCallback {
         PhoneRestaurant.text = phone.toString()
         EmailRestaurant.text = email
         AddressRestaurant.text = address
-        MedianPrice.text = "Aproximate price of " + medianprice.toString() + "€"
+        MedianPrice.text = "Precio aproximado: " + medianprice.toString() + "€"
         FoodType.text = foodtype
         web.text = displayedWebsite
         if (phone != null) {

@@ -36,12 +36,42 @@
         app:layout_constraintTop_toTopOf="@id/backButton"
         app:layout_constraintBottom_toBottomOf="@id/backButton" />
 
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Mostrar/Ocultar Información de uso"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        app:layout_constraintTop_toBottomOf="@id/aboutusheader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/myTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido a tu historial de reservas.\n\nSi pulsas encima de alguna reserva, podrás dejar una crítica del restaurante."
+        android:visibility="gone"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:fontFamily="@font/nunito_bold"
+        app:layout_constraintTop_toBottomOf="@id/myButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHistorial"
         android:layout_width="0dp"
     android:layout_height="0dp"
         android:layout_marginTop="20dp"
-    app:layout_constraintTop_toBottomOf="@id/aboutusheader"
+    app:layout_constraintTop_toBottomOf="@+id/myTextView"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

@@ -2,7 +2,10 @@ package com.example.foodie_guardv0.Activity.info
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +51,17 @@ class HistorialActivity : AppCompatActivity() {
         val back = findViewById<ImageButton>(R.id.backButton)
         back.setOnClickListener {
             finish()
+        }
+
+        val myButton = findViewById<Button>(R.id.myButton)
+        val myTextView = findViewById<TextView>(R.id.myTextView)
+
+        myButton.setOnClickListener {
+            if (myTextView.visibility == View.GONE) {
+                myTextView.visibility = View.VISIBLE
+            } else {
+                myTextView.visibility = View.GONE
+            }
         }
 
         GlobalScope.launch(Dispatchers.Main) {
