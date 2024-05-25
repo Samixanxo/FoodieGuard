@@ -57,8 +57,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     private lateinit var map: GoogleMap
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     lateinit var userSharedPreferences: UserSharedPreferences
-    private var searchRadius = 20
-    private var currentRestaurants: List<Restaurant> = emptyList()
+    private var searchRadius = 20 // Variable para la distancia de búsqueda
+    private var currentRestaurants: List<Restaurant> = emptyList() // Lista actual de restaurantes
+    private var showingFavorites = false // Variable para indicar si se están mostrando los favoritos
+
+    private lateinit var seekBarContainer: View // Declaración de seekBarContainer
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
@@ -74,9 +77,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
 
         val distanceSeekBar = view.findViewById<SeekBar>(R.id.distanceSeekBar)
         val distanceTextView = view.findViewById<TextView>(R.id.distanceTextView)
-        val seekBarContainer = view.findViewById<View>(R.id.seekBarContainer)
+        seekBarContainer = view.findViewById<View>(R.id.seekBarContainer) // Inicialización de seekBarContainer
         val searchView = view.findViewById<SearchView>(R.id.searchView)
         val myLocationButton = view.findViewById<ImageButton>(R.id.myLocationButton)
+        val toggleListSwitch = view.findViewById<Switch>(R.id.toggleListSwitch)
 
         searchView.setOnClickListener {
             searchView.isIconified = false
@@ -91,28 +95,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                // No hacer nada
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                GlobalScope.launch(Dispatchers.Main) {
-                    try {
-                        val userLocation = getUserLocation()
-                        if (userLocation != null) {
-                            map.clear()
-                            currentRestaurants = getNearbyRestaurants(userLocation.latitude, userLocation.longitude)
-                            initRecyclerRestaurant(currentRestaurants)
-                        } else {
-                            map.clear()
-                            currentRestaurants = getRandomRestaurants()
-                            initRecyclerRestaurant(currentRestaurants)
-                        }
-                    } catch (e: Exception) {
-                        Log.e("Resultado", "Error: " + e.message)
-                    }
-                }
+                loadCurrentList() // Llama a loadCurrentList cuando el usuario deja de interactuar con el SeekBar
             }
         })
+
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -142,35 +132,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
             }
         }
 
+        toggleListSwitch.setOnCheckedChangeListener { _, isChecked ->
+            showingFavorites = isChecked
+            loadCurrentList()
+        }
+
         GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val favRestaurants = userSharedPreferences.getFav()
-                if (favRestaurants.isNotEmpty()) {
-                    currentRestaurants = favRestaurants
-                    initRecyclerRestaurant(favRestaurants)
-                } else {
-                    if (isGPSEnabled()) {
-                        seekBarContainer.visibility = View.VISIBLE
-                        val userLocation = getUserLocation()
-                        if (userLocation != null) {
-                            map.clear()
-                            currentRestaurants = getNearbyRestaurants(userLocation.latitude, userLocation.longitude)
-                            initRecyclerRestaurant(currentRestaurants)
-                        } else {
-                            map.clear()
-                            currentRestaurants = getRandomRestaurants()
-                            initRecyclerRestaurant(currentRestaurants)
-                        }
-                    } else {
-                        seekBarContainer.visibility = View.GONE
-                        currentRestaurants = getRandomRestaurants()
-                        initRecyclerRestaurant(currentRestaurants)
-                    }
-                }
-                Log.e("Resultado", "correcto")
-            } catch (e: Exception) {
-                Log.e("Resultado", "Error: " + e.message)
-            }
+            loadCurrentList()
         }
 
         checkNewUser()
@@ -187,7 +155,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = false
+        map.uiSettings.isMyLocationButtonEnabled = false // Desactivar el botón predeterminado
         if (checkLocationPermission()) {
             map.isMyLocationEnabled = true
         } else {
@@ -203,6 +171,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     }
 
     private fun requestLocationPermission() {
+        Log.d("MapFragment", "Solicitando permisos de ubicación")
         ActivityCompat.requestPermissions(
             requireActivity(),
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -211,7 +180,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     }
 
     private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val earthRadius = 6371.0
+        val earthRadius = 6371.0 // radio de la tierra en km
 
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon1 - lon2)
@@ -234,13 +203,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
                 override fun onResponse(call: Call<List<Restaurant>>, response: Response<List<Restaurant>>) {
                     if (response.isSuccessful) {
                         val respuesta = response.body() ?: emptyList()
+                        Log.d("MapFragment", "Respuesta de API recibida: ${respuesta.size} restaurantes")
                         val filteredRestaurants = respuesta.filter { restaurant ->
                             val distance = calculateDistance(userLat, userLon, restaurant.lat, restaurant.lon)
-                            distance <= searchRadius
+                            distance <= searchRadius // Usar la variable de búsqueda
                         }
 
                         val randomResList = filteredRestaurants.shuffled().take(limit)
-
                         for (res in randomResList) {
                             for (fav in userSharedPreferences.getFav()) {
                                 if (res.id == fav.id) {
@@ -249,7 +218,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
                                 }
                             }
                         }
-
                         continuation.resume(randomResList)
                     } else {
                         continuation.resumeWithException(Exception("Error de la API"))
@@ -263,6 +231,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
             })
         }
     }
+
+
 
     private suspend fun getRandomRestaurants(): List<Restaurant> {
         return suspendCoroutine { continuation ->
@@ -308,11 +278,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
                 val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 if (location != null) {
+                    Log.d("MapFragment", "Ubicación obtenida: ${location.latitude}, ${location.longitude}")
                     continuation.resume(LatLng(location.latitude, location.longitude))
                 } else {
                     val locationListener = object : android.location.LocationListener {
                         override fun onLocationChanged(newLocation: Location) {
                             locationManager.removeUpdates(this)
+                            Log.d("MapFragment", "Ubicación cambiada: ${newLocation.latitude}, ${newLocation.longitude}")
                             continuation.resume(LatLng(newLocation.latitude, newLocation.longitude))
                         }
 
@@ -325,14 +297,20 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
                 }
             } else {
+                Log.d("MapFragment", "Permisos de ubicación no concedidos o GPS no habilitado")
                 continuation.resume(null)
             }
         }
     }
 
+
     private fun isGPSEnabled(): Boolean {
         val locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if (!enabled) {
+            Toast.makeText(context, "Por favor, habilite el GPS", Toast.LENGTH_SHORT).show()
+        }
+        return enabled
     }
 
     private fun initRecyclerRestaurant(restaurants: List<Restaurant>) {
@@ -340,7 +318,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
         recyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         val adapter = RestaurantSliderAdapter(restaurants)
 
-        map.clear()
+        map.clear() // Limpiar marcadores anteriores
 
         for (restaurant in restaurants) {
             Log.e("nombre", restaurant.name)
@@ -427,4 +405,52 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     override fun onRestaurantClick(position: Int) {
         // No implementado
     }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun loadCurrentList() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                if (showingFavorites) {
+                    val favRestaurants = userSharedPreferences.getFav()
+                    if (favRestaurants.isNotEmpty()) {
+                        currentRestaurants = favRestaurants
+                        initRecyclerRestaurant(favRestaurants)
+                    } else {
+                        Toast.makeText(context, "No tienes restaurantes favoritos.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    if (isGPSEnabled()) {
+                        seekBarContainer.visibility = View.VISIBLE
+                        val userLocation = getUserLocation()
+                        if (userLocation != null) {
+                            Log.d("MapFragment", "Ubicación del usuario: ${userLocation.latitude}, ${userLocation.longitude}")
+                            map.clear()
+                            val nearbyRestaurants = getNearbyRestaurants(userLocation.latitude, userLocation.longitude)
+                            currentRestaurants = nearbyRestaurants
+                            initRecyclerRestaurant(currentRestaurants)
+                        } else {
+                            Log.e("MapFragment", "No se pudo obtener la ubicación del usuario")
+                            map.clear()
+                            val randomRestaurants = getRandomRestaurants()
+                            currentRestaurants = randomRestaurants
+                            initRecyclerRestaurant(currentRestaurants)
+                        }
+                    } else {
+                        Log.d("MapFragment", "GPS no habilitado, usando restaurantes aleatorios")
+                        seekBarContainer.visibility = View.GONE
+                        val randomRestaurants = getRandomRestaurants()
+                        currentRestaurants = randomRestaurants
+                        initRecyclerRestaurant(currentRestaurants)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("MapFragment", "Error: " + e.message)
+                Toast.makeText(context, "Ocurrió un error al cargar los restaurantes.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+
 }

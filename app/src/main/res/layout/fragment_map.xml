@@ -43,8 +43,8 @@
 
             <ImageButton
                 android:id="@+id/myLocationButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/my_location"
                 android:contentDescription="My Location"
                 android:padding="8dp"
@@ -54,6 +54,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/searchView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Switch
+            android:id="@+id/toggleListSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="157dp"
+            android:layout_gravity="top|end"
+            android:text="Ver Favoritos"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_margin="16dp"
+            android:elevation="8dp"
+            android:textOff="Cercanos/Aleatorios"
+            android:textOn="Favoritos"
+            android:thumbTint="@color/mostaza"
+            android:trackTint="@color/mostaza" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sliderView"
