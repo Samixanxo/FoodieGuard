@@ -13,6 +13,8 @@ class UserSharedPreferences(context: Context) {
     private val gson = Gson()
     private var favRestaurants = ArrayList<Restaurant>()
 
+
+
     fun saveUser(user: ActualUser) {
         val editor = sharedPreferences.edit()
         val userJson = gson.toJson(user)
@@ -63,4 +65,24 @@ class UserSharedPreferences(context: Context) {
         editor.putString("favRestaurants", favRestaurantsJson)
         editor.apply()
     }
+
+    fun clearFavs() {
+        val editor = sharedPreferences.edit()
+        editor.remove("favRestaurants")
+        editor.apply()
+    }
+
+    fun isFirstTime(): Boolean {
+        return sharedPreferences.getBoolean("isFirstTime", true)
+    }
+
+    // Método para establecer que el usuario ha entrado al fragment
+    fun setFirstTime() {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isFirstTime", false)
+        editor.apply()
+    }
+
+
+
 }

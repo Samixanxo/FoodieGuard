@@ -55,4 +55,9 @@
     <string name="addRestaurantConfirmation" translatable="false">
         La solicitud se ha enviado exitosamente, en breve nos pondremos en contacto contigo mediante el e-mail que has proporcionado.
     </string>
+
+    <string name="mapDescription" translatable="false">
+        En este mapa se mostrarán tus restaurantes favoritos para que estén a tu disposición.
+        En caso de que no tengas ningún restaurante favorito te mostraremos sugerencias que podrían interesarte.
+    </string>
 </resources>
