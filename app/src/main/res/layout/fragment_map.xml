@@ -25,21 +25,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:layout_margin="16dp"
-            android:elevation="6dp">
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="6dp"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:queryHint="Busca por nombre, tipo o dirección"
-                android:iconifiedByDefault="false"
                 android:background="@drawable/rounded_searchview_background"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/myLocationButton"
-                app:layout_constraintTop_toTopOf="parent"
+                android:iconifiedByDefault="false"
+                android:queryHint="Busca por nombre, tipo o dirección"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.85"/>
+                app:layout_constraintEnd_toStartOf="@+id/myLocationButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.85" />
 
             <ImageButton
                 android:id="@+id/myLocationButton"
@@ -53,22 +55,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/searchView" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Switch
-            android:id="@+id/toggleListSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="157dp"
-            android:layout_gravity="top|end"
-            android:text="Ver Favoritos"
-            android:textColor="@color/black"
-            android:fontFamily="@font/nunito_bold"
-            android:layout_margin="16dp"
-            android:elevation="8dp"
-            android:textOff="Cercanos/Aleatorios"
-            android:textOn="Favoritos"
-            android:thumbTint="@color/mostaza"
-            android:trackTint="@color/mostaza" />
+            <Switch
+                android:id="@+id/toggleListSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver Favoritos"
+                android:textColor="@color/black"
+                android:fontFamily="@font/nunito_bold"
+                android:layout_marginTop="8dp"
+                android:elevation="8dp"
+                android:textOff="Cercanos/Aleatorios"
+                android:textOn="Favoritos"
+                android:thumbTint="@color/mostaza"
+                android:trackTint="@color/mostaza"
+                app:layout_constraintTop_toBottomOf="@id/searchView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sliderView"

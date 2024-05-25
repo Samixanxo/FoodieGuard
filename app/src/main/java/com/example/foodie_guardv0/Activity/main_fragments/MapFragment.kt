@@ -57,11 +57,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     private lateinit var map: GoogleMap
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     lateinit var userSharedPreferences: UserSharedPreferences
-    private var searchRadius = 20 // Variable para la distancia de búsqueda
-    private var currentRestaurants: List<Restaurant> = emptyList() // Lista actual de restaurantes
-    private var showingFavorites = false // Variable para indicar si se están mostrando los favoritos
+    private var searchRadius = 20
+    private var currentRestaurants: List<Restaurant> = emptyList()
+    private var showingFavorites = false
 
-    private lateinit var seekBarContainer: View // Declaración de seekBarContainer
+    private lateinit var seekBarContainer: View
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
@@ -77,7 +77,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
 
         val distanceSeekBar = view.findViewById<SeekBar>(R.id.distanceSeekBar)
         val distanceTextView = view.findViewById<TextView>(R.id.distanceTextView)
-        seekBarContainer = view.findViewById<View>(R.id.seekBarContainer) // Inicialización de seekBarContainer
+        seekBarContainer = view.findViewById<View>(R.id.seekBarContainer)
         val searchView = view.findViewById<SearchView>(R.id.searchView)
         val myLocationButton = view.findViewById<ImageButton>(R.id.myLocationButton)
         val toggleListSwitch = view.findViewById<Switch>(R.id.toggleListSwitch)
@@ -91,15 +91,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
         distanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 searchRadius = progress
-                distanceTextView.text = "Distance: $progress km"
+                distanceTextView.text = "Radio de Búsqueda: $progress km"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // No hacer nada
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                loadCurrentList() // Llama a loadCurrentList cuando el usuario deja de interactuar con el SeekBar
+                loadCurrentList()
             }
         })
 
@@ -155,7 +154,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = false // Desactivar el botón predeterminado
+        map.uiSettings.isMyLocationButtonEnabled = false
         if (checkLocationPermission()) {
             map.isMyLocationEnabled = true
         } else {
@@ -180,7 +179,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     }
 
     private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val earthRadius = 6371.0 // radio de la tierra en km
+        val earthRadius = 6371.0
 
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon1 - lon2)
@@ -206,7 +205,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
                         Log.d("MapFragment", "Respuesta de API recibida: ${respuesta.size} restaurantes")
                         val filteredRestaurants = respuesta.filter { restaurant ->
                             val distance = calculateDistance(userLat, userLon, restaurant.lat, restaurant.lon)
-                            distance <= searchRadius // Usar la variable de búsqueda
+                            distance <= searchRadius
                         }
 
                         val randomResList = filteredRestaurants.shuffled().take(limit)
@@ -318,7 +317,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
         recyclerView?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         val adapter = RestaurantSliderAdapter(restaurants)
 
-        map.clear() // Limpiar marcadores anteriores
+        map.clear()
 
         for (restaurant in restaurants) {
             Log.e("nombre", restaurant.name)
@@ -403,7 +402,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, RestaurantSliderAdapter.OnRe
     }
 
     override fun onRestaurantClick(position: Int) {
-        // No implementado
     }
 
     @OptIn(DelicateCoroutinesApi::class)
