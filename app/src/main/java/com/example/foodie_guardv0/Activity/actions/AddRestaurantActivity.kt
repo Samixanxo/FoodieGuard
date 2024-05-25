@@ -42,10 +42,29 @@ class AddRestaurantActivity : AppCompatActivity() {
 
         sendButton.setOnClickListener{
 
-            val recipient = "Solicitud para añadir un restaurante"
-            val subject = "Solicitud para añadir un restaurante"
-            val message = "Nombre del restaurante: ${name.text}\nDirección: ${address.text}\nTeléfono: ${phone.text}\nTipo de comida: ${type.text}\nCorreo electrónico: ${email.text}"
-            sendEmail(message)
+            if(name.text.isEmpty()){
+                name.error = "Introduce el nombre del restaurante"
+                name.requestFocus()
+            } else if(address.text.isEmpty()){
+                address.error = "Introduce la direccion del restaurante"
+                address.requestFocus()
+            } else if(phone.text.isEmpty()){
+                phone.error = "Introduce un telefono de contacto"
+                phone.requestFocus()
+            } else if(type.text.isEmpty()){
+                type.error = "Introduce el tipo de restaurante"
+                type.requestFocus()
+            } else if(email.text.isEmpty()){
+                email.error = "Introduce un correo electronico"
+                email.requestFocus()
+            } else {
+                val message = "Nombre del restaurante: ${name.text} \n" +
+                              "Dirección: ${address.text} \n" +
+                              "Teléfono: ${phone.text} \n" +
+                              "Tipo de comida: ${type.text} \n" +
+                              "Correo electrónico: ${email.text}"
+                sendEmail(message)
+            }
         }
 
         back.setOnClickListener() {
