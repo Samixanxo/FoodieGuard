@@ -16,11 +16,14 @@ class AllergenViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val DishDescription = view.findViewById<TextView>(R.id.tv_description)
     private val photo = view.findViewById<ImageView>(R.id.iv_Image)
     private val allergens = view.findViewById<GridLayout>(R.id.gridLayout)
+    private val Price = view.findViewById<TextView>(R.id.tv_price)
 
     fun render (dish: Dish){
         DishName.text=dish.name
         DishDescription.text=dish.description
+        Price.text = "Precio: " + dish.price.toString() + "€"
         Glide.with(photo.context).load(dish.photo).into(photo)
+
 
         val listAllergens = dish.allergens.toList()
         Log.e("resultado", listAllergens.toString())

@@ -22,13 +22,13 @@
         Username
     </string>
     <string name="homeString" translatable="false">
-        Home
+        Inicio
     </string>
     <string name="searchString" translatable="false">
-        Search
+        Descubre
     </string>
     <string name="profileString" translatable="false">
-        Profile
+        Perfil
     </string>
     <string name="confirmPassword" translatable="false">
         Confirm password
