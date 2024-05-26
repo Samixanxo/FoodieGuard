@@ -4,15 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/editUser"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.foodie_guardv0.Activity.actions.user.EditUser"
-    android:background="@color/white">
+    android:background="@color/mostaza">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,141 +39,157 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="10dp"
+        android:paddingTop="0dp"
+        app:layout_constraintTop_toBottomOf="@id/relativeLayout2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/custom_edittext"
+            android:layout_margin="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal">
 
-            <TextView
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Correo Electronico:"
-                android:textColor="@color/black"
-                android:textSize="17dp"
-                android:fontFamily="@font/nunito_bold"/>
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="prueba1234@hotmail.es"
-                android:textColor="@color/black"
-                android:fontFamily="@font/nunito_semibold"
-                android:textSize="17dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Correo Electrónico:"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/nunito_bold"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nombre:"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="17dp"
-                android:fontFamily="@font/nunito_bold"/>
+                <TextView
+                    android:id="@+id/tv_Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="prueba1234@hotmail.es"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:textSize="17dp"/>
 
-            <TextView
-                android:id="@+id/tv_Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_semibold"
-                tools:text="Miguel Angel"
-                android:textColor="@color/black"
-                android:textSize="17dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/nunito_bold"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Apellido:"
-                android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                android:textSize="17dp"
-                android:fontFamily="@font/nunito_bold"/>
+                <TextView
+                    android:id="@+id/tv_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_semibold"
+                    tools:text="Miguel Angel"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"/>
 
-            <TextView
-                android:id="@+id/tv_Surname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_semibold"
-                tools:text="Vazquez Gonzalez"
-                android:textColor="@color/black"
-                android:textSize="17dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Apellido:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/nunito_bold"/>
 
-            <EditText
-                android:id="@+id/et_ActualPassword"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/nunito_semibold"
-                android:inputType="textPassword"
-                android:paddingStart="30dp"
-                android:layout_marginTop="40dp"
-                android:hint="Contraseña actual"
-                android:textColorHint="@color/grey"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/tv_Surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_semibold"
+                    tools:text="Vazquez Gonzalez"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"/>
+
+                <EditText
+                    android:id="@+id/et_ActualPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/custom_edittext"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:inputType="textPassword"
+                    android:paddingStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:hint="Contraseña actual"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_NewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/custom_edittext"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:inputType="textPassword"
+                    android:paddingStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Nueva Contraseña"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/et_ConfirmNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/custom_edittext"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:inputType="textPassword"
+                    android:paddingStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Confirmar Contraseña"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/bt_SaveNewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="100dp"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/custom_button"
+                    android:text="Guardar"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/mostaza"/>
+
+                <Button
+                    android:id="@+id/bt_DeleteAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginHorizontal="100dp"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textAlignment="center"
+                    android:text="Eliminar Cuenta"
+                    android:background="@drawable/button_users_transparent"
+                    android:textColor="@color/red"/>
 
 
-            <EditText
-                android:id="@+id/et_NewPassword"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/nunito_semibold"
-                android:inputType="textPassword"
-                android:paddingStart="30dp"
-                android:layout_marginTop="20dp"
-                android:hint="Nueva Contraseña"
-                android:textColorHint="@color/grey"
-                android:textColor="@color/black" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
 
-            <EditText
-                android:id="@+id/et_ConfirmNewPassword"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/custom_edittext"
-                android:fontFamily="@font/nunito_semibold"
-                android:inputType="textPassword"
-                android:paddingStart="30dp"
-                android:layout_marginTop="20dp"
-                android:hint="Confirmar Contraseña"
-                android:textColorHint="@color/grey"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/bt_SaveNewPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="100dp"
-                android:fontFamily="@font/nunito_semibold"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/custom_button"
-                android:text="Guardar"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/mostaza"/>
-
-            <Button
-                android:id="@+id/bt_DeleteAccount"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginHorizontal="100dp"
-                android:textSize="14dp"
-                android:fontFamily="@font/nunito_bold"
-                android:textAlignment="center"
-                android:text="Eliminar Cuenta"
-                android:background="@drawable/button_users_transparent"
-                android:textColor="@color/red"/>
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </RelativeLayout>
-
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

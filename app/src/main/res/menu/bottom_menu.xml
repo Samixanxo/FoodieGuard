@@ -12,7 +12,7 @@
 
     <item android:id="@+id/mapPage"
         android:icon="@drawable/baseline_map_24"
-        android:title="Map"
+        android:title="Mapa"
         />
 
     <item android:id="@+id/profilePage"

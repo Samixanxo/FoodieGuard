@@ -37,137 +37,113 @@
 
     <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="0dp"
+        android:paddingTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/custom_edittext"
+            android:layout_margin="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:gravity="center_horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/custom_edittext"
-        android:layout_margin="25dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/backButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.5">
-    <TextView
-        android:id="@+id/aboutusinfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Para poder mantener la aplicacion funcionando, FoodieGuard propone una version Premium con varias ventajas para aquellas personas que que tengan este rango"
-        android:textColor="@color/black"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/backButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/aboutusinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Para poder mantener la aplicacion funcionando, FoodieGuard propone una version Premium con varias ventajas para aquellas personas que que tengan este rango"
+                android:textColor="@color/black"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="25dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="center"
+                android:textSize="16dp"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:paddingVertical="5dp"
-        android:background="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@+id/aboutusinfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:paddingVertical="5dp"
+                android:background="@android:color/black"/>
 
+            <TextView
+                android:id="@+id/beneficios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Beneficios"
+                android:textColor="@color/black"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="center"
+                android:textSize="40dp"/>
 
-    <TextView
-        android:id="@+id/beneficios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Beneficios"
-        android:textColor="@color/black"
-        android:fontFamily="@font/nunito_bold"
-        android:textAlignment="center"
-        android:textSize="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/aboutusinfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/Beneficio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="viewStart"
+                android:textSize="18dp"/>
 
-    <TextView
-        android:id="@+id/Beneficio1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
-        android:textColor="@color/black"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textAlignment="viewStart"
-        android:textSize="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/beneficios"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/Beneficio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="viewStart"
+                android:textSize="18dp"/>
 
+            <TextView
+                android:id="@+id/Beneficio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="viewStart"
+                android:textSize="18dp"/>
 
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:background="@drawable/custom_button"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:backgroundTint="@color/mostaza"
+                android:fontFamily="@font/nunito_semibold"
+                android:text="Pagar 3,99€/mes"
+                android:textSize="18sp"
+                app:cornerRadius="20dp"/>
 
-    <TextView
-        android:id="@+id/Beneficio2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
-        android:textColor="@color/black"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textAlignment="viewStart"
-        android:textSize="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/Beneficio1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/Beneficio3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aquellos usuarios con este rango tendrán un 5% de descuento en todas las reservas que se hagan desde nuestra aplicación"
-        android:textColor="@color/black"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:fontFamily="@font/nunito_bold"
-        android:textAlignment="viewStart"
-        android:textSize="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/Beneficio2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:background="@drawable/custom_button"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:backgroundTint="@color/mostaza"
-        android:fontFamily="@font/nunito_semibold"
-        android:text="Pagar 3,99€/mes"
-        android:textSize="18sp"
-        app:cornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/Beneficio3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    </LinearLayout>
+            <!-- Espacio adicional para margen inferior -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+        </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
