@@ -170,7 +170,7 @@ class user_fragment : Fragment() {
     private fun getFileFromUri(context: Context, uri: Uri): File? {
         return try {
             val inputStream = context.contentResolver.openInputStream(uri)
-            val file = File(context.cacheDir, "temp_image") // Crea un archivo temporal
+            val file = File(context.cacheDir, "temp_image")
             FileOutputStream(file).use { outputStream ->
                 inputStream?.copyTo(outputStream)
             }

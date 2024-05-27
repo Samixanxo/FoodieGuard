@@ -61,6 +61,8 @@
         android:layout_height="wrap_content"
         android:text="Reservar en esta fecha"
         android:background="@drawable/custom_button"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/mostaza"
         android:textColor="@color/black"
         android:fontFamily="@font/nunito_bold"

@@ -36,20 +36,40 @@ class PremiumActivity : AppCompatActivity() {
             togglePremiumStatus(actualUser.id)
         }
     }
+
     private fun togglePremiumStatus(userId: Int) {
         apiService.changePremium(userId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@PremiumActivity, "Estado premium actualizado correctamente.", Toast.LENGTH_SHORT).show()
+                    val actualUser = userSharedPreferences.getUser()?.user ?: return
+                    actualUser.premium = if (actualUser.premium == 1) 0 else 1
+                    val datos = mapOf(
+                        "email" to actualUser.email,
+                        "password" to actualUser.password
+                    )
+                    val call = RetrofitClient.apiService.postUser(datos)
+                    call.enqueue(object : Callback<ActualUser> {
+                        override fun onResponse(call: Call<ActualUser>, response: Response<ActualUser>) {
+                            if (response.isSuccessful) {
+                                userSharedPreferences.clearUser()
+                                userSharedPreferences.saveUser(response.body()!!)
+                                Toast.makeText(this@PremiumActivity, "Estado premium actualizado correctamente.", Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                Toast.makeText(this@PremiumActivity, "Error al obtener datos actualizados del usuario: ${response.code()}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        override fun onFailure(call: Call<ActualUser>, t: Throwable) {
+                            Toast.makeText(this@PremiumActivity, "Fallo en la llamada para obtener datos actualizados: ${t.message}", Toast.LENGTH_LONG).show()
+                        }
+                    })
                 } else {
                     Toast.makeText(this@PremiumActivity, "Error al actualizar estado premium: ${response.code()}", Toast.LENGTH_LONG).show()
                 }
             }
-
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@PremiumActivity, "Fallo en la llamada: ${t.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@PremiumActivity, "Fallo en la llamada para cambiar estado premium: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
-
 }

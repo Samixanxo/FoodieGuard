@@ -57,7 +57,7 @@
     </string>
 
     <string name="mapDescription" translatable="false">
-        En este mapa se mostrarán tus restaurantes favoritos para que estén a tu disposición.
-        En caso de que no tengas ningún restaurante favorito te mostraremos sugerencias que podrían interesarte.
+        Recuerda activar tu ubicación si quieres buscar los restaurantes mas cercanos a ti, ya que si no está activada te mostraremos una lista aleatoria de restaurantes para que descubras lugares.
+        Siempre puedas cambiar entre la lista que te brindamos nosotros y tu lista de restaurantes favoritos a traves del botón debajo del buscador.
     </string>
 </resources>

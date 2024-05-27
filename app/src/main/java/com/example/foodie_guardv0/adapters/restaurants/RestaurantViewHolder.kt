@@ -27,7 +27,7 @@ class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         RestaurantName.text = restaurant.name
         address.text = restaurant.address
         type.text = restaurant.type
-        median.text = "Approximated Price: " + restaurant.medianprice.toString() + "€"
+        median.text = "Precio aproximado: " + restaurant.medianprice.toString() + "€"
         Glide.with(photo.context).load(restaurant.photo).into(photo)
 
         if (restaurant.fav){

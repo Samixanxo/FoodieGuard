@@ -60,25 +60,30 @@ class HistorialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             if (reviewText.isNotBlank() && ratingText.isNotBlank()) {
                 try {
                     val rating = ratingText.toInt()
-                    if (currentRestaurant != null) {
-                        val review = Review(
-                            idRes = currentRestaurant!!.id,
-                            idUser = user?.id ?: 0,
-                            review = reviewText,
-                            rating = rating,
-                            id = 0
-                        )
-                        sendReview(review)
+                    if (rating in 0..10) {
+                        if (currentRestaurant != null) {
+                            val review = Review(
+                                idRes = currentRestaurant!!.id,
+                                idUser = user?.id ?: 0,
+                                review = reviewText,
+                                rating = rating,
+                                id = 0
+                            )
+                            sendReview(review)
+                        } else {
+                            Toast.makeText(view.context, "Restaurant information is missing.", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
-                        Toast.makeText(view.context, "Restaurant information is missing.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(view.context, "La nota debe comprender un número entre 0 y 10.", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: NumberFormatException) {
-                    Toast.makeText(view.context, "Please enter a valid rating.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, "Introduce una nota válida.", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(view.context, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(view.context, "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     suspend fun render(reservation: Reservation) {
@@ -133,7 +138,7 @@ class HistorialViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         call.enqueue(object : Callback<Map<String, Any>> {
             override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(itemView.context, "Review submitted successfully!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "La Review se ha enviado!", Toast.LENGTH_SHORT).show()
                     textInput.text.clear()
                     numberInput.text.clear()
                     textInput.visibility = View.GONE
