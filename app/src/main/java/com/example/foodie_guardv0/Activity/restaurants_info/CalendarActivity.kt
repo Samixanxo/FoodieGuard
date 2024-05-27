@@ -44,8 +44,8 @@ import kotlin.coroutines.suspendCoroutine
 class CalendarActivity : AppCompatActivity() {
     private val service = RetrofitClient.retrofit.create(ApiService::class.java)
     private lateinit var selectedDate: Date
-    private lateinit var reservations: List<Reservation>  // Lista de reservaciones
-    private var reservationId: Int = 0  // ID de la reserva seleccionada
+    private lateinit var reservations: List<Reservation>
+    private var reservationId: Int = 0
     lateinit var userSharedPreferences: UserSharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +65,8 @@ class CalendarActivity : AppCompatActivity() {
         }
         reservationButton.setOnClickListener {
             makeReservation(user, reservationButton, progressBar)
+            sendConfirmationEmail()
+            finish()
         }
 
         lifecycleScope.launch {
@@ -221,6 +223,29 @@ class CalendarActivity : AppCompatActivity() {
             reservationButton.isClickable = true
             progressBar.visibility = View.GONE
         }
+    }
+
+    private fun sendConfirmationEmail() {
+        val userSharedPreferences = UserSharedPreferences(this)
+        val actualUser = userSharedPreferences.getUser()!!.user
+        val name = actualUser.name
+        val email = actualUser.email
+        val premium = actualUser.premium
+        val message = "El usuario $name con $email ha solicitado una reserva para el día $selectedDate \n Cuenta premium: $premium"
+        val call = RetrofitClient.apiService.sendConfirmationEmailToRestaurant(message)
+        call.enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: retrofit2.Response<Void>) {
+                if (response.isSuccessful) {
+                    println("Solicitud POST exitosa")
+                } else{
+                    println("Me ise popo")
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                println("Error en la solicitud POST: ${t.message}")
+            }
+        })
+
     }
 
     private fun setupCalendar() {
