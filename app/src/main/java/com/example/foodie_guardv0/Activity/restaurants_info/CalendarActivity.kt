@@ -238,7 +238,7 @@ class CalendarActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     println("Solicitud POST exitosa")
                 } else{
-                    println("Me ise popo")
+                    println("Ha habido un error")
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {

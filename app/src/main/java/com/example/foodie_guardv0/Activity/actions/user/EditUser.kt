@@ -174,12 +174,12 @@ class EditUser : AppCompatActivity() {
                         override fun onResponse(call: Call<ActualUser>,response: Response<ActualUser>) {
                             userSharedPreferences.clearUser()
                             userSharedPreferences.saveUser(response.body()!!)
+                            Toast.makeText(this@EditUser, "Contraseña cambiada exitosamente", Toast.LENGTH_SHORT).show()
+                            finish()
                         }
                         override fun onFailure(call: Call<ActualUser>, t: Throwable) {
                         }
                     })
-
-                    finish()
 
                 }
 
