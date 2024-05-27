@@ -117,13 +117,22 @@ class EditUser : AppCompatActivity() {
     }
 
     fun CheckNewPass(newpass: Editable, confirmNewPass: Editable): Boolean {
-        if (newpass.toString() == confirmNewPass.toString()){
+        val newPassStr = newpass.toString()
+        val confirmNewPassStr = confirmNewPass.toString()
+
+        if (newPassStr.length < 8) {
+            Toast.makeText(this, "La nueva contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (newPassStr == confirmNewPassStr) {
             return true
         } else {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             return false
         }
     }
+
 
     private suspend fun deleteAccount(id : Int){
         return suspendCoroutine { continuation ->

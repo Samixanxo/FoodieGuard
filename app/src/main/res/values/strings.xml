@@ -45,7 +45,7 @@
         Your profile
     </string>
     <string name="addRestaurantTitle" translatable="false">
-        Rellena este formulario para confirmar que eres propietario de un restaurante
+        Rellena este formulario para confirmar que eres propietario de un restaurante. \nNos pondremos en contacto contigo.
     </string>
 
     <string name="addRestaurantConditions" translatable="false">
